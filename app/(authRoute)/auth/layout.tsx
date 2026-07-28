@@ -1,4 +1,5 @@
 import { Navbar } from "@/components/shared/Navbar"
+import { Toaster } from "sonner"
 
 
 export default function AuthLayout({
@@ -10,6 +11,7 @@ export default function AuthLayout({
     <div>
         <Navbar />
         {children}
+        <Toaster richColors position="top-right" />
     </div>
   )
   

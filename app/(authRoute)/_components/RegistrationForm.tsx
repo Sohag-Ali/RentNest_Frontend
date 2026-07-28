@@ -17,9 +17,11 @@ import { RadioGroup } from "@/components/ui/radio-group"
 import { useForm } from "react-hook-form"
 import { registerSchema } from "@/lib/validations/registration.schema"
 import { RegisterFormData } from "@/lib/validations/registration.schema"
-import { zodResolver } from '@hookform/resolvers/zod';
+import { zodResolver } from "@hookform/resolvers/zod"
 import { Label } from "@/components/ui/label"
 import { RadioGroupItem } from "@/components/ui/radio-group"
+import { registerAction } from "../_actions/authActions"
+import { toast } from "sonner"
 
 const RegistrationForm = () => {
   const [showPassword, setShowPassword] = useState(false)
@@ -37,9 +39,30 @@ const RegistrationForm = () => {
     },
   })
 
-  const onSubmit = (values: RegisterFormData) => {
-    console.log(values)
+  const onSubmit = async (values: RegisterFormData) => {
+    const { confirmPassword, ...payload } = values
+    try {
+      const result = await registerAction(payload)
+
+      if (result.success) {
+        toast.success("Registration Successful 🎉", {
+          description:
+            "Your account has been created successfully. You can now sign in to RentNest.",
+        })
+
+        form.reset()
+      } else {
+        toast.error("Registration Failed", {
+          description: result.message,
+        })
+      }
+    } catch (error: any) {
+      toast.error("Something went wrong", {
+        description: "Please try again later.",
+      })
+    }
   }
+
   return (
     <Form {...form}>
       <form
@@ -105,22 +128,33 @@ const RegistrationForm = () => {
               </FormLabel>
 
               <FormControl>
-                <RadioGroup
-                  onValueChange={field.onChange}
-                  value={field.value}
-                >
-                  <div className="flex items-center space-x-3 p-3 rounded-lg border border-white/10 bg-background/50 hover:bg-background/75 transition-colors cursor-pointer">
+                <RadioGroup onValueChange={field.onChange} value={field.value}>
+                  <div className="flex cursor-pointer items-center space-x-3 rounded-lg border border-white/10 bg-background/50 p-3 transition-colors hover:bg-background/75">
                     <RadioGroupItem value="TENANT" id="tenant" />
-                    <Label htmlFor="tenant" className="flex-1 cursor-pointer space-y-1">
-                      <div className="font-medium text-sm text-foreground">I&apos;m a Tenant</div>
-                      <p className="text-xs text-muted-foreground">Looking for rental properties</p>
+                    <Label
+                      htmlFor="tenant"
+                      className="flex-1 cursor-pointer space-y-1"
+                    >
+                      <div className="text-sm font-medium text-foreground">
+                        I&apos;m a Tenant
+                      </div>
+                      <p className="text-xs text-muted-foreground">
+                        Looking for rental properties
+                      </p>
                     </Label>
                   </div>
-                  <div className="flex items-center space-x-3 p-3 rounded-lg border border-white/10 bg-background/50 hover:bg-background/75 transition-colors cursor-pointer">
+                  <div className="flex cursor-pointer items-center space-x-3 rounded-lg border border-white/10 bg-background/50 p-3 transition-colors hover:bg-background/75">
                     <RadioGroupItem value="LANDLORD" id="landlord" />
-                    <Label htmlFor="landlord" className="flex-1 cursor-pointer space-y-1">
-                      <div className="font-medium text-sm text-foreground">I&apos;m a Landlord</div>
-                      <p className="text-xs text-muted-foreground">Managing rental properties</p>
+                    <Label
+                      htmlFor="landlord"
+                      className="flex-1 cursor-pointer space-y-1"
+                    >
+                      <div className="text-sm font-medium text-foreground">
+                        I&apos;m a Landlord
+                      </div>
+                      <p className="text-xs text-muted-foreground">
+                        Managing rental properties
+                      </p>
                     </Label>
                   </div>
                 </RadioGroup>
@@ -145,7 +179,7 @@ const RegistrationForm = () => {
                   <Input
                     type={showPassword ? "text" : "password"}
                     placeholder="••••••••"
-                    className="h-11 bg-background/50 border-white/10 placeholder:text-muted-foreground/50 focus:border-primary/50 pr-10"
+                    className="h-11 border-white/10 bg-background/50 pr-10 placeholder:text-muted-foreground/50 focus:border-primary/50"
                     {...field}
                   />
                 </FormControl>
@@ -153,12 +187,12 @@ const RegistrationForm = () => {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                  className="absolute top-1/2 right-3 -translate-y-1/2 text-muted-foreground transition-colors hover:text-foreground"
                 >
                   {showPassword ? (
-                    <EyeOff className="w-4 h-4" />
+                    <EyeOff className="h-4 w-4" />
                   ) : (
-                    <Eye className="w-4 h-4" />
+                    <Eye className="h-4 w-4" />
                   )}
                 </button>
               </div>
@@ -204,12 +238,12 @@ const RegistrationForm = () => {
           )}
         />
 
-        <p className="text-xs text-muted-foreground text-center">
-          By creating an account, you agree to our{' '}
+        <p className="text-center text-xs text-muted-foreground">
+          By creating an account, you agree to our{" "}
           <Link href="/terms" className="text-primary hover:underline">
             Terms of Service
-          </Link>
-          {' '}and{' '}
+          </Link>{" "}
+          and{" "}
           <Link href="/privacy" className="text-primary hover:underline">
             Privacy Policy
           </Link>
@@ -217,10 +251,10 @@ const RegistrationForm = () => {
 
         <Button
           type="submit"
-          className="w-full h-11 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white font-semibold rounded-lg transition-all duration-200 group"
+          className="group h-11 w-full rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 font-semibold text-white transition-all duration-200 hover:from-blue-600 hover:to-cyan-600"
         >
           Create Account
-          <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+          <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
         </Button>
       </form>
     </Form>
