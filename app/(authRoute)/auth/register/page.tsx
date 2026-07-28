@@ -1,32 +1,13 @@
 'use client';
 
-import { useState } from 'react';
-import { Eye, EyeOff, ArrowRight, Home } from 'lucide-react';
+import { Home } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import Link from 'next/link';
+import RegistrationForm from '../../_components/RegistrationForm';
 
 export default function RegisterPage() {
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    phone: '',
-    role: 'tenant',
-  });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
   return (
     <div className="min-h-screen bg-background flex items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
       <div className="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
@@ -95,152 +76,7 @@ export default function RegisterPage() {
                 <p className="text-sm text-muted-foreground">Join RentNest today and find your perfect rental</p>
               </div>
 
-              {/* Full Name */}
-              <div className="space-y-2">
-                <Label htmlFor="fullName" className="text-sm font-medium text-foreground">
-                  Full Name
-                </Label>
-                <Input
-                  id="fullName"
-                  name="fullName"
-                  type="text"
-                  placeholder="John Doe"
-                  value={formData.fullName}
-                  onChange={handleChange}
-                  className="h-11 bg-background/50 border-white/10 placeholder:text-muted-foreground/50 focus:border-primary/50"
-                />
-              </div>
-
-              {/* Email */}
-              <div className="space-y-2">
-                <Label htmlFor="email" className="text-sm font-medium text-foreground">
-                  Email Address
-                </Label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="you@example.com"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="h-11 bg-background/50 border-white/10 placeholder:text-muted-foreground/50 focus:border-primary/50"
-                />
-              </div>
-
-              {/* Phone */}
-              <div className="space-y-2">
-                <Label htmlFor="phone" className="text-sm font-medium text-foreground">
-                  Phone Number
-                </Label>
-                <Input
-                  id="phone"
-                  name="phone"
-                  type="tel"
-                  placeholder="+1 (555) 000-0000"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  className="h-11 bg-background/50 border-white/10 placeholder:text-muted-foreground/50 focus:border-primary/50"
-                />
-              </div>
-
-              {/* Role Selection */}
-              <div className="space-y-3">
-                <Label className="text-sm font-medium text-foreground">Account Type</Label>
-                <RadioGroup value={formData.role} onValueChange={(value) => setFormData(prev => ({ ...prev, role: value }))}>
-                  <div className="flex items-center space-x-3 p-3 rounded-lg border border-white/10 bg-background/50 hover:bg-background/75 transition-colors cursor-pointer">
-                    <RadioGroupItem value="tenant" id="tenant" />
-                    <Label htmlFor="tenant" className="flex-1 cursor-pointer space-y-1">
-                      <div className="font-medium text-sm text-foreground">I&apos;m a Tenant</div>
-                      <p className="text-xs text-muted-foreground">Looking for rental properties</p>
-                    </Label>
-                  </div>
-                  <div className="flex items-center space-x-3 p-3 rounded-lg border border-white/10 bg-background/50 hover:bg-background/75 transition-colors cursor-pointer">
-                    <RadioGroupItem value="landlord" id="landlord" />
-                    <Label htmlFor="landlord" className="flex-1 cursor-pointer space-y-1">
-                      <div className="font-medium text-sm text-foreground">I&apos;m a Landlord</div>
-                      <p className="text-xs text-muted-foreground">Managing rental properties</p>
-                    </Label>
-                  </div>
-                </RadioGroup>
-              </div>
-
-              {/* Password */}
-              <div className="space-y-2">
-                <Label htmlFor="password" className="text-sm font-medium text-foreground">
-                  Password
-                </Label>
-                <div className="relative">
-                  <Input
-                    id="password"
-                    name="password"
-                    type={showPassword ? 'text' : 'password'}
-                    placeholder="••••••••"
-                    value={formData.password}
-                    onChange={handleChange}
-                    className="h-11 bg-background/50 border-white/10 placeholder:text-muted-foreground/50 focus:border-primary/50 pr-10"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {showPassword ? (
-                      <EyeOff className="w-4 h-4" />
-                    ) : (
-                      <Eye className="w-4 h-4" />
-                    )}
-                  </button>
-                </div>
-              </div>
-
-              {/* Confirm Password */}
-              <div className="space-y-2">
-                <Label htmlFor="confirmPassword" className="text-sm font-medium text-foreground">
-                  Confirm Password
-                </Label>
-                <div className="relative">
-                  <Input
-                    id="confirmPassword"
-                    name="confirmPassword"
-                    type={showConfirmPassword ? 'text' : 'password'}
-                    placeholder="••••••••"
-                    value={formData.confirmPassword}
-                    onChange={handleChange}
-                    className="h-11 bg-background/50 border-white/10 placeholder:text-muted-foreground/50 focus:border-primary/50 pr-10"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {showConfirmPassword ? (
-                      <EyeOff className="w-4 h-4" />
-                    ) : (
-                      <Eye className="w-4 h-4" />
-                    )}
-                  </button>
-                </div>
-              </div>
-
-              {/* Terms & Conditions */}
-              <p className="text-xs text-muted-foreground text-center">
-                By creating an account, you agree to our{' '}
-                <Link href="/terms" className="text-primary hover:underline">
-                  Terms of Service
-                </Link>
-                {' '}and{' '}
-                <Link href="/privacy" className="text-primary hover:underline">
-                  Privacy Policy
-                </Link>
-              </p>
-
-              {/* Create Account Button */}
-              <Button
-                className="w-full h-11 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white font-semibold rounded-lg transition-all duration-200 group"
-              >
-                Create Account
-                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-              </Button>
+              <RegistrationForm />
 
               {/* Divider */}
               <div className="relative">
