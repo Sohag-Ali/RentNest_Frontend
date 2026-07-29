@@ -92,6 +92,46 @@ export async function registerAction(prevState: RegisterState, data: RegisterPay
         });
 
         const result = await res.json();
+
+        if (result.success) {
+            let tokenData = result.data;
+
+            // If register API doesn't return accessToken directly, perform auto-login with credentials
+            if (!tokenData?.accessToken && data.email && data.password) {
+                const loginRes = await fetch(`${process.env.BACKEND_API_URL}/api/auth/login`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ email: data.email, password: data.password }),
+                    cache: "no-store",
+                });
+                const loginResult = await loginRes.json();
+                if (loginResult.success && loginResult.data?.accessToken) {
+                    tokenData = loginResult.data;
+                }
+            }
+
+            if (tokenData?.accessToken) {
+                const cookieStore = await cookies();
+
+                await cookieStore.set("accessToken", tokenData.accessToken, {
+                    httpOnly: true,
+                    sameSite: "strict",
+                    maxAge: 60 * 60 * 24,
+                    path: "/",
+                });
+                if (tokenData?.refreshToken) {
+                    await cookieStore.set("refreshToken", tokenData.refreshToken, {
+                        httpOnly: true,
+                        sameSite: "strict",
+                        maxAge: 60 * 60 * 24 * 7,
+                        path: "/",
+                    });
+                }
+            }
+        }
+
         return result;
     } catch (error: any) {
         return {

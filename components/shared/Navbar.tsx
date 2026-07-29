@@ -62,18 +62,16 @@ export function Navbar({
   }, []);
 
   useEffect(() => {
-    if (propUser === undefined) {
-      getCurrentUser().then((res) => {
-        if (res?.success && res?.data) {
-          setFetchedUser(res.data);
-        } else {
-          setFetchedUser(null);
-        }
-      });
-    }
-  }, [pathname, propUser]);
+    getCurrentUser().then((res) => {
+      if (res?.success && res?.data) {
+        setFetchedUser(res.data);
+      } else {
+        setFetchedUser(null);
+      }
+    });
+  }, [pathname]);
 
-  const activeUser = propUser ?? fetchedUser;
+  const activeUser = fetchedUser ?? propUser;
   const isAuthenticated = propIsAuthenticated ?? Boolean(activeUser);
   const rawRole = propUserRole ?? activeUser?.role;
   const userRole = (typeof rawRole === 'string' ? rawRole.toLowerCase() : 'tenant') as 'tenant' | 'landlord' | 'admin';

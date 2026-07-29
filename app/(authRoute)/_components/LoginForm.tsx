@@ -47,6 +47,7 @@ const LoginForm = () => {
       toast.success("Login Successful 🎉", {
         description: "You have been successfully logged in.",
       })
+      router.refresh()
       router.push("/")
     } else if (state.message) {
       toast.error("Login Failed", {

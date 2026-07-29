@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/form"
 import { RadioGroup } from "@/components/ui/radio-group"
 import { useForm } from "react-hook-form"
+import { useRouter } from "next/navigation"
 import { registerSchema } from "@/lib/validations/registration.schema"
 import { RegisterFormData } from "@/lib/validations/registration.schema"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -24,6 +25,7 @@ import { registerAction } from "../_actions/authActions"
 import { toast } from "sonner"
 
 const RegistrationForm = () => {
+  const router = useRouter()
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
@@ -45,15 +47,17 @@ const RegistrationForm = () => {
     if (!state) return;
     if (state.success) {
       toast.success("Registration Successful 🎉", {
-        description: "Your account has been created successfully. You can now sign in to RentNest.",
+        description: "Your account has been created successfully.",
       })
       form.reset();
+      router.refresh();
+      router.push("/");
     } else if (state.message) {
       toast.error("Registration Failed", {
         description: state.message,
       })
     }
-  }, [state, form]);
+  }, [state, form, router]);
 
   const onSubmit = (values: RegisterFormData) => {
     const { confirmPassword, ...payload } = values
