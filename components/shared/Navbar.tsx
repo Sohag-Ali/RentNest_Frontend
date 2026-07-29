@@ -237,10 +237,8 @@ export function Navbar({
 
             {/* Mobile Menu */}
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
-              <SheetTrigger className="md:hidden cursor-pointer">
-                <Button variant="ghost" size="icon">
-                  {isOpen ? <X size={20} /> : <Menu size={20} />}
-                </Button>
+              <SheetTrigger className="md:hidden inline-flex shrink-0 items-center justify-center rounded-4xl text-sm font-medium transition-all outline-none hover:bg-muted hover:text-foreground size-9 cursor-pointer">
+                {isOpen ? <X size={20} /> : <Menu size={20} />}
               </SheetTrigger>
               <SheetContent side="right" className="w-80 p-0">
                 <div className="flex h-full flex-col">
