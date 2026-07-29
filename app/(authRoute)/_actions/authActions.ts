@@ -4,6 +4,7 @@ import { LoginFormValues } from "@/lib/validations/login.schema";
 import { RegisterFormData } from "@/lib/validations/registration.schema";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import jwt, { JwtPayload } from "jsonwebtoken";
 
 export type LoginState = {
     success?: boolean;
@@ -36,15 +37,16 @@ export async function loginAction(prevState: LoginState, data: LoginFormValues) 
                 // secure: process.env.NODE_ENV === "production",
                 sameSite: "strict",
                 maxAge: 60 * 60 * 24,
-                path: "/",
+               
             });
             await cookieStore.set("refreshToken", result.data.refreshToken, {
                 httpOnly: true,
                 // secure: process.env.NODE_ENV === "production",
                 sameSite: "strict",
                 maxAge: 60 * 60 * 24 * 7,
-                path: "/",
+                
             });
+
 
         }
 
@@ -119,14 +121,14 @@ export async function registerAction(prevState: RegisterState, data: RegisterPay
                     httpOnly: true,
                     sameSite: "strict",
                     maxAge: 60 * 60 * 24,
-                    path: "/",
+                   
                 });
                 if (tokenData?.refreshToken) {
                     await cookieStore.set("refreshToken", tokenData.refreshToken, {
                         httpOnly: true,
                         sameSite: "strict",
                         maxAge: 60 * 60 * 24 * 7,
-                        path: "/",
+                       
                     });
                 }
             }

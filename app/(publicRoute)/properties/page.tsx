@@ -1,11 +1,9 @@
-import React from 'react';
 
-const page = () => {
+
+const PropertyPage = () => {
     return (
-        <div>
-            properties page
-        </div>
-    );
-};
+        <div>PropertyPage</div>
+    )
+}
 
-export default page;
+export default PropertyPage

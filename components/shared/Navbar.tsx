@@ -19,6 +19,7 @@ import { usePathname } from 'next/navigation';
 import { getCurrentUser } from '@/service/getCurrentUser';
 import { logoutAction } from '@/app/(authRoute)/_actions/authActions';
 import { User } from '@/lib/types/user.type';
+import { toast } from 'sonner';
 
 const emptySubscribe = () => () => {};
 
@@ -80,6 +81,9 @@ export function Navbar({
 
   const handleLogout = async () => {
     setFetchedUser(null);
+    toast.success("Logged Out Successfully 👋", {
+      description: "You have been logged out of your account.",
+    });
     await logoutAction();
   };
 
