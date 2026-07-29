@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useActionState, startTransition, useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Eye, EyeOff, ArrowRight } from "lucide-react"
@@ -29,6 +29,8 @@ const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [rememberMe, setRememberMe] = useState(false)
 
+  const [state, formAction, isPending] = useActionState(loginAction, null)
+
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -37,27 +39,27 @@ const LoginForm = () => {
     },
   })
 
-  const onSubmit = async (values: LoginFormValues) => {
-    try {
-      const result = await loginAction(values)
-
-        if (result.success) {
-            toast.success("Login Successful 🎉", {
-                description: "You have been successfully logged in.",
-            })
-        } else {
-            toast.error("Login Failed", {
-                description: result.message,
-            })
-        }
-    } catch (error: any) {
-      toast.error("Something went wrong", {
-        description: "Please try again later.",
+  useEffect(() => {
+    if (!state) return
+    if (state.success) {
+      toast.success("Login Successful 🎉", {
+        description: "You have been successfully logged in.",
+      })
+    } else if (state.message) {
+      toast.error("Login Failed", {
+        description: state.message,
       })
     }
+  }, [state])
+
+  const onSubmit = (values: LoginFormValues) => {
+    startTransition(() => {
+      formAction(values)
+    })
   }
 
   return (
+
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
@@ -149,9 +151,10 @@ const LoginForm = () => {
         {/* Login Button */}
         <Button
           type="submit"
+          disabled={isPending}
           className="group flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-primary font-semibold text-primary-foreground transition-all duration-200 hover:bg-primary/90"
         >
-          Sign In
+          {isPending ? "Signing in..." : "Sign In"}
           <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
         </Button>
       </form>
