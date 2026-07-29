@@ -3,7 +3,7 @@
 import { useState, useEffect, useSyncExternalStore } from 'react';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
-import { Menu, X, Moon, Sun, Home, Building2, Info, Mail, Bell, LogOut, Settings, User, LayoutDashboard } from 'lucide-react';
+import { Menu, X, Moon, Sun, Home, Building2, Info, Mail, Bell, LogOut, Settings, User as UserIcon, LayoutDashboard } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -16,6 +16,9 @@ import {
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { usePathname } from 'next/navigation';
+import { getCurrentUser } from '@/service/getCurrentUser';
+import { logoutAction } from '@/app/(authRoute)/_actions/authActions';
+import { User } from '@/lib/types/user.type';
 
 const emptySubscribe = () => () => {};
 
@@ -27,7 +30,8 @@ function useHydrated() {
   );
 }
 
-interface NavbarProps {
+export interface NavbarProps {
+  user?: User | null;
   isAuthenticated?: boolean;
   userRole?: 'tenant' | 'landlord' | 'admin';
   userName?: string;
@@ -35,14 +39,16 @@ interface NavbarProps {
 }
 
 export function Navbar({
-  isAuthenticated = false,
-  userRole = 'tenant',
-  userName = 'John Doe',
-  userImage = 'https://github.com/shadcn.png',
+  user: propUser,
+  isAuthenticated: propIsAuthenticated,
+  userRole: propUserRole,
+  userName: propUserName,
+  userImage: propUserImage,
 }: NavbarProps) {
   const mounted = useHydrated();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [fetchedUser, setFetchedUser] = useState<User | null>(null);
   const { theme, setTheme } = useTheme();
   const pathname = usePathname();
 
@@ -54,6 +60,30 @@ export function Navbar({
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (propUser === undefined) {
+      getCurrentUser().then((res) => {
+        if (res?.success && res?.data) {
+          setFetchedUser(res.data);
+        } else {
+          setFetchedUser(null);
+        }
+      });
+    }
+  }, [pathname, propUser]);
+
+  const activeUser = propUser ?? fetchedUser;
+  const isAuthenticated = propIsAuthenticated ?? Boolean(activeUser);
+  const rawRole = propUserRole ?? activeUser?.role;
+  const userRole = (typeof rawRole === 'string' ? rawRole.toLowerCase() : 'tenant') as 'tenant' | 'landlord' | 'admin';
+  const userName = propUserName ?? activeUser?.name ?? (activeUser?.email ? activeUser.email.split('@')[0] : 'User');
+  const userImage = propUserImage ?? activeUser?.image ?? activeUser?.avatar ?? 'https://github.com/shadcn.png';
+
+  const handleLogout = async () => {
+    setFetchedUser(null);
+    await logoutAction();
+  };
 
   const navLinks = [
     { href: '/', label: 'Home', icon: Home },
@@ -142,17 +172,13 @@ export function Navbar({
 
                   {/* User Dropdown */}
                   <DropdownMenu>
-                    <DropdownMenuTrigger
-                      render={
-                        <Button variant="ghost" size="icon" className="rounded-full" />
-                      }
-                    >
+                    <DropdownMenuTrigger className="rounded-full cursor-pointer focus:outline-none">
                       <Avatar className="h-8 w-8">
                         <AvatarImage src={userImage} alt={userName} />
                         <AvatarFallback>
                           {userName
                             .split(' ')
-                            .map((n) => n[0])
+                            .map((n: string) => n[0])
                             .join('')
                             .toUpperCase()}
                         </AvatarFallback>
@@ -164,28 +190,29 @@ export function Navbar({
                         <p className="text-xs capitalize text-muted-foreground">{userRole} Account</p>
                       </div>
                       <DropdownMenuSeparator />
-                      <DropdownMenuItem
-                        render={
-                          <Link href={getDashboardRoute()} className="cursor-pointer gap-2" />
-                        }
-                      >
-                        <LayoutDashboard size={18} />
-                        <span>Dashboard</span>
+                      <DropdownMenuItem className="cursor-pointer">
+                        <Link href={getDashboardRoute()} className="flex items-center gap-2 w-full">
+                          <LayoutDashboard size={18} />
+                          <span>Dashboard</span>
+                        </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem
-                        render={<Link href="/profile" className="cursor-pointer gap-2" />}
-                      >
-                        <User size={18} />
-                        <span>Profile</span>
+                      <DropdownMenuItem className="cursor-pointer">
+                        <Link href="/profile" className="flex items-center gap-2 w-full">
+                          <UserIcon size={18} />
+                          <span>Profile</span>
+                        </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem
-                        render={<Link href="/settings" className="cursor-pointer gap-2" />}
-                      >
-                        <Settings size={18} />
-                        <span>Settings</span>
+                      <DropdownMenuItem className="cursor-pointer">
+                        <Link href="/settings" className="flex items-center gap-2 w-full">
+                          <Settings size={18} />
+                          <span>Settings</span>
+                        </Link>
                       </DropdownMenuItem>
                       <DropdownMenuSeparator />
-                      <DropdownMenuItem className="gap-2 text-red-500 focus:text-red-500">
+                      <DropdownMenuItem
+                        onClick={handleLogout}
+                        className="cursor-pointer gap-2 text-red-500 focus:text-red-500"
+                      >
                         <LogOut size={18} />
                         <span>Logout</span>
                       </DropdownMenuItem>
@@ -208,11 +235,10 @@ export function Navbar({
 
             {/* Mobile Menu */}
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
-              <SheetTrigger
-                className="md:hidden"
-                render={<Button variant="ghost" size="icon" />}
-              >
-                {isOpen ? <X size={20} /> : <Menu size={20} />}
+              <SheetTrigger className="md:hidden cursor-pointer">
+                <Button variant="ghost" size="icon">
+                  {isOpen ? <X size={20} /> : <Menu size={20} />}
+                </Button>
               </SheetTrigger>
               <SheetContent side="right" className="w-80 p-0">
                 <div className="flex h-full flex-col">
@@ -261,7 +287,7 @@ export function Navbar({
                           </Link>
                           <Link href="/profile" onClick={() => setIsOpen(false)}>
                             <Button variant="ghost" className="w-full justify-start gap-2">
-                              <User size={18} />
+                              <UserIcon size={18} />
                               <span>Profile</span>
                             </Button>
                           </Link>
@@ -286,7 +312,7 @@ export function Navbar({
                             <AvatarFallback>
                               {userName
                                 .split(' ')
-                                .map((n) => n[0])
+                                .map((n: string) => n[0])
                                 .join('')
                                 .toUpperCase()}
                             </AvatarFallback>
@@ -299,7 +325,10 @@ export function Navbar({
                         <Button
                           variant="destructive"
                           className="w-full gap-2"
-                          onClick={() => setIsOpen(false)}
+                          onClick={() => {
+                            setIsOpen(false);
+                            handleLogout();
+                          }}
                         >
                           <LogOut size={18} />
                           <span>Logout</span>
@@ -307,12 +336,12 @@ export function Navbar({
                       </div>
                     ) : (
                       <div className="flex gap-2">
-                        <Link href="/login" className="flex-1">
+                        <Link href="/auth/login" className="flex-1" onClick={() => setIsOpen(false)}>
                           <Button variant="outline" className="w-full">
                             Login
                           </Button>
                         </Link>
-                        <Link href="/register" className="flex-1">
+                        <Link href="/auth/register" className="flex-1" onClick={() => setIsOpen(false)}>
                           <Button className="w-full">Register</Button>
                         </Link>
                       </div>

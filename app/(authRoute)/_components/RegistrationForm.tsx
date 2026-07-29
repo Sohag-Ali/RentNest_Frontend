@@ -1,6 +1,6 @@
 "use client"
 
-import { useActionState, useEffect, useState } from "react"
+import { useActionState, startTransition, useEffect, useState } from "react"
 import { Eye, EyeOff, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { Input } from "@/components/ui/input"
@@ -27,21 +27,7 @@ const RegistrationForm = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
-  const [state, formAction, pending] = useActionState(registerAction, false);
-
-  useEffect(() => {
-    if (!state) return;
-    if (state.success) {
-      toast.success("Registration Successful 🎉", {
-        description: "You have been successfully registered.",
-      })
-      form.reset();
-    } else if (state.message) {
-      toast.error("Registration Failed", {
-        description: state.message,
-      })
-    }
-  }, [state]);
+  const [state, formAction, isPending] = useActionState(registerAction, null);
 
   const form = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
@@ -55,28 +41,25 @@ const RegistrationForm = () => {
     },
   })
 
-  const onSubmit = async (values: RegisterFormData) => {
-    const { confirmPassword, ...payload } = values
-    try {
-      const result = await formAction(payload)
-
-      // if (result.success) {
-      //   toast.success("Registration Successful 🎉", {
-      //     description:
-      //       "Your account has been created successfully. You can now sign in to RentNest.",
-      //   })
-
-      //   form.reset()
-      // } else {
-      //   toast.error("Registration Failed", {
-      //     description: result.message,
-      //   })
-      // }
-    } catch (error: any) {
-      toast.error("Something went wrong", {
-        description: "Please try again later.",
+  useEffect(() => {
+    if (!state) return;
+    if (state.success) {
+      toast.success("Registration Successful 🎉", {
+        description: "Your account has been created successfully. You can now sign in to RentNest.",
+      })
+      form.reset();
+    } else if (state.message) {
+      toast.error("Registration Failed", {
+        description: state.message,
       })
     }
+  }, [state, form]);
+
+  const onSubmit = (values: RegisterFormData) => {
+    const { confirmPassword, ...payload } = values
+    startTransition(() => {
+      formAction(payload)
+    })
   }
 
   return (
@@ -267,9 +250,10 @@ const RegistrationForm = () => {
 
         <Button
           type="submit"
+          disabled={isPending}
           className="group h-11 w-full rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 font-semibold text-white transition-all duration-200 hover:from-blue-600 hover:to-cyan-600"
         >
-          {pending ? "Creating Account..." : "Create Account"}
+          {isPending ? "Creating Account..." : "Create Account"}
           <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
         </Button>
       </form>

@@ -17,6 +17,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import {
   loginSchema,
   type LoginFormValues,
@@ -26,6 +27,7 @@ import { toast } from "sonner"
 
 
 const LoginForm = () => {
+  const router = useRouter()
   const [showPassword, setShowPassword] = useState(false)
   const [rememberMe, setRememberMe] = useState(false)
 
@@ -45,12 +47,13 @@ const LoginForm = () => {
       toast.success("Login Successful 🎉", {
         description: "You have been successfully logged in.",
       })
+      router.push("/")
     } else if (state.message) {
       toast.error("Login Failed", {
         description: state.message,
       })
     }
-  }, [state])
+  }, [state, router])
 
   const onSubmit = (values: LoginFormValues) => {
     startTransition(() => {

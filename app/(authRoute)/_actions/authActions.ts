@@ -2,6 +2,8 @@
 
 import { LoginFormValues } from "@/lib/validations/login.schema";
 import { RegisterFormData } from "@/lib/validations/registration.schema";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export type LoginState = {
     success?: boolean;
@@ -25,14 +27,46 @@ export async function loginAction(prevState: LoginState, data: LoginFormValues) 
         });
 
         const result = await res.json();
+
+        if (result.success) {
+            const cookieStore = await cookies();
+
+            await cookieStore.set("accessToken", result.data.accessToken, {
+                httpOnly: true,
+                // secure: process.env.NODE_ENV === "production",
+                sameSite: "strict",
+                maxAge: 60 * 60 * 24,
+                path: "/",
+            });
+            await cookieStore.set("refreshToken", result.data.refreshToken, {
+                httpOnly: true,
+                // secure: process.env.NODE_ENV === "production",
+                sameSite: "strict",
+                maxAge: 60 * 60 * 24 * 7,
+                path: "/",
+            });
+
+        }
+
         return result;
     } catch (error: any) {
+        
+        
         return {
             success: false,
             statusCode: 500,
             message: error?.message || "Something went wrong. Please try again later.",
         };
     }
+}
+
+
+
+export async function logoutAction() {
+    const cookieStore = await cookies();
+    cookieStore.delete("accessToken");
+    cookieStore.delete("refreshToken");
+    redirect("/auth/login");
 }
 
 export type RegisterState = {
@@ -47,16 +81,23 @@ export type RegisterState = {
 
 type RegisterPayload = Omit<RegisterFormData, "confirmPassword">;
 export async function registerAction(prevState: RegisterState, data: RegisterPayload) {
-    const res = await fetch(`${process.env.BACKEND_API_URL}/api/auth/register`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-        cache: "no-store",
-    });
+    try {
+        const res = await fetch(`${process.env.BACKEND_API_URL}/api/auth/register`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+            cache: "no-store",
+        });
 
-    const result = await res.json();
-
-    return result;
+        const result = await res.json();
+        return result;
+    } catch (error: any) {
+        return {
+            success: false,
+            statusCode: 500,
+            message: error?.message || "Something went wrong. Please try again later.",
+        };
+    }
 }
