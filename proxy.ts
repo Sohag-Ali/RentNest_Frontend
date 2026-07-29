@@ -1,77 +1,108 @@
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { jwtUtils } from './utils/jwt';
-import { cookies } from 'next/headers';
+import { getNewAccessToken } from './service/getRefreshToken';
 
 
 const AUTH_ROUTES = ["/auth/login", "/auth/register"];
-const PUBLIC_ROUTES = ["/", "/properties", "/contact"];
 
-
-// This function can be marked `async` if using `await` inside
 export async function proxy(request: NextRequest) {
-
     const pathname = request.nextUrl.pathname;
-    const cookieStore = await cookies()
 
-    const accessToken = request.cookies.get("accessToken")?.value;
+    let accessToken = request.cookies.get("accessToken")?.value;
+    const refreshToken = request.cookies.get("refreshToken")?.value;
 
-    const decodedToken = accessToken ? jwtUtils.verifyToken(accessToken, process.env.ACCESS_TOKEN_SECRET as string) : null;
+    let decodedAccessToken = accessToken
+        ? jwtUtils.verifyToken(accessToken, process.env.JWT_ACCESS_SECRET as string)
+        : null;
 
-    let userRole = null;
+    const decodedRefreshToken = refreshToken
+        ? jwtUtils.verifyToken(refreshToken, process.env.JWT_REFRESH_SECRET as string)
+        : null;
 
-    if (!decodedToken?.success) {
+    let newAccessTokenSet = false;
+    let newAccessTokenValue = "";
 
-        cookieStore.delete("accessToken")
-        return NextResponse.redirect(new URL("/auth/login", request.url))
+    // If access token is expired or invalid, but refresh token is valid -> generate new access token
+    if (!decodedAccessToken?.success && decodedRefreshToken?.success) {
+        const result = await getNewAccessToken();
 
-
+        if (result.success && result?.data?.accessToken) {
+            newAccessTokenValue = result.data.accessToken;
+            accessToken = newAccessTokenValue;
+            decodedAccessToken = jwtUtils.verifyToken(newAccessTokenValue, process.env.JWT_ACCESS_SECRET as string);
+            newAccessTokenSet = true;
+        }
     }
 
-    if (decodedToken?.success && decodedToken.data) {
-        userRole = (decodedToken.data as JwtPayload).role;
+    let userRole: string | null = null;
+    if (decodedAccessToken?.success && decodedAccessToken.data) {
+        const payload = decodedAccessToken.data as JwtPayload;
+        userRole = (payload.role as string)?.toUpperCase() || null;
     }
 
-    if (accessToken && AUTH_ROUTES.includes(pathname)) {
+    // Helper to return NextResponse and attach newly generated accessToken cookie if refreshed
+    const createResponse = (redirectUrl?: string) => {
+        const response = redirectUrl
+            ? NextResponse.redirect(new URL(redirectUrl, request.url))
+            : NextResponse.next();
+
+        if (newAccessTokenSet && newAccessTokenValue) {
+            response.cookies.set("accessToken", newAccessTokenValue, {
+                httpOnly: true,
+                sameSite: "strict",
+                maxAge: 60 * 60 * 24,
+                path: "/",
+            });
+        }
+        return response;
+    };
+
+    const isAuthRoute = AUTH_ROUTES.some((route) => pathname.startsWith(route));
+    const isDashboardRoute = pathname.startsWith("/dashboard");
+
+    // 1. Logged-in user trying to access Auth routes (/auth/login, /auth/register)
+    if (accessToken && decodedAccessToken?.success && isAuthRoute) {
         if (userRole === 'TENANT') {
-            return NextResponse.redirect(new URL('/dashboard/tenant', request.url))
-        }
-        else if (userRole === 'LANDLORD') {
-            return NextResponse.redirect(new URL('/dashboard/landlord', request.url))
-        }
-        else if (userRole === 'ADMIN') {
-            return NextResponse.redirect(new URL('/dashboard/admin', request.url))
-        }
-        else {
-            return NextResponse.redirect(new URL('/', request.url))
+            return createResponse('/dashboard/tenant');
+        } else if (userRole === 'LANDLORD') {
+            return createResponse('/dashboard/landlord');
+        } else if (userRole === 'ADMIN') {
+            return createResponse('/dashboard/admin');
+        } else {
+            return createResponse('/');
         }
     }
 
-    const isPublic = PUBLIC_ROUTES.some((route) => pathname === route || pathname.startsWith(route + "/"))
-
-    const isAuthRoute = AUTH_ROUTES.some((route) => pathname === route || pathname.startsWith(route + "/"));
-
-    if (!accessToken && !isPublic && !isAuthRoute) {
-        return NextResponse.redirect(new URL("/auth/login", request.url))
+    // 2. Unauthenticated user trying to access Protected Dashboard routes
+    if (!decodedAccessToken?.success && isDashboardRoute) {
+        return NextResponse.redirect(new URL("/auth/login", request.url));
     }
 
-    if (pathname.startsWith("/dashboard/admin") && userRole !== "ADMIN") {
-        return NextResponse.redirect(new URL("/not-found", request.url))
-    } else if (pathname.startsWith("/dashboard/tenant") && userRole !== "TENANT") {
-        return NextResponse.redirect(new URL("/not-found", request.url))
-    } else if (pathname.startsWith("/dashboard/landlord") && userRole !== "LANDLORD") {
-        return NextResponse.redirect(new URL("/not-found", request.url))
+    // 3. Authenticated user accessing Dashboard routes
+    if (decodedAccessToken?.success && isDashboardRoute) {
+        // If visiting root /dashboard -> redirect to their role dashboard
+        if (pathname === "/dashboard" || pathname === "/dashboard/") {
+            if (userRole === 'TENANT') return createResponse('/dashboard/tenant');
+            if (userRole === 'LANDLORD') return createResponse('/dashboard/landlord');
+            if (userRole === 'ADMIN') return createResponse('/dashboard/admin');
+        }
+
+        // Role-based protection: check if user role matches path
+        if (pathname.startsWith("/dashboard/admin") && userRole !== "ADMIN") {
+            return createResponse('/');
+        }
+        if (pathname.startsWith("/dashboard/tenant") && userRole !== "TENANT") {
+            return createResponse('/');
+        }
+        if (pathname.startsWith("/dashboard/landlord") && userRole !== "LANDLORD") {
+            return createResponse('/');
+        }
     }
 
-
-
-    return NextResponse.next();
-
-
+    return createResponse();
 }
-
-
 
 export const config = {
     matcher: [
