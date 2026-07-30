@@ -23,15 +23,28 @@ import {
   WavesIcon,
   DumbbellIcon,
   ChevronLeftIcon,
-  CalendarIcon,
 } from "lucide-react"
 
 interface PropertyDetailsContentProps {
   property: Property
   allProperties: Property[]
+  isLoggedIn?: boolean
 }
 
-export function PropertyDetailsContent({ property, allProperties }: PropertyDetailsContentProps) {
+/**
+ * PropertyDetailsContent Component
+ * 
+ * Why this file exists:
+ * Assembles and lays out the main property view components (gallery, overview table, booking sidebar).
+ * 
+ * Why props:
+ * Receives property details and `isLoggedIn` state from parent Server Component page.
+ */
+export function PropertyDetailsContent({
+  property,
+  allProperties,
+  isLoggedIn = false,
+}: PropertyDetailsContentProps) {
   const [showFullDesc, setShowFullDesc] = useState<boolean>(false)
 
   const amenityIcons: Record<string, React.ReactNode> = {
@@ -49,6 +62,7 @@ export function PropertyDetailsContent({ property, allProperties }: PropertyDeta
 
   return (
     <main className="min-h-screen bg-background py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-8">
+      {/* Navigation link back to listings */}
       <div className="flex items-center justify-between">
         <Link
           href="/properties"
@@ -59,10 +73,13 @@ export function PropertyDetailsContent({ property, allProperties }: PropertyDeta
         </Link>
       </div>
 
+      {/* Property Image Gallery */}
       <PropertyHeroGallery property={property} />
 
+      {/* Main Grid: Details on Left, Booking Sidebar on Right */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
         <div className="lg:col-span-2 space-y-8">
+          {/* Header Title & Location */}
           <div className="space-y-2 pb-6 border-b border-border/50">
             <div className="flex items-center gap-2">
               <Badge variant="luxury" className="text-xs">
@@ -87,8 +104,10 @@ export function PropertyDetailsContent({ property, allProperties }: PropertyDeta
             </p>
           </div>
 
+          {/* Quick Info Specs */}
           <PropertyQuickInfo property={property} />
 
+          {/* Description Section */}
           <Card className="rounded-3xl border-border/80 bg-card p-6 shadow-md shadow-black/5 space-y-4">
             <h3 className="text-xl font-bold text-foreground font-heading">About This Residence</h3>
             <p className="text-sm text-muted-foreground leading-relaxed">
@@ -107,6 +126,7 @@ export function PropertyDetailsContent({ property, allProperties }: PropertyDeta
             )}
           </Card>
 
+          {/* Amenities Section */}
           <Card className="rounded-3xl border-border/80 bg-card p-6 shadow-md shadow-black/5 space-y-5">
             <div className="flex items-center gap-2">
               <SparklesIcon className="h-5 w-5 text-amber-500" />
@@ -134,39 +154,21 @@ export function PropertyDetailsContent({ property, allProperties }: PropertyDeta
             )}
           </Card>
 
+          {/* Landlord Card */}
           {property.landlord && <PropertyLandlordCard landlord={property.landlord} />}
 
+          {/* Overview Table */}
           {property.overview && <PropertyOverviewTable overview={property.overview} />}
         </div>
 
+        {/* Sidebar Component containing Booking Logic and Dialog */}
         <div className="hidden lg:block lg:col-span-1">
-          <PropertyBookingSidebar property={property} />
+          <PropertyBookingSidebar property={property} isLoggedIn={isLoggedIn} />
         </div>
       </div>
 
+      {/* Similar Properties Section */}
       <SimilarProperties currentPropertyId={(property as any)._id || property.id} properties={allProperties} />
-
-      <div className="fixed bottom-0 left-0 right-0 z-40 bg-card/95 backdrop-blur-xl border-t border-border p-4 lg:hidden shadow-2xl flex items-center justify-between">
-        <div>
-          <span className="text-2xl font-extrabold text-foreground font-mono">
-            ${property.price.toLocaleString()}
-          </span>
-          <span className="text-xs text-muted-foreground"> / month</span>
-          {property.overview?.availableFrom && (
-            <p className="text-[10px] text-emerald-500 font-semibold">{property.overview.availableFrom}</p>
-          )}
-        </div>
-
-        <div className="flex items-center gap-2">
-          <Button
-            size="sm"
-            className="rounded-xl px-5 h-11 font-bold text-xs bg-primary text-primary-foreground gap-1.5 shadow-lg"
-          >
-            <CalendarIcon className="h-4 w-4" />
-            Book Lease
-          </Button>
-        </div>
-      </div>
     </main>
   )
 }

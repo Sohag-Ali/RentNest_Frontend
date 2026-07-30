@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation"
 import { getProperty, getProperties } from "../_actions/property.action"
+import { getCurrentUser } from "@/service/getCurrentUser"
 import { PropertyDetailsContent } from "./_components/property-details-content"
 
 // Define the type for route params in Next.js 15 (params is a Promise)
@@ -11,39 +12,43 @@ interface PageProps {
  * PropertyDetailsPage (Server Component)
  * 
  * Why this file exists:
- * Handles dynamic route `/properties/[id]` to render single property details page.
+ * Top-level route component for dynamic route `/properties/[id]`.
  * 
  * Why Server Component:
- * Renders on server side for fast loading, security, and SEO.
+ * Fetches single property data and checks user login status directly on the server.
  * 
  * Why async:
- * Next.js 15 requires awaiting `params` and server action promises.
+ * Required to await Next.js 15 params and server data requests.
  * 
- * Why fetch happens here:
- * Top-level route component fetches data based on URL parameter `id`
- * and passes it down to child components via props.
+ * Why props:
+ * Passes property data and `isLoggedIn` state down to child UI components.
  */
 export default async function PropertyDetailsPage({ params }: PageProps) {
-  // 1. Await params to get the property ID from the URL (Next.js 15 standard)
+  // 1. Await params to get the property ID from the URL (Next.js 15 requirement)
   const resolvedParams = await params
   const propertyId = resolvedParams.id
 
-  // 2. Fetch single property data and all properties (for similar properties section) in parallel
-  const [property, allProperties] = await Promise.all([
+  // 2. Fetch single property, all properties, and current user in parallel on the server
+  const [property, allProperties, currentUser] = await Promise.all([
     getProperty(propertyId),
     getProperties(),
+    getCurrentUser(),
   ])
 
-  // 3. If property does not exist in backend, trigger 404 page
+  // 3. If property does not exist in backend, render 404 page
   if (!property) {
     notFound()
   }
 
-  // 4. Pass backend data down to UI component through props
+  // 4. Determine if the current visitor is authenticated
+  const isLoggedIn = Boolean(currentUser && currentUser.success && currentUser.data)
+
+  // 5. Render UI component passing property data and isLoggedIn via props
   return (
     <PropertyDetailsContent
       property={property}
       allProperties={allProperties}
+      isLoggedIn={isLoggedIn}
     />
   )
 }
