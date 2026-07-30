@@ -100,14 +100,14 @@ export function PropertyBookingSidebar({ property }: PropertyBookingSidebarProps
               Request Booking Now
             </Button>
 
-            <Button
+            {/* <Button
               variant="outline"
               onClick={() => setIsBookingOpen(true)}
               className="w-full rounded-2xl h-11 text-xs font-semibold gap-2 border-input hover:bg-muted/70"
             >
               <CalendarIcon className="h-4 w-4 text-muted-foreground" />
               Schedule In-Person Tour
-            </Button>
+            </Button> */}
           </div>
         </CardContent>
 

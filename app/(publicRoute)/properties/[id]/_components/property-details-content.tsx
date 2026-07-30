@@ -144,7 +144,7 @@ export function PropertyDetailsContent({ property, allProperties }: PropertyDeta
         </div>
       </div>
 
-      <SimilarProperties currentPropertyId={property.id} properties={allProperties} />
+      <SimilarProperties currentPropertyId={(property as any)._id || property.id} properties={allProperties} />
 
       <div className="fixed bottom-0 left-0 right-0 z-40 bg-card/95 backdrop-blur-xl border-t border-border p-4 lg:hidden shadow-2xl flex items-center justify-between">
         <div>
