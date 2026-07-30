@@ -3,7 +3,7 @@
 import React, { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { Property } from "@/lib/mock-data/properties"
+import { Property } from "@/types/property"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
@@ -50,7 +50,7 @@ export function PropertyCard({ property, viewMode = "grid" }: PropertyCardProps)
               </Badge>
             )}
             <Badge variant="glass" className="text-[11px]">
-              {property.category}
+              {typeof property.category === "object" ? (property.category as any)?.name || "Apartment" : property.category}
             </Badge>
           </div>
 
@@ -138,14 +138,14 @@ export function PropertyCard({ property, viewMode = "grid" }: PropertyCardProps)
           <div className="flex items-center justify-between pt-2 border-t border-border/40">
             <div className="flex items-center gap-2">
               <Avatar className="h-7 w-7 border border-border">
-                <AvatarImage src={property.landlord.avatar} alt={property.landlord.name} />
-                <AvatarFallback>{property.landlord.name[0]}</AvatarFallback>
+                <AvatarImage src={property.landlord?.avatar || ""} alt={property.landlord?.name || "Landlord"} />
+                <AvatarFallback>{property.landlord?.name ? property.landlord.name[0] : "L"}</AvatarFallback>
               </Avatar>
               <div className="hidden sm:block">
                 <p className="text-xs font-semibold text-foreground line-clamp-1">
-                  {property.landlord.name}
+                  {property.landlord?.name || "Host"}
                 </p>
-                {property.landlord.isSuperhost && (
+                {property.landlord?.isSuperhost && (
                   <p className="text-[10px] text-amber-500 font-medium">Superhost</p>
                 )}
               </div>
@@ -197,7 +197,7 @@ export function PropertyCard({ property, viewMode = "grid" }: PropertyCardProps)
             </Badge>
           )}
           <Badge variant="glass" className="text-[11px]">
-            {property.category}
+            {typeof property.category === "object" ? (property.category as any)?.name || "Apartment" : property.category}
           </Badge>
         </div>
 
@@ -290,14 +290,14 @@ export function PropertyCard({ property, viewMode = "grid" }: PropertyCardProps)
         <div className="pt-3 border-t border-border/50 flex items-center justify-between mt-auto">
           <div className="flex items-center gap-2">
             <Avatar className="h-8 w-8 border border-border">
-              <AvatarImage src={property.landlord.avatar} alt={property.landlord.name} />
-              <AvatarFallback>{property.landlord.name[0]}</AvatarFallback>
+              <AvatarImage src={property.landlord?.avatar || ""} alt={property.landlord?.name || "Landlord"} />
+              <AvatarFallback>{property.landlord?.name ? property.landlord.name[0] : "L"}</AvatarFallback>
             </Avatar>
             <div>
               <p className="text-xs font-semibold text-foreground leading-tight line-clamp-1">
-                {property.landlord.name}
+                {property.landlord?.name || "Host"}
               </p>
-              {property.landlord.isSuperhost && (
+              {property.landlord?.isSuperhost && (
                 <p className="text-[10px] text-amber-500 font-medium">Superhost</p>
               )}
             </div>
@@ -325,3 +325,4 @@ export function PropertyCard({ property, viewMode = "grid" }: PropertyCardProps)
     </div>
   )
 }
+

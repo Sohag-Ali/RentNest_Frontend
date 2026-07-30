@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState } from "react"
-import { Property } from "@/lib/mock-data/properties"
+import { Property } from "@/types/property"
 import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
@@ -37,6 +37,10 @@ export function PropertyBookingSidebar({ property }: PropertyBookingSidebarProps
     }, 2500)
   }
 
+  const depositFormatted = property.overview?.depositAmount != null
+    ? `$${property.overview.depositAmount.toLocaleString()}`
+    : "N/A"
+
   return (
     <>
       <Card className="rounded-3xl border-border/80 bg-card/90 backdrop-blur-xl shadow-2xl shadow-black/10 sticky top-24 overflow-hidden">
@@ -56,7 +60,7 @@ export function PropertyBookingSidebar({ property }: PropertyBookingSidebarProps
           </div>
           <p className="text-[11px] text-muted-foreground mt-1 flex items-center gap-1">
             <InfoIcon className="h-3 w-3" />
-            Security Deposit: ${property.overview.depositAmount.toLocaleString()} (Fully Refundable)
+            Security Deposit: {depositFormatted} (Fully Refundable)
           </p>
         </CardHeader>
 
@@ -72,12 +76,12 @@ export function PropertyBookingSidebar({ property }: PropertyBookingSidebarProps
             <div className="flex justify-between text-muted-foreground">
               <span>Estimated Security Deposit</span>
               <span className="font-mono text-foreground font-semibold">
-                ${property.overview.depositAmount.toLocaleString()}
+                {depositFormatted}
               </span>
             </div>
             <div className="flex justify-between text-muted-foreground">
               <span>Lease Terms</span>
-              <span className="font-semibold text-foreground">{property.overview.leaseTerm}</span>
+              <span className="font-semibold text-foreground">{property.overview?.leaseTerm || "12 Months"}</span>
             </div>
           </div>
 
@@ -144,7 +148,7 @@ export function PropertyBookingSidebar({ property }: PropertyBookingSidebarProps
               </div>
               <h4 className="text-xl font-bold text-foreground">Application Request Sent!</h4>
               <p className="text-xs text-muted-foreground max-w-xs mx-auto">
-                The landlord ({property.landlord.name}) has received your booking inquiry and will issue lease documents shortly.
+                The landlord ({property.landlord?.name || "Host"}) has received your booking inquiry and will issue lease documents shortly.
               </p>
             </div>
           ) : (
@@ -178,7 +182,7 @@ export function PropertyBookingSidebar({ property }: PropertyBookingSidebarProps
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Refundable Security Deposit</span>
-                  <span>${property.overview.depositAmount.toLocaleString()}</span>
+                  <span>{depositFormatted}</span>
                 </div>
               </div>
 

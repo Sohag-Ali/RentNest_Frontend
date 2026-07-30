@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState } from "react"
-import { Landlord } from "@/lib/mock-data/properties"
+import { Landlord } from "@/types/property"
 import { Card } from "@/components/ui/card"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
@@ -36,8 +36,8 @@ export function PropertyLandlordCard({ landlord }: PropertyLandlordCardProps) {
           <div className="flex items-center gap-4">
             <div className="relative">
               <Avatar className="h-16 w-16 border-2 border-primary/20 shadow-md">
-                <AvatarImage src={landlord.avatar} alt={landlord.name} />
-                <AvatarFallback>{landlord.name[0]}</AvatarFallback>
+                <AvatarImage src={landlord.avatar} alt={landlord.name || "Landlord"} />
+                <AvatarFallback>{landlord.name ? landlord.name[0] : "L"}</AvatarFallback>
               </Avatar>
               {landlord.isVerified && (
                 <div className="absolute -bottom-1 -right-1 bg-primary text-primary-foreground p-1 rounded-full shadow-xs">

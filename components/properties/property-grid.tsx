@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react"
-import { Property } from "@/lib/mock-data/properties"
+import { Property } from "@/types/property"
 import { PropertyCard } from "./property-card"
 
 interface PropertyGridProps {

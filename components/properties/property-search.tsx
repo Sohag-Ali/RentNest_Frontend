@@ -4,7 +4,7 @@ import React from "react"
 import { Input } from "@/components/ui/input"
 import { Select } from "@/components/ui/select"
 import { Button } from "@/components/ui/button"
-import { CATEGORIES, CITIES } from "@/lib/mock-data/properties"
+import { CATEGORIES, CITIES } from "@/types/property"
 import {
   SearchIcon,
   MapPinIcon,

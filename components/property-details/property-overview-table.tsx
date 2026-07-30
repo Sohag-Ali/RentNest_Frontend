@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react"
-import { PropertyOverview } from "@/lib/mock-data/properties"
+import { PropertyOverview } from "@/types/property"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { MapPinIcon, CalendarIcon, FileTextIcon, ShieldAlertIcon, CarIcon, DogIcon, HomeIcon } from "lucide-react"
@@ -15,37 +15,37 @@ export function PropertyOverviewTable({ overview }: PropertyOverviewTableProps) 
     {
       icon: <MapPinIcon className="h-4 w-4 text-primary shrink-0" />,
       label: "Full Address",
-      value: overview.address,
+      value: overview.address || "N/A",
     },
     {
       icon: <HomeIcon className="h-4 w-4 text-primary shrink-0" />,
       label: "Property Category",
-      value: overview.category,
+      value: typeof overview.category === "object" ? (overview.category as any)?.name || "N/A" : overview.category || "N/A",
     },
     {
       icon: <CalendarIcon className="h-4 w-4 text-primary shrink-0" />,
       label: "Available From",
-      value: overview.availableFrom,
+      value: overview.availableFrom || "N/A",
     },
     {
       icon: <FileTextIcon className="h-4 w-4 text-primary shrink-0" />,
       label: "Lease Duration",
-      value: overview.leaseTerm,
+      value: overview.leaseTerm || "N/A",
     },
     {
       icon: <ShieldAlertIcon className="h-4 w-4 text-primary shrink-0" />,
       label: "Security Deposit",
-      value: `$${overview.depositAmount.toLocaleString()}`,
+      value: overview.depositAmount != null ? `$${overview.depositAmount.toLocaleString()}` : "N/A",
     },
     {
       icon: <DogIcon className="h-4 w-4 text-primary shrink-0" />,
       label: "Pet Policy",
-      value: overview.petPolicy,
+      value: overview.petPolicy || "N/A",
     },
     {
       icon: <CarIcon className="h-4 w-4 text-primary shrink-0" />,
       label: "Parking Spaces",
-      value: overview.parkingType,
+      value: overview.parkingType || "N/A",
     },
   ]
 

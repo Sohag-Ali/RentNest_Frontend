@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react"
-import { Property } from "@/lib/mock-data/properties"
+import { Property } from "@/types/property"
 import { BedIcon, BathIcon, SquareIcon, HomeIcon, CalendarIcon } from "lucide-react"
 
 interface PropertyQuickInfoProps {
@@ -28,12 +28,12 @@ export function PropertyQuickInfo({ property }: PropertyQuickInfoProps) {
     {
       icon: <HomeIcon className="h-5 w-5 text-primary" />,
       label: "Property Type",
-      value: property.category,
+      value: typeof property.category === "object" ? (property.category as any)?.name || "Apartment" : property.category,
     },
     {
       icon: <CalendarIcon className="h-5 w-5 text-primary" />,
       label: "Move-in Status",
-      value: property.overview.availableFrom,
+      value: property.overview?.availableFrom || (property.isAvailable ? "Immediate" : "N/A"),
     },
   ]
 

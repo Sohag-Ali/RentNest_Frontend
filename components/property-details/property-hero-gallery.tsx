@@ -2,7 +2,7 @@
 
 import React, { useState } from "react"
 import Image from "next/image"
-import { Property } from "@/lib/mock-data/properties"
+import { Property } from "@/types/property"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
@@ -65,12 +65,12 @@ export function PropertyHeroGallery({ property }: PropertyHeroGalleryProps) {
             </Badge>
           )}
           <Badge variant="secondary" className="px-3 py-1 text-xs font-semibold">
-            {property.category}
+            {typeof property.category === "object" ? (property.category as any)?.name || "Apartment" : property.category}
           </Badge>
           {property.isAvailable && (
             <Badge variant="success" className="gap-1 px-3 py-1 text-xs font-semibold">
               <CheckCircle2Icon className="h-3.5 w-3.5" />
-              {property.overview.availableFrom}
+              {property.overview?.availableFrom || "Available Now"}
             </Badge>
           )}
         </div>

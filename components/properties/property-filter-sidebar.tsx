@@ -9,7 +9,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Label } from "@/components/ui/label"
 import { Select } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
-import { CATEGORIES, CITIES, AMENITIES_LIST } from "@/lib/mock-data/properties"
+import { CATEGORIES, CITIES, AMENITIES_LIST } from "@/types/property"
 import {
   SlidersHorizontalIcon,
   RotateCcwIcon,
