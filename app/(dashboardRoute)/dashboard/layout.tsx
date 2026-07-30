@@ -9,6 +9,7 @@ import {
 } from '@/components/ui/sidebar';
 import { SidebarNav } from '../_components/sidebar-nav';
 import { TopNavbar } from '../_components/top-navbar';
+import Link from 'next/link';
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -21,9 +22,9 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         {/* Sidebar */}
         <Sidebar className="hidden md:flex border-r border-border">
           <SidebarHeader className="p-6">
-            <h1 className="text-xl font-bold bg-gradient-to-r from-sidebar-primary to-sidebar-primary/70 bg-clip-text text-transparent">
+            <Link href="/" className="text-xl font-bold bg-gradient-to-r from-sidebar-primary to-sidebar-primary/70 bg-clip-text text-transparent">
               RentNest
-            </h1>
+            </Link>
           </SidebarHeader>
           <SidebarContent className="px-3 py-4">
             <SidebarNav />

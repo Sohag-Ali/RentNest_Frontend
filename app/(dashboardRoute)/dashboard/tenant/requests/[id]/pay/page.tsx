@@ -2,6 +2,7 @@ import React from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { getMyRentals, TenantRentalItem } from "@/app/(dashboardRoute)/dashboard/tenant/_actions/tenant-rental.actions"
+import { PayCheckoutButton } from "./_components/pay-checkout-button"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -253,13 +254,8 @@ export default async function TenantPaymentPage({ params }: PaymentPageProps) {
               </div>
             </div>
 
-            {/* Action Button */}
-            <Button
-              className="w-full rounded-2xl h-12 text-xs font-bold gap-2 bg-primary text-primary-foreground shadow-lg hover:shadow-xl transition-all"
-            >
-              <span>Proceed to Payment</span>
-              <ArrowRightIcon className="h-4 w-4" />
-            </Button>
+            {/* Interactive Server Action Action Button */}
+            <PayCheckoutButton rentalRequestId={requestId} />
 
             <p className="text-[10px] text-muted-foreground text-center leading-relaxed">
               By clicking Proceed to Payment, you agree to RentNest lease terms and conditions.

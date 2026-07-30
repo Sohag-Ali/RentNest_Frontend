@@ -51,7 +51,7 @@ export async function proxy(request: NextRequest) {
         if (newAccessTokenSet && newAccessTokenValue) {
             response.cookies.set("accessToken", newAccessTokenValue, {
                 httpOnly: true,
-                sameSite: "strict",
+                sameSite: "lax",
                 maxAge: 60 * 60 * 24,
                 path: "/",
             });

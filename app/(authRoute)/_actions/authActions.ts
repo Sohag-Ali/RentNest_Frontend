@@ -35,15 +35,17 @@ export async function loginAction(prevState: LoginState, data: LoginFormValues) 
             await cookieStore.set("accessToken", result.data.accessToken, {
                 httpOnly: true,
                 // secure: process.env.NODE_ENV === "production",
-                sameSite: "strict",
+                sameSite: "lax",
                 maxAge: 60 * 60 * 24,
+                path:"/",
                
             });
             await cookieStore.set("refreshToken", result.data.refreshToken, {
                 httpOnly: true,
                 // secure: process.env.NODE_ENV === "production",
-                sameSite: "strict",
+                sameSite: "lax",
                 maxAge: 60 * 60 * 24 * 7,
+                path:"/",
                 
             });
 
@@ -119,16 +121,17 @@ export async function registerAction(prevState: RegisterState, data: RegisterPay
 
                 await cookieStore.set("accessToken", tokenData.accessToken, {
                     httpOnly: true,
-                    sameSite: "strict",
+                    sameSite: "lax",
                     maxAge: 60 * 60 * 24,
+                    path:"/"
                    
                 });
                 if (tokenData?.refreshToken) {
                     await cookieStore.set("refreshToken", tokenData.refreshToken, {
                         httpOnly: true,
-                        sameSite: "strict",
+                        sameSite: "lax",
                         maxAge: 60 * 60 * 24 * 7,
-                       
+                        path:"/",
                     });
                 }
             }
