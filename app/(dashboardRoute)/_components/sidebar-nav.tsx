@@ -14,12 +14,14 @@ import {
   Star,
   User,
   Building2,
+  FileText,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 // Standard Tenant navigation links
 const tenantNavItems = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+  { href: '/dashboard/tenant/requests', label: 'My Rental Requests', icon: FileText },
   { href: '/dashboard/bookings', label: 'My Bookings', icon: Home },
   { href: '/dashboard/wishlist', label: 'Wishlist', icon: Heart },
   { href: '/dashboard/payments', label: 'Payments', icon: CreditCard },
