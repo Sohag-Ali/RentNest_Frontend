@@ -15,6 +15,7 @@ import {
   User,
   Building2,
   FileText,
+  Users,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -29,7 +30,7 @@ const tenantNavItems = [
   { href: '/dashboard/settings', label: 'Settings', icon: Settings },
 ];
 
-// Landlord navigation links requested by user
+// Landlord navigation links
 const landlordNavItems = [
   { href: '/dashboard/landlord', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/dashboard/landlord/properties', label: 'My Properties', icon: Building2 },
@@ -41,19 +42,34 @@ const landlordNavItems = [
   { href: '/dashboard/landlord/settings', label: 'Settings', icon: Settings },
 ];
 
+// Complete Admin navigation links requested by user
+const adminNavItems = [
+  { href: '/dashboard/admin', label: 'Dashboard', icon: LayoutDashboard },
+  { href: '/dashboard/admin/users', label: 'Users', icon: Users },
+  { href: '/dashboard/admin/properties', label: 'Properties', icon: Building2 },
+  { href: '/dashboard/admin/rentals', label: 'Rental Requests', icon: FileText },
+  { href: '/dashboard/admin/payments', label: 'Payments', icon: CreditCard },
+  { href: '/dashboard/admin/settings', label: 'Settings', icon: Settings },
+];
+
 /**
  * SidebarNav Component
  * 
  * Why this file exists:
- * Provides sidebar navigation links for tenant and landlord dashboards.
+ * Provides sidebar navigation links for tenant, landlord, and admin dashboards.
  * Dynamically switches navigation items based on current active route path.
  */
 export function SidebarNav() {
   const pathname = usePathname();
 
-  // Determine if active path belongs to Landlord portal
+  // Determine active portal route
+  const isAdminRoute = pathname.startsWith('/dashboard/admin');
   const isLandlordRoute = pathname.startsWith('/dashboard/landlord');
-  const activeNavItems = isLandlordRoute ? landlordNavItems : tenantNavItems;
+  const activeNavItems = isAdminRoute
+    ? adminNavItems
+    : isLandlordRoute
+    ? landlordNavItems
+    : tenantNavItems;
 
   return (
     <nav className="space-y-1.5">
