@@ -1,8 +1,9 @@
 "use client"
 
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
+import { useRouter } from "next/navigation"
 import { TenantRentalItem } from "@/app/(dashboardRoute)/dashboard/tenant/_actions/tenant-rental.actions"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -18,6 +19,7 @@ import {
   XCircleIcon,
   HourglassIcon,
   Building2Icon,
+  ShieldCheckIcon,
 } from "lucide-react"
 
 interface TenantRequestsListProps {
@@ -57,12 +59,24 @@ const DEFAULT_PROPERTY_IMAGE =
  * 
  * Why this file exists:
  * Displays tenant rental application requests in Shadcn Cards with status-specific badges and action buttons.
+ * Automatically syncs state with server component updates and handles COMPLETED statuses after payment.
  * 
  * Why props:
  * Receives the initial rentals list fetched by the parent Server Component page.
  */
 export function TenantRequestsList({ initialRentals }: TenantRequestsListProps) {
-  const [rentals] = useState<TenantRentalItem[]>(initialRentals)
+  const router = useRouter()
+  const [rentals, setRentals] = useState<TenantRentalItem[]>(initialRentals)
+
+  // Keep client component state in sync with Server Component props when data is re-fetched
+  useEffect(() => {
+    setRentals(initialRentals)
+  }, [initialRentals])
+
+  // Trigger router refresh on mount to clear any stale client-side router cache
+  useEffect(() => {
+    router.refresh()
+  }, [router])
 
   // -------------------------------------------------------------
   // EMPTY STATE: Displayed when tenant has zero requests
@@ -106,6 +120,8 @@ export function TenantRequestsList({ initialRentals }: TenantRequestsListProps) 
           property?.mainImage ||
           (Array.isArray(property?.images) && property.images[0]) ||
           DEFAULT_PROPERTY_IMAGE
+
+        const isCompleted = rental.status === "COMPLETED"
 
         return (
           <Card
@@ -196,7 +212,28 @@ export function TenantRequestsList({ initialRentals }: TenantRequestsListProps) 
 
                 {/* Status UI & Conditional Action Button */}
                 <div className="space-y-2 text-left lg:text-right">
-                  {rental.status === "APPROVED" ? (
+                  {isCompleted ? (
+                    /* COMPLETED STATUS: Green Badge + View Payment Button */
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-1.5 justify-start lg:justify-end">
+                        <Badge
+                          variant="success"
+                          className="gap-1 px-3 py-1 text-xs bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 font-bold"
+                        >
+                          <ShieldCheckIcon className="h-3.5 w-3.5 text-emerald-500" />
+                          Completed
+                        </Badge>
+                      </div>
+
+                      <Button
+                        render={<Link href={`/payment/success?rentalRequestId=${rental.id}`} />}
+                        className="rounded-2xl px-5 h-9 text-xs font-bold gap-2 bg-emerald-600 hover:bg-emerald-700 text-white shadow-md transition-all flex items-center"
+                      >
+                        <CreditCardIcon className="h-4 w-4" />
+                        <span>View Payment</span>
+                      </Button>
+                    </div>
+                  ) : rental.status === "APPROVED" ? (
                     /* APPROVED STATUS: Green Badge + Large "Pay Now" Button */
                     <div className="space-y-2">
                       <div className="flex items-center gap-1.5 justify-start lg:justify-end">

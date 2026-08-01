@@ -1,6 +1,7 @@
 "use server"
 
 import { cookies } from "next/headers"
+import { revalidatePath } from "next/cache"
 
 // Define backend API base URL from environment variable or fallback to localhost
 const API_URL = process.env.BACKEND_API_URL || "http://localhost:5000"
@@ -101,3 +102,18 @@ export const getMyRentals = async () => {
     }
   }
 }
+
+/**
+ * Server Action: Revalidate cache for tenant requests page & tenant dashboard
+ */
+export const revalidateTenantRentals = async () => {
+  try {
+    revalidatePath("/dashboard/tenant/requests")
+    revalidatePath("/dashboard/tenant")
+    return { success: true }
+  } catch (error) {
+    console.error("Error revalidating tenant rentals cache:", error)
+    return { success: false }
+  }
+}
+

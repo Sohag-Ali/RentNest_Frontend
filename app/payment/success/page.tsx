@@ -2,8 +2,8 @@
 
 import React, { useEffect, useState, Suspense } from "react"
 import Link from "next/link"
-import { useSearchParams } from "next/navigation"
-import { getMyRentals, TenantRentalItem } from "@/app/(dashboardRoute)/dashboard/tenant/_actions/tenant-rental.actions"
+import { useSearchParams, useRouter } from "next/navigation"
+import { getMyRentals, revalidateTenantRentals, TenantRentalItem } from "@/app/(dashboardRoute)/dashboard/tenant/_actions/tenant-rental.actions"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -24,10 +24,10 @@ import {
  * Why this file exists:
  * Displayed when Stripe redirects back after payment.
  * Shows a loading state for a few seconds while verifying status asynchronously,
- * optionally fetches payment/rental details, and displays confirmation feedback.
- * No payment confirmation API call is executed by the frontend.
+ * revalidates server cache for tenant requests, and displays confirmation feedback.
  */
 function SuccessContent() {
+  const router = useRouter()
   const searchParams = useSearchParams()
   const sessionId = searchParams.get("session_id") || searchParams.get("sessionId") || ""
   const rentalRequestId = searchParams.get("rentalRequestId") || ""
@@ -39,6 +39,13 @@ function SuccessContent() {
     let isMounted = true
 
     async function loadData() {
+      // Revalidate tenant requests cache on server so dashboard is always fresh
+      try {
+        await revalidateTenantRentals()
+      } catch (e) {
+        console.error("Revalidation error:", e)
+      }
+
       // Display loading state for a few seconds
       const timer = new Promise((resolve) => setTimeout(resolve, 2000))
 
@@ -59,6 +66,8 @@ function SuccessContent() {
       if (isMounted) {
         setRentalItem(foundRental)
         setIsLoading(false)
+        // Refresh client-side router cache payload
+        router.refresh()
       }
     }
 
@@ -67,7 +76,7 @@ function SuccessContent() {
     return () => {
       isMounted = false
     }
-  }, [rentalRequestId])
+  }, [rentalRequestId, router])
 
   if (isLoading) {
     return (

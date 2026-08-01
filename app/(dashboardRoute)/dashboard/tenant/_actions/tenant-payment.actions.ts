@@ -101,3 +101,159 @@ export async function createPayment(rentalRequestId: string): Promise<CreatePaym
     }
   }
 }
+
+/**
+ * Interface defining complete structure of a payment history item
+ */
+export interface PaymentItem {
+  id: string
+  rentalRequestId: string
+  userId?: string
+  transactionId: string
+  amount: number
+  provider: string
+  status: "COMPLETED" | "PENDING" | "FAILED" | string
+  paidAt?: string
+  createdAt?: string
+  rentalRequest?: {
+    id: string
+    status: string
+    moveInDate?: string
+    property?: {
+      id: string
+      title: string
+      location: string
+      price: number
+      mainImage?: string
+      images?: string[]
+      landlord?: {
+        id: string
+        name: string
+        email?: string
+      }
+      category?: {
+        id?: string
+        name?: string
+      } | string
+    }
+  }
+}
+
+/**
+ * Server Action: Fetch payment history list for tenant
+ * Endpoint: GET /api/payments
+ */
+export async function getPaymentHistory() {
+  try {
+    const cookieStore = await cookies()
+    const accessToken = cookieStore.get("accessToken")?.value || null
+
+    if (!accessToken) {
+      return {
+        success: false,
+        statusCode: 401,
+        message: "User not logged in.",
+        data: [] as PaymentItem[],
+      }
+    }
+
+    const res = await fetch(`${API_URL}/api/payments`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+        Cookie: `accessToken=${accessToken}`,
+      },
+      cache: "no-store",
+    })
+
+    if (!res.ok) {
+      console.error(`Failed to fetch payment history. Status: ${res.status}`)
+      return {
+        success: false,
+        statusCode: res.status,
+        message: "Failed to fetch payment history.",
+        data: [] as PaymentItem[],
+      }
+    }
+
+    const result = await res.json()
+    const paymentList: PaymentItem[] = Array.isArray(result.data)
+      ? result.data
+      : Array.isArray(result)
+      ? result
+      : []
+
+    return {
+      success: result.success ?? true,
+      statusCode: result.statusCode ?? 200,
+      message: result.message || "Payment history successfully fetched",
+      data: paymentList,
+    }
+  } catch (error: any) {
+    console.error("Error in getPaymentHistory server action:", error)
+    return {
+      success: false,
+      statusCode: 500,
+      message: error?.message || "Error fetching payment history.",
+      data: [] as PaymentItem[],
+    }
+  }
+}
+
+/**
+ * Server Action: Fetch details for a specific payment
+ * Endpoint: GET /api/payments/:paymentId
+ */
+export async function getPaymentDetails(paymentId: string) {
+  try {
+    const cookieStore = await cookies()
+    const accessToken = cookieStore.get("accessToken")?.value || null
+
+    if (!accessToken) {
+      return {
+        success: false,
+        statusCode: 401,
+        message: "User not logged in.",
+        data: null,
+      }
+    }
+
+    const res = await fetch(`${API_URL}/api/payments/${paymentId}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+        Cookie: `accessToken=${accessToken}`,
+      },
+      cache: "no-store",
+    })
+
+    if (!res.ok) {
+      console.error(`Failed to fetch payment details. Status: ${res.status}`)
+      return {
+        success: false,
+        statusCode: res.status,
+        message: "Failed to fetch payment details.",
+        data: null,
+      }
+    }
+
+    const result = await res.json()
+    const paymentData: PaymentItem | null = result.data || result || null
+
+    return {
+      success: result.success ?? true,
+      statusCode: result.statusCode ?? 200,
+      message: result.message || "Payment details successfully fetched",
+      data: paymentData,
+    }
+  } catch (error: any) {
+    console.error("Error in getPaymentDetails server action:", error)
+    return {
+      success: false,
+      statusCode: 500,
+      message: error?.message || "Error fetching payment details.",
+      data: null,
+    }
+  }
+}
+
