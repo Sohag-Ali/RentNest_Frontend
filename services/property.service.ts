@@ -1,0 +1,38 @@
+import axios from "axios";
+import { CreatePropertyInput, PropertyResponse } from "@/types/property";
+
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+
+export const propertyApiClient = axios.create({
+  baseURL: API_BASE_URL,
+  withCredentials: true,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
+// Request interceptor to automatically attach authorization token
+propertyApiClient.interceptors.request.use((config) => {
+  if (typeof window !== "undefined") {
+    const getCookie = (name: string) => {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop()?.split(";").shift();
+    };
+    const token = getCookie("accessToken") || localStorage.getItem("accessToken");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+  }
+  return config;
+});
+
+export const propertyService = {
+  createProperty: async (payload: CreatePropertyInput): Promise<PropertyResponse> => {
+    const response = await propertyApiClient.post<PropertyResponse>(
+      "/api/landlord/properties",
+      payload
+    );
+    return response.data;
+  },
+};

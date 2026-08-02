@@ -1,43 +1,39 @@
-export interface Category {
-  id?: string;
-  name?: string;
+export interface PropertyOverview {
+  address: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  availableFrom: string;
+  status: string;
+  yearBuilt: number;
+  depositAmount: number;
+  leaseTerm: string;
+  petPolicy: string;
+  parkingType: string;
+  category?: string;
 }
 
 export interface Landlord {
-  id: string;
-  name: string;
-  avatar: string;
+  id?: string;
+  name?: string;
+  email?: string;
+  image?: string;
+  avatar?: string;
+  phone?: string;
+  rating?: number;
+  reviewsCount?: number;
+  responseRate?: string;
+  responseTime?: string;
+  joinedDate?: string;
   isSuperhost?: boolean;
   isVerified?: boolean;
-  rating?: number;
-  responseRate?: string | null;
-  responseTime?: string | null;
-  joinedDate?: string;
-  phone?: string;
-  email?: string;
 }
 
-export interface PropertyOverview {
-  address?: string;
-  city?: string;
-  state?: string;
-  zipCode?: string;
-  category?: string | Category;
-  availableFrom?: string;
-  status?: "Available" | "Pending" | "Rented" | string;
-  yearBuilt?: number;
-  depositAmount?: number;
-  leaseTerm?: string;
-  petPolicy?: string;
-  parkingType?: string;
-}
-
-export interface Property {
-  id: string;
+export interface CreatePropertyInput {
   title: string;
   slug: string;
   description: string;
-  detailedDescription?: string;
+  detailedDescription: string;
   location: string;
   city: string;
   state: string;
@@ -45,30 +41,30 @@ export interface Property {
   bedrooms: number;
   bathrooms: number;
   areaSqFt: number;
-  rating: number;
-  reviewCount: number;
   isFeatured: boolean;
   isAvailable: boolean;
-  category: string | Category;
   mainImage: string;
   images: string[];
   amenities: string[];
-  createdAt: string;
-  landlord?: Landlord;
-  overview?: PropertyOverview;
+  categoryId: string;
+  overview: PropertyOverview;
 }
 
-export interface ApiResponse<T> {
+export interface Property extends CreatePropertyInput {
+  id: string;
+  category?: string;
+  rating?: number;
+  reviewsCount?: number;
+  reviewCount?: number;
+  landlord?: Landlord;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface PropertyResponse {
   success: boolean;
-  statusCode: number;
-  message: string;
-  data: T;
-  meta?: {
-    page?: number;
-    limit?: number;
-    total?: number;
-    totalPage?: number;
-  };
+  message?: string;
+  data?: Property;
 }
 
 export interface SearchState {
@@ -79,6 +75,8 @@ export interface SearchState {
   bedrooms: string;
   bathrooms: string;
   availability: string;
+  query?: string;
+  city?: string;
 }
 
 export interface FilterState {
@@ -91,39 +89,45 @@ export interface FilterState {
   availableOnly: boolean;
   featuredOnly: boolean;
   minRating: number;
+  priceRange?: [number, number];
+  amenities?: string[];
 }
 
 export const CATEGORIES = [
-  "All",
   "Villa",
-  "Penthouse",
   "Apartment",
+  "House",
+  "Penthouse",
+  "Condo",
   "Studio",
-  "Loft",
-  "Cottage",
+  "Townhouse",
+  "Luxury Estate",
 ];
 
 export const CITIES = [
-  "All",
-  "Miami",
   "Malibu",
-  "New York",
-  "Chicago",
-  "Aspen",
-  "San Francisco",
+  "Los Angeles",
   "Beverly Hills",
+  "New York",
+  "Miami",
+  "San Francisco",
+  "Chicago",
   "Austin",
 ];
 
 export const AMENITIES_LIST = [
-  "High-Speed Wi-Fi",
-  "Private Pool",
-  "Gym & Fitness Center",
-  "Air Conditioning",
-  "Pet Friendly",
-  "Balcony / Terrace",
-  "EV Charging",
-  "24/7 Security",
   "Private Beach Access",
+  "Infinity Pool",
+  "Sauna & Spa",
+  "High-Speed Wi-Fi",
   "Fireplace",
+  "Garden / Courtyard",
+  "Security System",
+  "Air Conditioning",
+  "Garage Parking",
+  "Gym / Fitness Center",
+  "Balcony",
+  "Pet Friendly",
+  "Solar Power",
+  "Smart Home System",
 ];
