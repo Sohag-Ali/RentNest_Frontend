@@ -17,6 +17,7 @@ import {
   SparklesIcon,
   ArrowRightIcon,
   CheckCircle2Icon,
+  XCircleIcon,
 } from "lucide-react"
 
 // Define props passed from parent PropertyGrid component
@@ -117,10 +118,15 @@ export function PropertyCard({ property, viewMode = "grid" }: PropertyCardProps)
                   ({property.reviewCount ?? 0} reviews)
                 </span>
               </div>
-              {property.isAvailable && (
+              {property.isAvailable ? (
                 <Badge variant="success" className="gap-1 text-[11px]">
                   <CheckCircle2Icon className="h-3 w-3" />
                   Available Now
+                </Badge>
+              ) : (
+                <Badge variant="destructive" className="gap-1 text-[11px] bg-rose-500/15 text-rose-600 dark:text-rose-400 border border-rose-500/30">
+                  <XCircleIcon className="h-3 w-3 text-rose-500" />
+                  Not Available
                 </Badge>
               )}
             </div>
@@ -251,8 +257,9 @@ export function PropertyCard({ property, viewMode = "grid" }: PropertyCardProps)
               Available Now
             </Badge>
           ) : (
-            <Badge variant="secondary" className="text-[11px]">
-              Pending
+            <Badge variant="destructive" className="gap-1 text-[11px] backdrop-blur-md bg-rose-500/80 text-white border-rose-400/30 font-bold">
+              <XCircleIcon className="h-3 w-3" />
+              Not Available
             </Badge>
           )}
         </div>

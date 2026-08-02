@@ -128,15 +128,15 @@ export function PropertyFilterSidebar({
           </div>
           <Slider
             min={2000}
-            max={15000}
-            step={500}
+            max={100000}
+            step={1000}
             value={filters.maxPrice}
             onValueChange={(val) => onFilterChange("maxPrice", val)}
           />
           <div className="flex justify-between text-[10px] text-muted-foreground font-mono">
             <span>$2,000</span>
-            <span>$8,500</span>
-            <span>$15,000+</span>
+            <span>$50,000</span>
+            <span>$100,000+</span>
           </div>
         </div>
 

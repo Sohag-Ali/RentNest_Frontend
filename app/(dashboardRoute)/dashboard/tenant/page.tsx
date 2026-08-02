@@ -6,6 +6,7 @@ import { RecentPaymentsSection } from './_components/recent-payments-section';
 import { NotificationsWidget } from './_components/notifications-widget';
 import { ProfileCard } from './_components/profile-card';
 import { CountdownCard } from './_components/countdown-card';
+import { TenantReviewsSection } from './_components/tenant-reviews-section';
 import { QuickActionsSection } from './_components/quick-actions-section';
 
 export default function DashboardPage() {
@@ -39,6 +40,9 @@ export default function DashboardPage() {
           />
         </div>
       </div>
+
+      {/* My Submitted Reviews Section */}
+      <TenantReviewsSection />
 
       {/* Wishlist */}
       <WishlistSection />

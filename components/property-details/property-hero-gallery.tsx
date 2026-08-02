@@ -20,6 +20,7 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
   CheckIcon,
+  XCircleIcon,
 } from "lucide-react"
 
 interface PropertyHeroGalleryProps {
@@ -67,10 +68,15 @@ export function PropertyHeroGallery({ property }: PropertyHeroGalleryProps) {
           <Badge variant="secondary" className="px-3 py-1 text-xs font-semibold">
             {typeof property.category === "object" ? (property.category as any)?.name || "Apartment" : property.category}
           </Badge>
-          {property.isAvailable && (
+          {property.isAvailable ? (
             <Badge variant="success" className="gap-1 px-3 py-1 text-xs font-semibold">
               <CheckCircle2Icon className="h-3.5 w-3.5" />
               {property.overview?.availableFrom || "Available Now"}
+            </Badge>
+          ) : (
+            <Badge variant="destructive" className="gap-1 px-3 py-1 text-xs font-semibold bg-rose-500/15 text-rose-600 dark:text-rose-400 border border-rose-500/30">
+              <XCircleIcon className="h-3.5 w-3.5 text-rose-500" />
+              Not Available
             </Badge>
           )}
         </div>

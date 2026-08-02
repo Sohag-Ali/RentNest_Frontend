@@ -23,7 +23,7 @@ const initialSearchState: SearchState = {
 const initialFilterState: FilterState = {
   category: "",
   city: "",
-  maxPrice: 15000,
+  maxPrice: 100000,
   bedrooms: 0,
   bathrooms: 0,
   selectedAmenities: [],
@@ -63,7 +63,7 @@ export function PropertyListing({ properties = [] }: PropertyListingProps) {
     let count = 0
     if (filters.category) count++
     if (filters.city) count++
-    if (filters.maxPrice < 15000) count++
+    if (filters.maxPrice < 100000) count++
     if (filters.bedrooms > 0) count++
     if (filters.bathrooms > 0) count++
     if (filters.selectedAmenities.length > 0) count += filters.selectedAmenities.length

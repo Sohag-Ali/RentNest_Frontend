@@ -30,6 +30,7 @@ import {
   MapPinIcon,
   LockIcon,
   LogInIcon,
+  XCircleIcon,
 } from "lucide-react"
 
 interface PropertyBookingSidebarProps {
@@ -67,6 +68,11 @@ export function PropertyBookingSidebar({
    * Handle Click on "Request Booking Now" button
    */
   const handleOpenBookingDialog = () => {
+    if (!property.isAvailable) {
+      toast.error("This property is currently not available for booking.")
+      return
+    }
+
     // 1. If already submitted and pending approval, inform the user
     if (isBookingSubmitted) {
       toast.info("Your booking request is pending landlord approval.")
@@ -143,10 +149,17 @@ export function PropertyBookingSidebar({
               </span>
               <span className="text-xs text-muted-foreground font-normal"> / month</span>
             </div>
-            <Badge variant="success" className="text-xs gap-1">
-              <CheckCircle2Icon className="h-3.5 w-3.5" />
-              Available
-            </Badge>
+            {property.isAvailable ? (
+              <Badge variant="success" className="text-xs gap-1">
+                <CheckCircle2Icon className="h-3.5 w-3.5" />
+                Available
+              </Badge>
+            ) : (
+              <Badge variant="destructive" className="text-xs gap-1 bg-rose-500/15 text-rose-600 dark:text-rose-400 border border-rose-500/30 font-bold">
+                <XCircleIcon className="h-3.5 w-3.5 text-rose-500" />
+                Not Available
+              </Badge>
+            )}
           </div>
           <p className="text-[11px] text-muted-foreground mt-1 flex items-center gap-1">
             <InfoIcon className="h-3 w-3" />
@@ -184,14 +197,21 @@ export function PropertyBookingSidebar({
           <div className="space-y-2.5 pt-2">
             <Button
               onClick={handleOpenBookingDialog}
-              disabled={isBookingSubmitted}
+              disabled={!property.isAvailable || isBookingSubmitted}
               className={`w-full rounded-2xl h-12 text-sm font-bold gap-2 shadow-lg transition-all ${
-                isBookingSubmitted
+                !property.isAvailable
+                  ? "bg-rose-500/15 text-rose-600 dark:text-rose-400 border border-rose-500/30 cursor-not-allowed opacity-80"
+                  : isBookingSubmitted
                   ? "bg-amber-500/20 text-amber-600 dark:text-amber-400 border border-amber-500/30 cursor-not-allowed"
                   : "bg-primary text-primary-foreground hover:shadow-xl"
               }`}
             >
-              {isBookingSubmitted ? (
+              {!property.isAvailable ? (
+                <>
+                  <XCircleIcon className="h-4 w-4 text-rose-500" />
+                  Not Available for Booking
+                </>
+              ) : isBookingSubmitted ? (
                 <>
                   <CheckCircle2Icon className="h-4 w-4 text-amber-500" />
                   Pending Approval
