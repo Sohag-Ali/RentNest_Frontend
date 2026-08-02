@@ -35,4 +35,30 @@ export const propertyService = {
     );
     return response.data;
   },
+
+  updateProperty: async (id: string, payload: CreatePropertyInput): Promise<PropertyResponse> => {
+    try {
+      const response = await propertyApiClient.put<PropertyResponse>(
+        `/api/landlord/properties/${id}`,
+        payload
+      );
+      return response.data;
+    } catch (error: any) {
+      if (error.response?.status === 405) {
+        const patchRes = await propertyApiClient.patch<PropertyResponse>(
+          `/api/landlord/properties/${id}`,
+          payload
+        );
+        return patchRes.data;
+      }
+      throw error;
+    }
+  },
+
+  getPropertyById: async (id: string): Promise<PropertyResponse> => {
+    const response = await propertyApiClient.get<PropertyResponse>(
+      `/api/properties/${id}`
+    );
+    return response.data;
+  },
 };
