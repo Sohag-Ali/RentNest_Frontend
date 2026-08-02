@@ -5,6 +5,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { TenantRentalItem } from "@/app/(dashboardRoute)/dashboard/tenant/_actions/tenant-rental.actions"
+import { SubmitReviewModal } from "@/components/reviews/SubmitReviewModal"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -225,13 +226,21 @@ export function TenantRequestsList({ initialRentals }: TenantRequestsListProps) 
                         </Badge>
                       </div>
 
-                      <Button
-                        render={<Link href={`/payment/success?rentalRequestId=${rental.id}`} />}
-                        className="rounded-2xl px-5 h-9 text-xs font-bold gap-2 bg-emerald-600 hover:bg-emerald-700 text-white shadow-md transition-all flex items-center"
-                      >
-                        <CreditCardIcon className="h-4 w-4" />
-                        <span>View Payment</span>
-                      </Button>
+                      <div className="flex flex-wrap items-center gap-2 justify-start lg:justify-end">
+                        <Button
+                          render={<Link href={`/payment/success?rentalRequestId=${rental.id}`} />}
+                          className="rounded-2xl px-4 h-9 text-xs font-bold gap-2 bg-emerald-600 hover:bg-emerald-700 text-white shadow-md transition-all flex items-center"
+                        >
+                          <CreditCardIcon className="h-4 w-4" />
+                          <span>View Payment</span>
+                        </Button>
+
+                        <SubmitReviewModal
+                          rentalRequestId={rental.id}
+                          propertyTitle={property?.title}
+                          onSuccess={() => router.refresh()}
+                        />
+                      </div>
                     </div>
                   ) : rental.status === "APPROVED" ? (
                     /* APPROVED STATUS: Green Badge + Large "Pay Now" Button */

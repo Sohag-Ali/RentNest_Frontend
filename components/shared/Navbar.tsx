@@ -3,7 +3,7 @@
 import { useState, useEffect, useSyncExternalStore } from 'react';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
-import { Menu, X, Moon, Sun, Home, Building2, Info, Mail, Bell, LogOut, Settings, User as UserIcon, LayoutDashboard } from 'lucide-react';
+import { Menu, X, Moon, Sun, Home, Building2, Info, Mail, Bell, LogOut, Settings, User as UserIcon, LayoutDashboard, Globe } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -191,10 +191,17 @@ export function Navbar({
                       </div>
                       <DropdownMenuSeparator />
                       <DropdownMenuItem className="cursor-pointer">
-                        <Link href={getDashboardRoute()} className="flex items-center gap-2 w-full">
-                          <LayoutDashboard size={18} />
-                          <span>Dashboard</span>
-                        </Link>
+                        {pathname.startsWith('/dashboard') ? (
+                          <Link href="/" className="flex items-center gap-2 w-full">
+                            <Globe size={18} />
+                            <span>Website</span>
+                          </Link>
+                        ) : (
+                          <Link href={getDashboardRoute()} className="flex items-center gap-2 w-full">
+                            <LayoutDashboard size={18} />
+                            <span>Dashboard</span>
+                          </Link>
+                        )}
                       </DropdownMenuItem>
                       <DropdownMenuItem className="cursor-pointer">
                         <Link href="/profile" className="flex items-center gap-2 w-full">

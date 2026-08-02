@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LogOut, Settings, User as UserIcon, LayoutDashboard } from 'lucide-react';
+import { LogOut, Settings, User as UserIcon, LayoutDashboard, Globe } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   DropdownMenu,
@@ -118,10 +118,17 @@ export function UserProfileDropdown({ initialUser }: UserProfileDropdownProps) {
         </DropdownMenuLabel>
         <DropdownMenuSeparator className="my-1" />
         <DropdownMenuItem className="cursor-pointer rounded-xl p-0">
-          <Link href={getDashboardRoute()} className="flex items-center gap-2.5 px-3 py-2 w-full text-sm font-medium">
-            <LayoutDashboard className="h-4 w-4 text-muted-foreground" />
-            <span>Dashboard</span>
-          </Link>
+          {pathname.startsWith('/dashboard') ? (
+            <Link href="/" className="flex items-center gap-2.5 px-3 py-2 w-full text-sm font-medium">
+              <Globe className="h-4 w-4 text-muted-foreground" />
+              <span>Website</span>
+            </Link>
+          ) : (
+            <Link href={getDashboardRoute()} className="flex items-center gap-2.5 px-3 py-2 w-full text-sm font-medium">
+              <LayoutDashboard className="h-4 w-4 text-muted-foreground" />
+              <span>Dashboard</span>
+            </Link>
+          )}
         </DropdownMenuItem>
         <DropdownMenuItem className="cursor-pointer rounded-xl p-0">
           <Link href={getProfileRoute()} className="flex items-center gap-2.5 px-3 py-2 w-full text-sm font-medium">

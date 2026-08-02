@@ -8,30 +8,29 @@ import {
   Heart,
   CreditCard,
   Bell,
-  Settings,
   Inbox,
   CheckCircle2,
   Star,
-  User,
   Building2,
   FileText,
   Users,
+  LogOut,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { logoutAction } from '@/app/(authRoute)/_actions/authActions';
+import { toast } from 'sonner';
 
-// Standard Tenant navigation links
+// Standard Tenant navigation links (Profile & Settings removed)
 const tenantNavItems = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/dashboard/tenant/requests', label: 'My Rental Requests', icon: FileText },
   { href: '/dashboard/bookings', label: 'My Bookings', icon: Home },
   { href: '/dashboard/wishlist', label: 'Wishlist', icon: Heart },
   { href: '/dashboard/tenant/payments', label: 'Payments', icon: CreditCard },
-  { href: '/dashboard/tenant/profile', label: 'Profile', icon: User },
   { href: '/dashboard/notifications', label: 'Notifications', icon: Bell },
-  { href: '/dashboard/settings', label: 'Settings', icon: Settings },
 ];
 
-// Landlord navigation links
+// Landlord navigation links (Profile & Settings removed)
 const landlordNavItems = [
   { href: '/dashboard/landlord', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/dashboard/landlord/properties', label: 'My Properties', icon: Building2 },
@@ -39,27 +38,17 @@ const landlordNavItems = [
   { href: '/dashboard/landlord/approved', label: 'Approved Bookings', icon: CheckCircle2 },
   { href: '/dashboard/landlord/payments', label: 'Payments', icon: CreditCard },
   { href: '/dashboard/landlord/reviews', label: 'Reviews', icon: Star },
-  { href: '/dashboard/landlord/profile', label: 'Profile', icon: User },
-  { href: '/dashboard/landlord/settings', label: 'Settings', icon: Settings },
 ];
 
-// Complete Admin navigation links requested by user
+// Admin navigation links (Settings removed)
 const adminNavItems = [
   { href: '/dashboard/admin', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/dashboard/admin/users', label: 'Users', icon: Users },
   { href: '/dashboard/admin/properties', label: 'Properties', icon: Building2 },
   { href: '/dashboard/admin/rentals', label: 'Rental Requests', icon: FileText },
   { href: '/dashboard/admin/payments', label: 'Payments', icon: CreditCard },
-  { href: '/dashboard/admin/settings', label: 'Settings', icon: Settings },
 ];
 
-/**
- * SidebarNav Component
- * 
- * Why this file exists:
- * Provides sidebar navigation links for tenant, landlord, and admin dashboards.
- * Dynamically switches navigation items based on current active route path.
- */
 export function SidebarNav() {
   const pathname = usePathname();
 
@@ -72,29 +61,49 @@ export function SidebarNav() {
     ? landlordNavItems
     : tenantNavItems;
 
-  return (
-    <nav className="space-y-1.5">
-      {activeNavItems.map(({ href, label, icon: Icon }) => {
-        // Check active link matching
-        const isActive =
-          pathname === href || (href !== '/dashboard/landlord' && href !== '/dashboard' && pathname.startsWith(href));
+  const handleLogout = async () => {
+    toast.success('Logged Out Successfully 👋', {
+      description: 'You have been logged out of your account.',
+    });
+    await logoutAction();
+  };
 
-        return (
-          <Link
-            key={href}
-            href={href}
-            className={cn(
-              'flex items-center gap-3 px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all duration-200',
-              isActive
-                ? 'bg-primary text-primary-foreground shadow-md'
-                : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
-            )}
-          >
-            <Icon className="h-4 w-4 shrink-0" />
-            <span>{label}</span>
-          </Link>
-        );
-      })}
-    </nav>
+  return (
+    <div className="flex flex-col justify-between h-full min-h-[calc(100vh-7rem)]">
+      {/* Top Nav Items */}
+      <nav className="space-y-1.5">
+        {activeNavItems.map(({ href, label, icon: Icon }) => {
+          const isActive =
+            pathname === href || (href !== '/dashboard/landlord' && href !== '/dashboard' && pathname.startsWith(href));
+
+          return (
+            <Link
+              key={href}
+              href={href}
+              className={cn(
+                'flex items-center gap-3 px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all duration-200',
+                isActive
+                  ? 'bg-primary text-primary-foreground shadow-md'
+                  : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
+              )}
+            >
+              <Icon className="h-4 w-4 shrink-0" />
+              <span>{label}</span>
+            </Link>
+          );
+        })}
+      </nav>
+
+      {/* Bottom Logout Action */}
+      <div className="pt-4 border-t border-border mt-auto">
+        <button
+          onClick={handleLogout}
+          className="w-full flex items-center gap-3 px-3.5 py-2.5 text-xs font-semibold rounded-xl text-destructive hover:bg-destructive/10 focus:bg-destructive/10 transition-all duration-200 cursor-pointer"
+        >
+          <LogOut className="h-4 w-4 shrink-0" />
+          <span>Logout</span>
+        </button>
+      </div>
+    </div>
   );
 }
