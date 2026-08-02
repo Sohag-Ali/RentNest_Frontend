@@ -18,6 +18,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { usePathname } from 'next/navigation';
 import { getCurrentUser } from '@/service/getCurrentUser';
 import { logoutAction } from '@/app/(authRoute)/_actions/authActions';
+import { NotificationDropdown } from '@/components/shared/NotificationDropdown';
 import { User } from '@/lib/types/user.type';
 import { toast } from 'sonner';
 
@@ -166,11 +167,8 @@ export function Navbar({
             <div className="hidden md:flex items-center gap-2">
               {isAuthenticated ? (
                 <>
-                  {/* Notifications */}
-                  <Button variant="ghost" size="icon" className="relative">
-                    <Bell size={20} />
-                    <span className="absolute right-1 top-1 h-2 w-2 rounded-full bg-red-500" />
-                  </Button>
+                  {/* Notifications Dropdown */}
+                  <NotificationDropdown />
 
                   {/* User Dropdown */}
                   <DropdownMenu>

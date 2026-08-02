@@ -6,11 +6,11 @@ import Link from "next/link";
 import { UserX } from "lucide-react";
 
 export const metadata = {
-  title: "Landlord Profile | RentNest Dashboard",
-  description: "Manage your landlord host profile, contact information, and verification status.",
+  title: "Tenant Profile | RentNest Dashboard",
+  description: "View and manage your tenant profile details.",
 };
 
-export default async function LandlordProfilePage() {
+export default async function TenantProfilePage() {
   const response = await getCurrentUser();
 
   if (!response?.success || !response?.data) {
@@ -21,7 +21,7 @@ export default async function LandlordProfilePage() {
         </div>
         <h2 className="text-xl font-bold text-foreground mb-2">Unable to Load Profile</h2>
         <p className="text-sm text-muted-foreground mb-6">
-          Please make sure you are logged in as a Landlord.
+          Please make sure you are logged in.
         </p>
         <Link href="/auth/login">
           <Button className="rounded-xl">Go to Login</Button>

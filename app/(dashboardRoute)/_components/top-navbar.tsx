@@ -1,10 +1,11 @@
 'use client';
 
-import { Search, Bell, Settings } from 'lucide-react';
+import Link from 'next/link';
+import { Search, Settings } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { UserProfileDropdown } from './user-profile-dropdown';
-
+import { NotificationDropdown } from '@/components/shared/NotificationDropdown';
 
 export function TopNavbar() {
   return (
@@ -23,14 +24,13 @@ export function TopNavbar() {
 
         {/* Right actions */}
         <div className="flex items-center gap-4">
-          <Button variant="ghost" size="icon" className="relative">
-            <Bell className="h-5 w-5" />
-            <span className="absolute top-1 right-1 h-2 w-2 bg-destructive rounded-full" />
-          </Button>
+          <NotificationDropdown />
 
-          <Button variant="ghost" size="icon">
-            <Settings className="h-5 w-5" />
-          </Button>
+          <Link href="/dashboard/settings">
+            <Button variant="ghost" size="icon" className="rounded-full">
+              <Settings className="h-5 w-5" />
+            </Button>
+          </Link>
 
           <div className="w-px h-6 bg-border" />
 

@@ -26,6 +26,7 @@ const tenantNavItems = [
   { href: '/dashboard/bookings', label: 'My Bookings', icon: Home },
   { href: '/dashboard/wishlist', label: 'Wishlist', icon: Heart },
   { href: '/dashboard/tenant/payments', label: 'Payments', icon: CreditCard },
+  { href: '/dashboard/tenant/profile', label: 'Profile', icon: User },
   { href: '/dashboard/notifications', label: 'Notifications', icon: Bell },
   { href: '/dashboard/settings', label: 'Settings', icon: Settings },
 ];
