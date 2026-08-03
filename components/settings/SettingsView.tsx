@@ -154,7 +154,7 @@ export function SettingsView({ role: initialRole }: SettingsViewProps) {
   };
 
   return (
-    <div className="space-y-8 max-w-6xl mx-auto pb-16">
+    <div className="space-y-8 max-w-6xl mx-auto pb-16 pt-20">
       {/* Header Banner */}
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-card border border-border/70 rounded-3xl p-6 sm:p-8 shadow-sm relative overflow-hidden">
         <div className="space-y-1.5 z-10">

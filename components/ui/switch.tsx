@@ -15,8 +15,10 @@ const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
       onChange?.(e)
     }
 
+    const isChecked = checked ?? false
+
     return (
-      <label className={cn("inline-flex items-center cursor-pointer select-none", className)}>
+      <label className={cn("inline-flex items-center cursor-pointer select-none shrink-0", className)}>
         <input
           type="checkbox"
           className="sr-only peer"
@@ -25,7 +27,21 @@ const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
           onChange={handleChange}
           {...props}
         />
-        <div className="relative w-11 h-6 bg-input peer-focus:outline-none ring-offset-background rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary dark:border-gray-600 dark:bg-card"></div>
+        <div
+          className={cn(
+            "relative w-11 h-6 rounded-full transition-all duration-300 ease-in-out border shadow-inner",
+            isChecked
+              ? "bg-gradient-to-r from-blue-600 to-sky-500 border-blue-500 shadow-blue-500/25"
+              : "bg-slate-300 dark:bg-slate-800 border-slate-300 dark:border-slate-700"
+          )}
+        >
+          <div
+            className={cn(
+              "absolute top-[2px] left-[2px] w-5 h-5 rounded-full bg-white shadow-md transition-transform duration-300 ease-in-out",
+              isChecked ? "translate-x-5" : "translate-x-0"
+            )}
+          />
+        </div>
       </label>
     )
   }

@@ -71,8 +71,8 @@
   --secondary-foreground: #ffffff;
   --muted: #f1f5f9;
   --muted-foreground: #64748b;
-  --accent: #14b8a6;
-  --accent-foreground: #ffffff;
+  --accent: #f1f5f9;
+  --accent-foreground: #0f172a;
   --destructive: #ef4444;
   --destructive-foreground: #ffffff;
   --border: #e2e8f0;
@@ -111,18 +111,13 @@
   --secondary-foreground: #ffffff;
   --muted: #1e293b;
   --muted-foreground: #94a3b8;
-  --accent: #14b8a6;
-  --accent-foreground: #ffffff;
+  --accent: #1e293b;
+  --accent-foreground: #f8fafc;
   --destructive: #ef4444;
   --destructive-foreground: #ffffff;
   --border: rgba(255, 255, 255, 0.08);
   --input: rgba(255, 255, 255, 0.12);
   --ring: #2563eb;
-  --chart-1: #3b82f6;
-  --chart-2: #38bdf8;
-  --chart-3: #2dd4bf;
-  --chart-4: #34d399;
-  --chart-5: #fbbf24;
 
   --glass-bg: rgba(17, 24, 39, 0.6);
   --glass-border: rgba(255, 255, 255, 0.08);
@@ -137,43 +132,22 @@
   --sidebar-ring: #2563eb;
 }
 
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
+@layer utilities {
+  .glass-card {
+    background-color: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
   }
-  body {
-    @apply bg-background text-foreground transition-colors duration-200;
+  .shadow-luxury {
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.07);
   }
-  html {
-    @apply font-sans;
+  .dark .shadow-luxury {
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.4);
   }
-}
-
-.glass-card {
-  background: var(--glass-bg);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--glass-border);
-}
-
-.shadow-luxury {
-  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.04), 0 4px 12px -2px rgba(0, 0, 0, 0.02);
-}
-
-.dark .shadow-luxury {
-  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.6), 0 4px 12px -2px rgba(0, 0, 0, 0.4);
-}
-
-.shadow-glow {
-  box-shadow: 0 0 30px -5px rgba(37, 99, 235, 0.25);
-}
-
-.gradient-brand {
-  background: linear-gradient(135deg, #2563eb 0%, #0ea5e9 100%);
-}
-
-.gradient-text {
-  background: linear-gradient(135deg, #2563eb 0%, #0ea5e9 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  .shadow-glow {
+    box-shadow: 0 0 30px -5px rgba(37, 99, 235, 0.25);
+  }
+  .gradient-brand {
+    background: linear-gradient(135deg, #2563eb 0%, #0ea5e9 50%, #14b8a6 100%);
+  }
 }

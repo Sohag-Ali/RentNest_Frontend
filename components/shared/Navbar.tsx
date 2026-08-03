@@ -225,8 +225,6 @@ export function Navbar({
             <div className="hidden md:flex items-center gap-2">
               {isAuthenticated ? (
                 <>
-                  <NotificationDropdown />
-
                   <DropdownMenu>
                     <DropdownMenuTrigger className="rounded-full cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-primary group">
                       <div className="p-0.5 rounded-full bg-gradient-to-r from-blue-500/40 to-teal-500/40 group-hover:from-blue-600 group-hover:to-teal-500 transition-all duration-300">

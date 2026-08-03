@@ -8,7 +8,6 @@ import {
   Home,
   Heart,
   CreditCard,
-  Bell,
   Inbox,
   CheckCircle2,
   Star,
@@ -16,7 +15,6 @@ import {
   FileText,
   Users,
   LogOut,
-  Sparkles,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { logoutAction } from '@/app/(authRoute)/_actions/authActions';
@@ -30,7 +28,6 @@ const tenantNavItems = [
   { href: '/dashboard/wishlist', label: 'Wishlist', icon: Heart },
   { href: '/dashboard/tenant/payments', label: 'Payments', icon: CreditCard },
   { href: '/dashboard/tenant/reviews', label: 'My Reviews', icon: Star },
-  { href: '/dashboard/notifications', label: 'Notifications', icon: Bell },
 ];
 
 // Landlord navigation links
@@ -74,14 +71,7 @@ export function SidebarNav() {
   return (
     <div className="flex flex-col justify-between h-full min-h-[calc(100vh-7rem)] p-1">
       {/* Top Nav Items */}
-      <div className="space-y-6">
-        <div className="px-3 py-2 rounded-2xl bg-gradient-to-r from-blue-500/10 via-sky-500/5 to-teal-500/10 border border-blue-500/20 dark:border-blue-500/30 flex items-center justify-between">
-          <span className="text-xs font-bold uppercase tracking-wider text-primary">
-            {isAdminRoute ? 'Admin Portal' : isLandlordRoute ? 'Landlord Suite' : 'Tenant Space'}
-          </span>
-          <Sparkles className="w-3.5 h-3.5 text-primary animate-pulse" />
-        </div>
-
+      <div className="space-y-3">
         <nav className="space-y-1">
           {activeNavItems.map(({ href, label, icon: Icon }) => {
             const isActive =
@@ -99,21 +89,21 @@ export function SidebarNav() {
               >
                 <div
                   className={cn(
-                    'relative flex items-center gap-3 px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all duration-200 select-none',
+                    'relative flex items-center gap-3 px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all duration-200 select-none overflow-hidden',
                     isActive
-                      ? 'text-white'
+                      ? 'text-white font-bold'
                       : 'text-muted-foreground hover:text-foreground hover:bg-muted/60'
                   )}
                 >
                   {isActive && (
                     <motion.div
                       layoutId="activeSidebarItem"
-                      className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-600 via-blue-600 to-sky-500 shadow-md shadow-blue-500/20 -z-10"
+                      className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-600 via-sky-500 to-teal-500 shadow-md shadow-blue-500/25 z-0"
                       transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                     />
                   )}
-                  <Icon className={cn('h-4 w-4 shrink-0', isActive ? 'text-white' : 'text-muted-foreground')} />
-                  <span>{label}</span>
+                  <Icon className={cn('h-4 w-4 shrink-0 relative z-10', isActive ? 'text-white' : 'text-muted-foreground')} />
+                  <span className="relative z-10">{label}</span>
                 </div>
               </Link>
             );

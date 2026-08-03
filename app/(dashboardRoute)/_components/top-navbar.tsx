@@ -6,7 +6,6 @@ import { Search, Settings, Sun, Moon } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { UserProfileDropdown } from './user-profile-dropdown';
-import { NotificationDropdown } from '@/components/shared/NotificationDropdown';
 
 export function TopNavbar() {
   const { theme, setTheme } = useTheme();
@@ -37,8 +36,6 @@ export function TopNavbar() {
           >
             {theme === 'dark' ? <Sun size={18} className="text-amber-400" /> : <Moon size={18} className="text-slate-700" />}
           </Button>
-
-          <NotificationDropdown />
 
           <Link href="/dashboard/settings">
             <Button variant="ghost" size="icon" className="rounded-full h-9 w-9 border border-border/60">

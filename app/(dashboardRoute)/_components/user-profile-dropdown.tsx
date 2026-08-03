@@ -108,44 +108,50 @@ export function UserProfileDropdown({ initialUser }: UserProfileDropdownProps) {
           </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-56 p-2 rounded-2xl shadow-xl border-border/80 bg-card">
+      <DropdownMenuContent align="end" className="w-56 p-2 rounded-2xl shadow-luxury border-border/80 bg-card text-foreground">
         <DropdownMenuLabel className="flex flex-col space-y-1 p-2">
-          <p className="text-sm font-semibold text-foreground leading-none">{userName}</p>
-          <p className="text-xs text-muted-foreground leading-none font-normal mt-0.5">{userRoleFormatted}</p>
+          <p className="text-sm font-bold text-foreground leading-none">{userName}</p>
+          <p className="text-xs text-primary font-semibold leading-none mt-0.5">{userRoleFormatted}</p>
           {user?.email && (
-            <p className="text-[11px] text-muted-foreground/80 truncate mt-1">{user.email}</p>
+            <p className="text-[11px] text-muted-foreground truncate mt-1">{user.email}</p>
           )}
         </DropdownMenuLabel>
-        <DropdownMenuSeparator className="my-1" />
-        <DropdownMenuItem className="cursor-pointer rounded-xl p-0">
+
+        <DropdownMenuSeparator className="my-1 bg-border/60" />
+
+        <DropdownMenuItem className="cursor-pointer rounded-xl focus:bg-muted focus:text-foreground">
           {pathname.startsWith('/dashboard') ? (
-            <Link href="/" className="flex items-center gap-2.5 px-3 py-2 w-full text-sm font-medium">
-              <Globe className="h-4 w-4 text-muted-foreground" />
+            <Link href="/" className="flex items-center gap-2.5 w-full text-sm font-medium text-foreground">
+              <Globe className="h-4 w-4 text-sky-500" />
               <span>Website</span>
             </Link>
           ) : (
-            <Link href={getDashboardRoute()} className="flex items-center gap-2.5 px-3 py-2 w-full text-sm font-medium">
-              <LayoutDashboard className="h-4 w-4 text-muted-foreground" />
+            <Link href={getDashboardRoute()} className="flex items-center gap-2.5 w-full text-sm font-medium text-foreground">
+              <LayoutDashboard className="h-4 w-4 text-sky-500" />
               <span>Dashboard</span>
             </Link>
           )}
         </DropdownMenuItem>
-        <DropdownMenuItem className="cursor-pointer rounded-xl p-0">
-          <Link href={getProfileRoute()} className="flex items-center gap-2.5 px-3 py-2 w-full text-sm font-medium">
-            <UserIcon className="h-4 w-4 text-muted-foreground" />
+
+        <DropdownMenuItem className="cursor-pointer rounded-xl focus:bg-muted focus:text-foreground">
+          <Link href={getProfileRoute()} className="flex items-center gap-2.5 w-full text-sm font-medium text-foreground">
+            <UserIcon className="h-4 w-4 text-teal-500" />
             <span>Profile</span>
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem className="cursor-pointer rounded-xl p-0">
-          <Link href={getSettingsRoute()} className="flex items-center gap-2.5 px-3 py-2 w-full text-sm font-medium">
-            <Settings className="h-4 w-4 text-muted-foreground" />
+
+        <DropdownMenuItem className="cursor-pointer rounded-xl focus:bg-muted focus:text-foreground">
+          <Link href={getSettingsRoute()} className="flex items-center gap-2.5 w-full text-sm font-medium text-foreground">
+            <Settings className="h-4 w-4 text-blue-600" />
             <span>Settings</span>
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuSeparator className="my-1" />
+
+        <DropdownMenuSeparator className="my-1 bg-border/60" />
+
         <DropdownMenuItem
           onClick={handleLogout}
-          className="cursor-pointer rounded-xl text-destructive focus:bg-destructive/10 focus:text-destructive flex items-center gap-2.5 px-3 py-2 w-full text-sm font-medium"
+          className="cursor-pointer rounded-xl text-destructive focus:bg-destructive/10 focus:text-destructive flex items-center gap-2.5 text-sm font-medium"
         >
           <LogOut className="h-4 w-4" />
           <span>Logout</span>
