@@ -2,10 +2,20 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Heart, Mail, Phone, MapPin, ChevronRight, Share2 } from 'lucide-react';
+import { motion, Variants } from 'framer-motion';
+import {
+  Heart,
+  Mail,
+  Phone,
+  MapPin,
+  ChevronRight,
+  Share2,
+  Sparkles,
+  CheckCircle2,
+  ArrowRight,
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Separator } from '@/components/ui/separator';
 
 interface FooterProps {
   variant?: 'default' | 'compact';
@@ -24,7 +34,7 @@ export function Footer({
     if (email) {
       setSubscribed(true);
       setEmail('');
-      setTimeout(() => setSubscribed(false), 3000);
+      setTimeout(() => setSubscribed(false), 3500);
     }
   };
 
@@ -82,24 +92,47 @@ export function Footer({
     { label: 'Accessibility', href: '/accessibility' },
   ];
 
+  // Animation variants
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.08,
+        delayChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: 'easeOut' },
+    },
+  };
+
   if (variant === 'compact') {
     return (
-      <footer className="border-t border-white/10 bg-background py-8">
+      <footer className="relative overflow-hidden bg-gradient-to-b from-slate-50/60 via-slate-100/40 to-slate-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 text-slate-900 dark:text-slate-100 py-8 border-t border-slate-200/60 dark:border-slate-800/60">
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-200 dark:via-slate-800 to-transparent" />
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
             <div className="text-center sm:text-left">
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
                 © {currentYear} RentNest. All rights reserved.
               </p>
             </div>
-            <div className="flex gap-6">
+            <div className="flex flex-wrap items-center justify-center gap-6">
               {legalLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-xs text-muted-foreground transition-colors hover:text-primary"
+                  className="group relative text-xs font-medium text-slate-500 hover:text-[#2563EB] dark:text-slate-400 dark:hover:text-sky-400 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] rounded px-1"
                 >
-                  {link.label}
+                  <span>{link.label}</span>
+                  <span className="absolute -bottom-0.5 left-0 h-[1.5px] w-0 bg-[#2563EB] transition-all duration-300 group-hover:w-full" />
                 </Link>
               ))}
             </div>
@@ -110,160 +143,217 @@ export function Footer({
   }
 
   return (
-    <footer className="border-t border-white/10 bg-background">
-      {/* Newsletter Section */}
+    <footer className="relative overflow-hidden bg-gradient-to-b from-slate-50/60 via-slate-100/50 to-slate-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300">
+      {/* Background Soft Glow Effects & Top Gradient Line */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute -top-40 left-1/4 w-[550px] h-[550px] bg-blue-500/5 dark:bg-blue-500/10 rounded-full blur-[140px]" />
+        <div className="absolute bottom-0 right-1/4 w-[450px] h-[450px] bg-teal-500/5 dark:bg-teal-500/10 rounded-full blur-[130px]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-50/40 via-transparent to-transparent dark:from-blue-950/20" />
+      </div>
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-200 dark:via-slate-800 to-transparent" />
+
+      {/* Newsletter Glass Card Section */}
       {showNewsletter && (
-        <div className="border-b border-white/10 bg-gradient-to-r from-primary/5 via-background to-background px-4 py-12 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-7xl">
-            <div className="grid gap-8 md:grid-cols-2">
-              <div>
-                <h3 className="text-xl font-semibold text-foreground">
-                  Stay Updated
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16 pb-4">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.7, ease: 'easeOut' }}
+            className="relative overflow-hidden rounded-3xl bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 shadow-2xl shadow-blue-500/5 p-8 sm:p-10 lg:p-12"
+          >
+            {/* Ambient internal card radial glow */}
+            <div className="absolute -right-20 -bottom-20 w-80 h-80 bg-gradient-to-br from-blue-400/10 to-teal-400/10 rounded-full blur-3xl pointer-events-none" />
+
+            <div className="grid gap-8 lg:grid-cols-12 items-center relative z-10">
+              <div className="lg:col-span-7 space-y-2">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/60 border border-blue-200/60 dark:border-blue-800/60 text-[#2563EB] dark:text-sky-400 text-xs font-semibold tracking-wide uppercase">
+                  <Sparkles className="w-3.5 h-3.5 text-[#2563EB] dark:text-sky-400" />
+                  <span>Stay Informed</span>
+                </div>
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                  Stay Updated with RentNest
                 </h3>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  Subscribe to our newsletter for the latest properties and rental tips delivered to your inbox.
+                <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed">
+                  Subscribe to our newsletter for curated luxury properties, exclusive market insights, and tenant tips delivered directly to your inbox.
                 </p>
               </div>
-              <form onSubmit={handleNewsletterSubmit} className="flex gap-2">
-                <Input
-                  type="email"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="bg-white/5 border-white/10"
-                  required
-                />
-                <Button
-                  type="submit"
-                  className="whitespace-nowrap"
+
+              <div className="lg:col-span-5">
+                <form
+                  onSubmit={handleNewsletterSubmit}
+                  className="flex flex-col sm:flex-row gap-3"
+                  aria-label="Subscribe to RentNest newsletter"
                 >
-                  {subscribed ? 'Subscribed!' : 'Subscribe'}
-                </Button>
-              </form>
+                  <div className="relative flex-1">
+                    <Input
+                      type="email"
+                      placeholder="Enter your work or personal email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                      aria-label="Email address"
+                      className="h-12 px-4 rounded-xl bg-slate-50/90 dark:bg-slate-800/90 border-slate-200/90 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-400 focus-visible:ring-2 focus-visible:ring-[#2563EB] focus-visible:border-transparent transition-all duration-300 text-sm shadow-inner"
+                    />
+                  </div>
+                  <Button
+                    type="submit"
+                    className="h-12 px-6 rounded-xl bg-gradient-to-r from-[#2563EB] via-[#0EA5E9] to-[#14B8A6] hover:from-blue-700 hover:to-teal-600 text-white font-semibold text-sm shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] cursor-pointer whitespace-nowrap flex items-center justify-center gap-2"
+                  >
+                    {subscribed ? (
+                      <>
+                        <CheckCircle2 className="w-4 h-4 text-white animate-bounce" />
+                        <span>Subscribed!</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>Subscribe</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </>
+                    )}
+                  </Button>
+                </form>
+              </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       )}
 
-      {/* Main Footer Content */}
-      <div className="px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-7xl">
-          {/* Footer Grid */}
-          <div className="grid gap-12 md:grid-cols-5">
-            {/* Brand Section */}
-            <div className="md:col-span-1">
-              <Link href="/" className="inline-block">
-                <div className="flex items-center gap-2">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-white font-bold">
-                    🏠
-                  </div>
-                  <span className="text-lg font-bold text-foreground">
-                    RentNest
-                  </span>
+      {/* Main Footer Grid & Links */}
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16 pb-12">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          className="grid gap-10 md:grid-cols-5 lg:gap-12"
+        >
+          {/* Brand & Social Section */}
+          <motion.div variants={itemVariants} className="md:col-span-1 space-y-6">
+            <Link
+              href="/"
+              className="inline-block group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] rounded-xl"
+            >
+              <div className="flex items-center gap-2.5">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#2563EB] via-[#0EA5E9] to-[#14B8A6] text-white font-bold shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform duration-300">
+                  <span className="text-lg">🏠</span>
                 </div>
-              </Link>
-              <p className="mt-4 text-sm text-muted-foreground">
-                Find your perfect rental home with RentNest, the modern marketplace for property rentals.
-              </p>
-
-              {/* Contact Info */}
-              <div className="mt-6 space-y-3">
-                <div className="flex gap-3">
-                  <Mail className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
-                  <a
-                    href="mailto:support@rentnest.com"
-                    className="text-sm text-muted-foreground transition-colors hover:text-primary"
-                  >
-                    support@rentnest.com
-                  </a>
-                </div>
-                <div className="flex gap-3">
-                  <Phone className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
-                  <a
-                    href="tel:+1-800-RENTNEST"
-                    className="text-sm text-muted-foreground transition-colors hover:text-primary"
-                  >
-                    +1-800-RENTNEST
-                  </a>
-                </div>
-                <div className="flex gap-3">
-                  <MapPin className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
-                  <span className="text-sm text-muted-foreground">
-                    San Francisco, CA 94105
-                  </span>
-                </div>
+                <span className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white group-hover:text-[#2563EB] transition-colors duration-200">
+                  RentNest
+                </span>
               </div>
+            </Link>
 
-              {/* Social Links */}
-              <div className="mt-6 flex gap-4">
-                {socialLinks.map((social) => {
-                  const Icon = social.icon;
-                  return (
-                    <a
-                      key={social.label}
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-muted-foreground transition-colors hover:text-primary"
-                      aria-label={social.label}
-                    >
-                      <Icon className="h-5 w-5" />
-                    </a>
-                  );
-                })}
+            <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
+              Find your perfect rental home with RentNest, the modern luxury marketplace for verified property rentals.
+            </p>
+
+            {/* Contact Info */}
+            <div className="space-y-3 text-sm">
+              <div className="flex items-center gap-3 text-slate-600 dark:text-slate-400 group">
+                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-50 dark:bg-blue-950/60 text-[#2563EB] dark:text-sky-400 group-hover:scale-110 transition-transform duration-200">
+                  <Mail className="h-4 w-4" />
+                </div>
+                <a
+                  href="mailto:support@rentnest.com"
+                  className="transition-colors duration-200 hover:text-[#2563EB] dark:hover:text-sky-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] rounded"
+                >
+                  support@rentnest.com
+                </a>
+              </div>
+              <div className="flex items-center gap-3 text-slate-600 dark:text-slate-400 group">
+                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-50 dark:bg-blue-950/60 text-[#2563EB] dark:text-sky-400 group-hover:scale-110 transition-transform duration-200">
+                  <Phone className="h-4 w-4" />
+                </div>
+                <a
+                  href="tel:+1-800-RENTNEST"
+                  className="transition-colors duration-200 hover:text-[#2563EB] dark:hover:text-sky-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] rounded"
+                >
+                  +1-800-RENTNEST
+                </a>
+              </div>
+              <div className="flex items-center gap-3 text-slate-600 dark:text-slate-400 group">
+                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-50 dark:bg-blue-950/60 text-[#2563EB] dark:text-sky-400 group-hover:scale-110 transition-transform duration-200">
+                  <MapPin className="h-4 w-4" />
+                </div>
+                <span>San Francisco, CA 94105</span>
               </div>
             </div>
 
-            {/* Footer Links */}
-            {footerSections.map((section) => (
-              <div key={section.title} className="md:col-span-1">
-                <h4 className="font-semibold text-foreground">
-                  {section.title}
-                </h4>
-                <ul className="mt-4 space-y-3">
-                  {section.links.map((link) => (
-                    <li key={link.href}>
-                      <Link
-                        href={link.href}
-                        className="group flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-primary"
-                      >
-                        {link.label}
-                        <ChevronRight className="h-3 w-3 opacity-0 transition-opacity group-hover:opacity-100" />
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+            {/* Glass Social Icon Buttons */}
+            <div className="flex items-center gap-3 pt-2">
+              {socialLinks.map((social) => {
+                const Icon = social.icon;
+                return (
+                  <motion.a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={social.label}
+                    whileHover={{ scale: 1.1, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="flex h-10 w-10 items-center justify-center rounded-full bg-white/80 dark:bg-slate-800/80 border border-slate-200/80 dark:border-white/10 text-slate-600 dark:text-slate-300 backdrop-blur-md hover:text-[#2563EB] hover:border-[#2563EB]/40 hover:bg-blue-50/50 dark:hover:bg-blue-950/30 hover:shadow-[0_0_15px_rgba(37,99,235,0.25)] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB]"
+                  >
+                    <Icon className="h-4 w-4" />
+                  </motion.a>
+                );
+              })}
+            </div>
+          </motion.div>
+
+          {/* Footer Section Navigation Links */}
+          {footerSections.map((section) => (
+            <motion.div key={section.title} variants={itemVariants} className="md:col-span-1">
+              <h4 className="font-bold text-slate-900 dark:text-white text-base tracking-tight mb-4">
+                {section.title}
+              </h4>
+              <ul className="space-y-3">
+                {section.links.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="group relative inline-flex items-center gap-1.5 text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-[#2563EB] dark:hover:text-sky-400 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] rounded py-0.5"
+                    >
+                      <span>{link.label}</span>
+                      <ChevronRight className="h-3.5 w-3.5 text-[#2563EB] opacity-0 -translate-x-1 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0" />
+                      <span className="absolute -bottom-0.5 left-0 h-[2px] w-0 bg-gradient-to-r from-[#2563EB] to-[#0EA5E9] transition-all duration-300 group-hover:w-full" />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* Separator Divider */}
+        <div className="my-8 sm:my-12 h-px w-full bg-gradient-to-r from-transparent via-slate-200 dark:via-slate-800 to-transparent" />
+
+        {/* Bottom Legal & Signature Bar */}
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between text-sm text-slate-500 dark:text-slate-400">
+          <p className="font-medium">
+            © {currentYear} RentNest. All rights reserved.
+          </p>
+
+          {/* Legal Links */}
+          <div className="flex flex-wrap items-center gap-6">
+            {legalLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="group relative text-xs font-medium text-slate-500 hover:text-[#2563EB] dark:text-slate-400 dark:hover:text-sky-400 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] rounded"
+              >
+                <span>{link.label}</span>
+                <span className="absolute -bottom-0.5 left-0 h-[1.5px] w-0 bg-[#2563EB] transition-all duration-300 group-hover:w-full" />
+              </Link>
             ))}
           </div>
 
-          <Separator className="my-8 bg-white/10" />
-
-          {/* Bottom Footer */}
-          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <p className="text-sm text-muted-foreground">
-              © {currentYear} RentNest. All rights reserved.
-            </p>
-
-            {/* Legal Links */}
-            <div className="flex flex-wrap gap-4">
-              {legalLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="text-xs text-muted-foreground transition-colors hover:text-primary"
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </div>
-
-            {/* Love Icon */}
-            <div className="flex items-center gap-1 text-sm text-muted-foreground">
-              Made with
-              <Heart className="h-4 w-4 fill-primary text-primary" />
-              for renters everywhere
-            </div>
+          {/* Love Signature */}
+          <div className="flex items-center gap-1.5 text-xs font-medium">
+            <span>Made with</span>
+            <Heart className="h-3.5 w-3.5 fill-[#2563EB] text-[#2563EB] animate-pulse" />
+            <span>for renters everywhere</span>
           </div>
         </div>
       </div>

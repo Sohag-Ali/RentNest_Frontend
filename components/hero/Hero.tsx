@@ -10,7 +10,7 @@ import { Badge } from '@/components/ui/badge';
 
 export function Hero() {
   return (
-    <section className="relative w-full min-h-[92vh] flex items-center justify-center overflow-hidden bg-background pt-8 pb-16 lg:py-16">
+    <section className="relative w-full min-h-[92vh] flex items-center justify-center overflow-hidden bg-background pt-8 pb-16 lg:py-26">
       {/* Background Decorative Gradients & Grid Pattern */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {/* Radial Light Glow Blobs */}
