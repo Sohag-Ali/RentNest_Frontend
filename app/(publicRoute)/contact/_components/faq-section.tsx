@@ -1,5 +1,8 @@
 'use client';
 
+import { motion } from 'framer-motion';
+import { Badge } from '@/components/ui/badge';
+import { HelpCircle } from 'lucide-react';
 import {
   Accordion,
   AccordionContent,
@@ -11,59 +14,79 @@ const faqs = [
   {
     question: 'How do I list my property on RentNest?',
     answer:
-      'Listing your property on RentNest is simple! Create an account, provide your property details, add photos, set your rental terms, and verify your property information. Our team will review and approve your listing within 24-48 hours.',
+      'Listing your property on RentNest is simple! Create an account, provide your property details, add high-resolution photos, set your rental terms, and verify your landlord profile. Our team will review and approve your listing within a few hours.',
   },
   {
     question: 'What payment methods do you accept?',
     answer:
-      'We accept all major credit cards (Visa, Mastercard, American Express), debit cards, bank transfers, and PayPal. All transactions are secured with industry-standard encryption to protect your financial information.',
+      'We accept all major credit cards (Visa, Mastercard, American Express), debit cards, and Stripe digital payments. All transactions are protected with bank-grade encryption.',
   },
   {
-    question: 'How quickly can I receive my payment?',
+    question: 'How quickly can I receive rental payouts?',
     answer:
-      'Payments are processed every 7 days. Depending on your bank, funds typically arrive within 1-3 business days after processing. You can track payment status in your dashboard anytime.',
+      'Payouts are processed automatically upon lease confirmation. Depending on your bank, funds typically arrive within 1 to 2 business days. You can track payment status in real-time from your landlord dashboard.',
   },
   {
-    question: 'What is your cancellation policy?',
+    question: 'What is the lease agreement process?',
     answer:
-      'Our flexible cancellation policy allows free cancellation up to 14 days before your booking date. Cancellations within 14 days are subject to a 50% charge. We also offer travel protection for unexpected emergencies.',
+      'Once a tenant submits a booking request and the landlord accepts, a digital lease agreement is generated automatically. Both parties sign securely online with full legal compliance.',
   },
   {
     question: 'How do I contact customer support?',
     answer:
-      'You can reach our support team via email at support@rentnest.com, phone at +1 (555) 123-4567, or through our live chat feature available 24/7 on our website. Average response time is under 2 hours.',
+      'You can reach our support team via email at support@rentnest.com, phone at +1-800-RENTNEST, or through the contact form above. Our average response time is under 2 hours.',
   },
 ];
 
 export function FAQSection() {
   return (
-    <section className="w-full py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-background to-background/50">
-      <div className="max-w-4xl mx-auto">
-        <div className="mb-12 text-center">
-          <h2 className="text-4xl sm:text-5xl font-bold mb-4 text-foreground">
+    <section className="w-full py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-background via-muted/20 to-background relative overflow-hidden">
+      <div className="max-w-4xl mx-auto space-y-12">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-50px' }}
+          transition={{ duration: 0.6 }}
+          className="flex flex-col items-center gap-3 text-center"
+        >
+          <Badge variant="glass" className="gap-1.5 px-3.5 py-1 text-xs">
+            <HelpCircle className="w-3.5 h-3.5 text-primary" />
+            <span>Got Questions?</span>
+          </Badge>
+
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-foreground tracking-tight leading-tight">
             Frequently Asked Questions
           </h2>
-          <p className="text-lg text-muted-foreground">
-            Find answers to common questions about RentNest and our services.
+          <p className="text-base sm:text-lg text-muted-foreground text-balance leading-relaxed">
+            Find instant answers to common questions about RentNest rentals, payments, and digital leases.
           </p>
-        </div>
+        </motion.div>
 
-        <Accordion type="single" collapsible className="space-y-3">
-          {faqs.map((faq, index) => (
-            <AccordionItem
-              key={index}
-              value={`item-${index}`}
-              className="border-border/50 bg-card/30 rounded-lg px-6 data-[state=open]:bg-card/50 transition-all duration-300"
-            >
-              <AccordionTrigger className="text-lg font-semibold text-foreground hover:text-primary transition-colors duration-300 py-4">
-                {faq.question}
-              </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground leading-relaxed pt-2 pb-4">
-                {faq.answer}
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
+        {/* Accordion List */}
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-50px' }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+        >
+          <Accordion type="single" collapsible className="space-y-4">
+            {faqs.map((faq, index) => (
+              <AccordionItem
+                key={faq.question}
+                value={`item-${index}`}
+                className="border border-border/80 bg-card/60 backdrop-blur-md rounded-2xl px-6 data-[state=open]:bg-card/90 data-[state=open]:border-primary/40 shadow-xs transition-all duration-300 overflow-hidden"
+              >
+                <AccordionTrigger className="text-base sm:text-lg font-bold text-foreground hover:text-primary transition-colors py-5 text-left">
+                  {faq.question}
+                </AccordionTrigger>
+                <AccordionContent className="text-xs sm:text-sm text-muted-foreground leading-relaxed pb-5">
+                  {faq.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </motion.div>
       </div>
     </section>
   );
