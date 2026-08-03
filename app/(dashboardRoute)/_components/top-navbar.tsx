@@ -6,6 +6,7 @@ import { Search, Settings, Sun, Moon } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { UserProfileDropdown } from './user-profile-dropdown';
+import { NotificationDropdown } from '@/components/shared/NotificationDropdown';
 
 export function TopNavbar() {
   const { theme, setTheme } = useTheme();
@@ -26,6 +27,9 @@ export function TopNavbar() {
 
         {/* Right actions */}
         <div className="flex items-center gap-2 sm:gap-3">
+          {/* Notification Dropdown */}
+          <NotificationDropdown />
+
           {/* Theme Switcher Button */}
           <Button
             variant="ghost"

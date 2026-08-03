@@ -9,7 +9,7 @@ import { SubmitReviewModal } from "@/components/reviews/SubmitReviewModal"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Skeleton } from "@/components/ui/skeleton"
 import {
   MapPinIcon,
@@ -21,6 +21,7 @@ import {
   HourglassIcon,
   Building2Icon,
   ShieldCheckIcon,
+  ImageOffIcon,
 } from "lucide-react"
 
 interface TenantRequestsListProps {
@@ -53,17 +54,46 @@ const formatCategoryName = (category: any): string => {
  * Default fallback property image URL
  */
 const DEFAULT_PROPERTY_IMAGE =
-  "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80"
+  "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80"
+
+/**
+ * Extracts real property image URL from property object dynamically
+ */
+const getPropertyImageUrl = (property: any): string => {
+  if (!property) return DEFAULT_PROPERTY_IMAGE
+
+  if (typeof property.mainImage === "string" && property.mainImage.trim() !== "") {
+    return property.mainImage.trim()
+  }
+  if (typeof property.main_image === "string" && property.main_image.trim() !== "") {
+    return property.main_image.trim()
+  }
+  if (typeof property.image === "string" && property.image.trim() !== "") {
+    return property.image.trim()
+  }
+  if (typeof property.imageUrl === "string" && property.imageUrl.trim() !== "") {
+    return property.imageUrl.trim()
+  }
+  if (typeof property.featuredImage === "string" && property.featuredImage.trim() !== "") {
+    return property.featuredImage.trim()
+  }
+  if (Array.isArray(property.images) && property.images.length > 0) {
+    const firstImg = property.images[0]
+    if (typeof firstImg === "string" && firstImg.trim() !== "") {
+      return firstImg.trim()
+    }
+    if (typeof firstImg === "object" && firstImg?.url && typeof firstImg.url === "string") {
+      return firstImg.url.trim()
+    }
+  }
+  return DEFAULT_PROPERTY_IMAGE
+}
 
 /**
  * TenantRequestsList Component (Client Component)
  * 
- * Why this file exists:
- * Displays tenant rental application requests in Shadcn Cards with status-specific badges and action buttons.
- * Automatically syncs state with server component updates and handles COMPLETED statuses after payment.
- * 
- * Why props:
- * Receives the initial rentals list fetched by the parent Server Component page.
+ * Displays tenant rental application requests with real property images, landlord contacts,
+ * status badges, and action buttons (Pay Now, View Payment, Write Review).
  */
 export function TenantRequestsList({ initialRentals }: TenantRequestsListProps) {
   const router = useRouter()
@@ -117,32 +147,37 @@ export function TenantRequestsList({ initialRentals }: TenantRequestsListProps) 
         const property = rental.property
         const landlord = property?.landlord
         const categoryName = formatCategoryName(property?.category)
-        const propertyImage =
-          property?.mainImage ||
-          (Array.isArray(property?.images) && property.images[0]) ||
-          DEFAULT_PROPERTY_IMAGE
+        const propertyImage = getPropertyImageUrl(property)
 
         const isCompleted = rental.status === "COMPLETED"
 
         return (
           <Card
             key={rental.id}
-            className="rounded-3xl border-border/70 bg-card p-5 sm:p-6 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden"
+            className="rounded-3xl border-border/70 bg-card p-5 sm:p-6 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group"
           >
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
               {/* Left Section: Property Image & Information */}
-              <div className="flex flex-col sm:flex-row items-start gap-4 flex-1">
-                {/* Property Main Image */}
-                <div className="relative w-full sm:w-44 h-36 rounded-2xl overflow-hidden shrink-0 bg-muted border border-border/50">
-                  <Image
-                    src={propertyImage}
-                    alt={property?.title || "Property Photo"}
-                    fill
-                    sizes="176px"
-                    className="object-cover"
-                  />
-                  <div className="absolute top-2 left-2">
-                    <Badge variant="glass" className="text-[10px]">
+              <div className="flex flex-col sm:flex-row items-start gap-5 flex-1">
+                {/* Real Property Main Image Box */}
+                <div className="relative w-full sm:w-52 h-40 sm:h-44 rounded-2xl overflow-hidden shrink-0 bg-muted border border-border/60 shadow-sm">
+                  {propertyImage ? (
+                    <Image
+                      src={propertyImage}
+                      alt={property?.title || "Property Photo"}
+                      fill
+                      unoptimized
+                      sizes="(max-width: 640px) 100vw, 208px"
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  ) : (
+                    <div className="h-full w-full flex flex-col items-center justify-center bg-muted/60 text-muted-foreground">
+                      <ImageOffIcon className="h-8 w-8 mb-1 opacity-50" />
+                      <span className="text-[10px] font-medium">No Image Available</span>
+                    </div>
+                  )}
+                  <div className="absolute top-2.5 left-2.5 z-10">
+                    <Badge variant="glass" className="text-[11px] font-semibold px-2.5 py-0.5 backdrop-blur-md bg-background/80">
                       {categoryName}
                     </Badge>
                   </div>
@@ -151,23 +186,28 @@ export function TenantRequestsList({ initialRentals }: TenantRequestsListProps) 
                 {/* Details Container */}
                 <div className="space-y-3 flex-1 min-w-0">
                   <div>
-                    <h3 className="text-lg font-bold tracking-tight text-foreground line-clamp-1">
+                    <h3 className="text-lg font-bold tracking-tight text-foreground line-clamp-1 group-hover:text-primary transition-colors">
                       {property?.title || "Rental Property"}
                     </h3>
-                    <p className="text-xs text-muted-foreground flex items-center gap-1 mt-0.5">
+                    <p className="text-xs text-muted-foreground flex items-center gap-1.5 mt-1">
                       <MapPinIcon className="h-3.5 w-3.5 text-primary shrink-0" />
-                      {property?.location || "Location N/A"}
+                      <span>{property?.location || "Location N/A"}</span>
                     </p>
                   </div>
 
                   {/* Landlord Contact Info */}
-                  <div className="flex items-center gap-2.5 p-2.5 rounded-2xl bg-muted/40 border border-border/40 text-xs">
-                    <Avatar className="h-7 w-7 border border-border shrink-0">
-                      <AvatarFallback>{landlord?.name ? landlord.name[0] : "L"}</AvatarFallback>
+                  <div className="flex items-center gap-3 p-3 rounded-2xl bg-muted/40 border border-border/40 text-xs">
+                    <Avatar className="h-8 w-8 border border-primary/20 shrink-0">
+                      <AvatarFallback className="bg-primary/10 text-primary font-bold text-xs">
+                        {landlord?.name ? landlord.name[0].toUpperCase() : "L"}
+                      </AvatarFallback>
                     </Avatar>
                     <div className="flex-1 min-w-0">
-                      <p className="text-[11px] font-semibold text-foreground line-clamp-1">
-                        Host: {landlord?.name || "Landlord"} ({landlord?.email || "N/A"})
+                      <p className="text-xs font-bold text-foreground line-clamp-1">
+                        Host: {landlord?.name || "Landlord"}
+                      </p>
+                      <p className="text-[11px] text-muted-foreground line-clamp-1">
+                        {landlord?.email || "No email available"}
                       </p>
                     </div>
                   </div>
@@ -177,7 +217,7 @@ export function TenantRequestsList({ initialRentals }: TenantRequestsListProps) 
                     <div className="flex items-center gap-1.5 font-medium text-foreground">
                       <CalendarIcon className="h-3.5 w-3.5 text-primary shrink-0" />
                       <span>Move-in Date: </span>
-                      <span className="font-semibold">
+                      <span className="font-semibold text-primary">
                         {rental.moveInDate
                           ? new Date(rental.moveInDate).toLocaleDateString("en-US", {
                               month: "short",
@@ -205,7 +245,7 @@ export function TenantRequestsList({ initialRentals }: TenantRequestsListProps) 
               <div className="flex flex-col sm:flex-row lg:flex-col items-start sm:items-center lg:items-end justify-between lg:justify-center pt-4 lg:pt-0 border-t lg:border-t-0 border-border/50 gap-4 shrink-0">
                 {/* Rent Price Tag */}
                 <div className="text-left lg:text-right">
-                  <span className="text-2xl font-extrabold text-foreground font-mono">
+                  <span className="text-2xl sm:text-3xl font-extrabold text-foreground font-mono">
                     ${property?.price ? property.price.toLocaleString() : 0}
                   </span>
                   <span className="text-xs text-muted-foreground"> / month</span>
@@ -305,7 +345,7 @@ export function TenantRequestsSkeleton() {
       {[1, 2, 3].map((i) => (
         <Card key={i} className="rounded-3xl p-6">
           <div className="flex flex-col sm:flex-row gap-4">
-            <Skeleton className="w-full sm:w-44 h-36 rounded-2xl" />
+            <Skeleton className="w-full sm:w-52 h-40 rounded-2xl" />
             <div className="space-y-3 flex-1">
               <Skeleton className="h-5 w-3/4" />
               <Skeleton className="h-4 w-1/2" />

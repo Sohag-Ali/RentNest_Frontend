@@ -17,8 +17,6 @@ import {
   MapPinIcon,
   CalendarIcon,
   CreditCardIcon,
-  HashIcon,
-  UserIcon,
   PrinterIcon,
   DownloadIcon,
   ExternalLinkIcon,
@@ -27,6 +25,7 @@ import {
   CopyIcon,
   CheckIcon,
   AlertTriangleIcon,
+  ImageOffIcon,
 } from "lucide-react"
 import { toast } from "sonner"
 
@@ -60,7 +59,40 @@ const formatCategoryName = (category: any): string => {
  * Default fallback property image URL
  */
 const DEFAULT_PROPERTY_IMAGE =
-  "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80"
+  "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80"
+
+/**
+ * Extracts real property image URL dynamically
+ */
+const getPropertyImageUrl = (property: any): string => {
+  if (!property) return DEFAULT_PROPERTY_IMAGE
+
+  if (typeof property.mainImage === "string" && property.mainImage.trim() !== "") {
+    return property.mainImage.trim()
+  }
+  if (typeof property.main_image === "string" && property.main_image.trim() !== "") {
+    return property.main_image.trim()
+  }
+  if (typeof property.image === "string" && property.image.trim() !== "") {
+    return property.image.trim()
+  }
+  if (typeof property.imageUrl === "string" && property.imageUrl.trim() !== "") {
+    return property.imageUrl.trim()
+  }
+  if (typeof property.featuredImage === "string" && property.featuredImage.trim() !== "") {
+    return property.featuredImage.trim()
+  }
+  if (Array.isArray(property.images) && property.images.length > 0) {
+    const firstImg = property.images[0]
+    if (typeof firstImg === "string" && firstImg.trim() !== "") {
+      return firstImg.trim()
+    }
+    if (typeof firstImg === "object" && firstImg?.url && typeof firstImg.url === "string") {
+      return firstImg.url.trim()
+    }
+  }
+  return DEFAULT_PROPERTY_IMAGE
+}
 
 export function PaymentReceiptView({ payment }: PaymentReceiptViewProps) {
   const [isCopied, setIsCopied] = useState(false)
@@ -109,10 +141,7 @@ export function PaymentReceiptView({ payment }: PaymentReceiptViewProps) {
   const property = rentalRequest?.property
   const landlord = property?.landlord
   const categoryName = formatCategoryName(property?.category)
-  const propertyImage =
-    property?.mainImage ||
-    (Array.isArray(property?.images) && property.images[0]) ||
-    DEFAULT_PROPERTY_IMAGE
+  const propertyImage = getPropertyImageUrl(property)
 
   const isCompleted = payment.status === "COMPLETED" || payment.status === "paid"
   const isFailed = payment.status === "FAILED" || payment.status === "failed"
@@ -333,7 +362,7 @@ export function PaymentReceiptView({ payment }: PaymentReceiptViewProps) {
                 <span className="break-all select-all text-[11px]">{payment.transactionId}</span>
                 <button
                   onClick={handleCopyTxId}
-                  className="p-1 hover:text-primary transition-colors"
+                  className="p-1 hover:text-primary transition-colors cursor-pointer"
                   title="Copy full transaction ID"
                 >
                   {isCopied ? (
@@ -383,7 +412,7 @@ export function PaymentReceiptView({ payment }: PaymentReceiptViewProps) {
           </div>
         </Card>
 
-        {/* Rental & Landlord Information Card */}
+        {/* Rental & Landlord Information Card with Real Property Image */}
         <Card className="rounded-3xl border-border/80 bg-card p-6 shadow-md space-y-4">
           <h3 className="text-sm font-bold text-foreground font-heading border-b border-border/40 pb-3 flex items-center gap-2">
             <Building2Icon className="h-4 w-4 text-primary" />
@@ -391,16 +420,23 @@ export function PaymentReceiptView({ payment }: PaymentReceiptViewProps) {
           </h3>
 
           <div className="space-y-4">
-            {/* Property Row */}
-            <div className="flex gap-3">
-              <div className="relative h-16 w-20 rounded-2xl overflow-hidden shrink-0 bg-muted border border-border/40">
-                <Image
-                  src={propertyImage}
-                  alt={property?.title || "Property Photo"}
-                  fill
-                  sizes="80px"
-                  className="object-cover"
-                />
+            {/* Property Row with Real Image */}
+            <div className="flex gap-3.5">
+              <div className="relative h-16 w-20 rounded-2xl overflow-hidden shrink-0 bg-muted border border-border/60 shadow-xs">
+                {propertyImage ? (
+                  <Image
+                    src={propertyImage}
+                    alt={property?.title || "Property Photo"}
+                    fill
+                    unoptimized
+                    sizes="80px"
+                    className="object-cover"
+                  />
+                ) : (
+                  <div className="h-full w-full flex items-center justify-center bg-muted text-muted-foreground">
+                    <ImageOffIcon className="h-5 w-5" />
+                  </div>
+                )}
               </div>
               <div className="space-y-1 min-w-0 flex-1">
                 <Badge variant="glass" className="text-[10px]">

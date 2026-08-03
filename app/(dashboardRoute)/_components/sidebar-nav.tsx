@@ -22,7 +22,7 @@ import { toast } from 'sonner';
 
 // Standard Tenant navigation links
 const tenantNavItems = [
-  { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+  { href: '/dashboard/tenant', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/dashboard/tenant/requests', label: 'My Rental Requests', icon: FileText },
   { href: '/dashboard/bookings', label: 'My Bookings', icon: Home },
   { href: '/dashboard/wishlist', label: 'Wishlist', icon: Heart },
@@ -77,6 +77,7 @@ export function SidebarNav() {
             const isActive =
               pathname === href ||
               (href !== '/dashboard/landlord' &&
+                href !== '/dashboard/tenant' &&
                 href !== '/dashboard' &&
                 href !== '/dashboard/admin' &&
                 pathname.startsWith(href));
@@ -89,7 +90,7 @@ export function SidebarNav() {
               >
                 <div
                   className={cn(
-                    'relative flex items-center gap-3 px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all duration-200 select-none overflow-hidden',
+                    'relative flex items-center gap-3 px-3.5 py-2.5 text-xs font-semibold rounded-full transition-all duration-200 select-none overflow-hidden',
                     isActive
                       ? 'text-white font-bold'
                       : 'text-muted-foreground hover:text-foreground hover:bg-muted/60'
@@ -98,7 +99,7 @@ export function SidebarNav() {
                   {isActive && (
                     <motion.div
                       layoutId="activeSidebarItem"
-                      className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-600 via-sky-500 to-teal-500 shadow-md shadow-blue-500/25 z-0"
+                      className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-600 via-sky-500 to-teal-500 shadow-md shadow-blue-500/25 z-0"
                       transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                     />
                   )}
@@ -115,7 +116,7 @@ export function SidebarNav() {
       <div className="pt-4 border-t border-border mt-auto">
         <button
           onClick={handleLogout}
-          className="w-full flex items-center gap-3 px-3.5 py-2.5 text-xs font-semibold rounded-xl text-destructive hover:bg-destructive/10 focus:bg-destructive/10 transition-all duration-200 cursor-pointer"
+          className="w-full flex items-center gap-3 px-3.5 py-2.5 text-xs font-semibold rounded-full text-destructive hover:bg-destructive/10 focus:bg-destructive/10 transition-all duration-200 cursor-pointer"
         >
           <LogOut className="h-4 w-4 shrink-0" />
           <span>Logout</span>

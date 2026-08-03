@@ -208,6 +208,9 @@ export function Navbar({
 
           {/* Right Action Controls */}
           <div className="flex items-center gap-2 sm:gap-3">
+            {/* Notification Dropdown */}
+            <NotificationDropdown />
+
             {/* Theme Toggle Button */}
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Button

@@ -122,9 +122,12 @@ export interface PaymentItem {
     property?: {
       id: string
       title: string
-      location: string
-      price: number
+      slug?: string
       mainImage?: string
+      location: string
+      city?: string
+      state?: string
+      price: number
       images?: string[]
       landlord?: {
         id: string

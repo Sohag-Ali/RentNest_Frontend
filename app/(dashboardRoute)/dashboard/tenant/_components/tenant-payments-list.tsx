@@ -34,6 +34,7 @@ import {
   DollarSignIcon,
   ReceiptIcon,
   CalendarIcon,
+  ImageOffIcon,
 } from "lucide-react"
 import { toast } from "sonner"
 
@@ -64,7 +65,7 @@ const formatCategoryName = (category: any): string => {
 }
 
 /**
- * Shorten raw transaction ID string for display (e.g. pi_3Tyx69CVjTGx... -> pi_3Tyx69...)
+ * Shorten raw transaction ID string for display
  */
 const shortenTxId = (txId: string): string => {
   if (!txId) return "N/A"
@@ -76,7 +77,40 @@ const shortenTxId = (txId: string): string => {
  * Default fallback property image URL
  */
 const DEFAULT_PROPERTY_IMAGE =
-  "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80"
+  "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80"
+
+/**
+ * Extracts real property image URL from property object dynamically
+ */
+const getPropertyImageUrl = (property: any): string => {
+  if (!property) return DEFAULT_PROPERTY_IMAGE
+
+  if (typeof property.mainImage === "string" && property.mainImage.trim() !== "") {
+    return property.mainImage.trim()
+  }
+  if (typeof property.main_image === "string" && property.main_image.trim() !== "") {
+    return property.main_image.trim()
+  }
+  if (typeof property.image === "string" && property.image.trim() !== "") {
+    return property.image.trim()
+  }
+  if (typeof property.imageUrl === "string" && property.imageUrl.trim() !== "") {
+    return property.imageUrl.trim()
+  }
+  if (typeof property.featuredImage === "string" && property.featuredImage.trim() !== "") {
+    return property.featuredImage.trim()
+  }
+  if (Array.isArray(property.images) && property.images.length > 0) {
+    const firstImg = property.images[0]
+    if (typeof firstImg === "string" && firstImg.trim() !== "") {
+      return firstImg.trim()
+    }
+    if (typeof firstImg === "object" && firstImg?.url && typeof firstImg.url === "string") {
+      return firstImg.url.trim()
+    }
+  }
+  return DEFAULT_PROPERTY_IMAGE
+}
 
 const ITEMS_PER_PAGE = 5
 
@@ -262,7 +296,7 @@ export function TenantPaymentsList({ initialPayments }: TenantPaymentsListProps)
               setSortOption(e.target.value)
               setCurrentPage(1)
             }}
-            className="h-10 text-xs font-semibold rounded-2xl border border-border/60 bg-background px-3 py-1 text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+            className="h-10 text-xs font-semibold rounded-2xl border border-border/60 bg-background px-3 py-1 text-foreground focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer"
           >
             <option value="latest">Latest First</option>
             <option value="oldest">Oldest First</option>
@@ -333,10 +367,7 @@ export function TenantPaymentsList({ initialPayments }: TenantPaymentsListProps)
                     const property = payment.rentalRequest?.property
                     const landlord = property?.landlord
                     const categoryName = formatCategoryName(property?.category)
-                    const propertyImage =
-                      property?.mainImage ||
-                      (Array.isArray(property?.images) && property.images[0]) ||
-                      DEFAULT_PROPERTY_IMAGE
+                    const propertyImage = getPropertyImageUrl(property)
 
                     const isCompleted = payment.status === "COMPLETED" || payment.status === "paid"
                     const isFailed = payment.status === "FAILED" || payment.status === "failed"
@@ -350,24 +381,31 @@ export function TenantPaymentsList({ initialPayments }: TenantPaymentsListProps)
                       : "N/A"
 
                     return (
-                      <TableRow key={payment.id} className="border-border/50 hover:bg-muted/30 transition-colors">
-                        {/* Property Info Cell */}
+                      <TableRow key={payment.id} className="border-border/50 hover:bg-muted/30 transition-colors group">
+                        {/* Property Info Cell with Real Image */}
                         <TableCell className="py-4 pl-6">
-                          <div className="flex items-center gap-3">
-                            <div className="relative h-14 w-20 rounded-xl overflow-hidden shrink-0 bg-muted border border-border/40">
-                              <Image
-                                src={propertyImage}
-                                alt={property?.title || "Property"}
-                                fill
-                                sizes="80px"
-                                className="object-cover"
-                              />
+                          <div className="flex items-center gap-3.5">
+                            <div className="relative h-14 w-20 rounded-2xl overflow-hidden shrink-0 bg-muted border border-border/60 shadow-xs group-hover:shadow-md transition-shadow">
+                              {propertyImage ? (
+                                <Image
+                                  src={propertyImage}
+                                  alt={property?.title || "Property"}
+                                  fill
+                                  unoptimized
+                                  sizes="80px"
+                                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                                />
+                              ) : (
+                                <div className="h-full w-full flex items-center justify-center bg-muted text-muted-foreground">
+                                  <ImageOffIcon className="h-5 w-5" />
+                                </div>
+                              )}
                             </div>
                             <div className="space-y-0.5 min-w-0">
                               <span className="inline-block text-[10px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full">
                                 {categoryName}
                               </span>
-                              <h4 className="text-xs font-bold text-foreground line-clamp-1">
+                              <h4 className="text-xs font-bold text-foreground line-clamp-1 group-hover:text-primary transition-colors">
                                 {property?.title || "Rental Property"}
                               </h4>
                               <p className="text-[11px] text-muted-foreground flex items-center gap-1 line-clamp-1">
@@ -403,7 +441,7 @@ export function TenantPaymentsList({ initialPayments }: TenantPaymentsListProps)
                             <button
                               onClick={() => handleCopyTxId(payment.transactionId)}
                               title="Copy full Transaction ID"
-                              className="p-1 hover:text-foreground hover:bg-muted rounded-md transition-colors"
+                              className="p-1 hover:text-foreground hover:bg-muted rounded-md transition-colors cursor-pointer"
                             >
                               {copiedId === payment.transactionId ? (
                                 <CheckIcon className="h-3 w-3 text-emerald-500" />
@@ -468,10 +506,7 @@ export function TenantPaymentsList({ initialPayments }: TenantPaymentsListProps)
               const property = payment.rentalRequest?.property
               const landlord = property?.landlord
               const categoryName = formatCategoryName(property?.category)
-              const propertyImage =
-                property?.mainImage ||
-                (Array.isArray(property?.images) && property.images[0]) ||
-                DEFAULT_PROPERTY_IMAGE
+              const propertyImage = getPropertyImageUrl(property)
 
               const isCompleted = payment.status === "COMPLETED" || payment.status === "paid"
               const isFailed = payment.status === "FAILED" || payment.status === "failed"
@@ -487,15 +522,22 @@ export function TenantPaymentsList({ initialPayments }: TenantPaymentsListProps)
               return (
                 <Card key={payment.id} className="p-5 rounded-3xl border-border/70 bg-card shadow-sm space-y-4">
                   {/* Card Header: Property Image & Details */}
-                  <div className="flex gap-3">
-                    <div className="relative h-20 w-24 rounded-2xl overflow-hidden shrink-0 bg-muted border border-border/40">
-                      <Image
-                        src={propertyImage}
-                        alt={property?.title || "Property"}
-                        fill
-                        sizes="96px"
-                        className="object-cover"
-                      />
+                  <div className="flex gap-3.5">
+                    <div className="relative h-20 w-24 rounded-2xl overflow-hidden shrink-0 bg-muted border border-border/60 shadow-xs">
+                      {propertyImage ? (
+                        <Image
+                          src={propertyImage}
+                          alt={property?.title || "Property"}
+                          fill
+                          unoptimized
+                          sizes="96px"
+                          className="object-cover"
+                        />
+                      ) : (
+                        <div className="h-full w-full flex items-center justify-center bg-muted text-muted-foreground">
+                          <ImageOffIcon className="h-5 w-5" />
+                        </div>
+                      )}
                     </div>
                     <div className="space-y-1 min-w-0 flex-1">
                       <div className="flex items-center justify-between gap-2">
