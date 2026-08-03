@@ -4,6 +4,8 @@ import { FeaturedProperties } from '@/components/home/FeaturedProperties';
 import { BrowseByCity } from '@/components/home/BrowseByCity';
 import { WhyChooseRentNest } from '@/components/home/WhyChooseRentNest';
 import { HowItWorks } from '@/components/home/HowItWorks';
+import { PopularAmenities } from '@/components/home/PopularAmenities';
+import { BecomeLandlordCTA } from '@/components/home/BecomeLandlordCTA';
 
 export const metadata = {
   title: 'RentNest | Find Your Perfect Home Without the Stress',
@@ -17,10 +19,13 @@ export default function HomePage() {
       <Hero />
       <CategoriesSection />
       <FeaturedProperties />
+      <PopularAmenities />
       <BrowseByCity />
       <WhyChooseRentNest />
       <HowItWorks />
+      <BecomeLandlordCTA />
     </main>
   );
 }
+
 
