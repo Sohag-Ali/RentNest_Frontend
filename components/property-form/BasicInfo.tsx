@@ -29,14 +29,18 @@ interface BasicInfoProps {
 }
 
 const CATEGORIES = [
-  { id: "Villa", name: "Villa" },
   { id: "Apartment", name: "Apartment" },
-  { id: "House", name: "Single Family House" },
+  { id: "Flat", name: "Flat" },
+  { id: "Family House", name: "Family House" },
+  { id: "Studio Apartment", name: "Studio Apartment" },
+  { id: "Bachelor Mess", name: "Bachelor Mess" },
+  { id: "Sublet", name: "Sublet" },
+  { id: "Duplex", name: "Duplex" },
+  { id: "Villa", name: "Villa" },
   { id: "Penthouse", name: "Penthouse" },
-  { id: "Condo", name: "Condominium" },
-  { id: "Studio", name: "Studio Apartment" },
-  { id: "Townhouse", name: "Townhouse" },
-  { id: "Luxury Estate", name: "Luxury Estate" },
+  { id: "Office Space", name: "Office Space" },
+  { id: "Shop / Showroom", name: "Shop / Showroom" },
+  { id: "Warehouse", name: "Warehouse" },
 ];
 
 export function BasicInfo({ form }: BasicInfoProps) {

@@ -24,7 +24,7 @@ import { toast } from 'sonner';
 const tenantNavItems = [
   { href: '/dashboard/tenant', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/dashboard/tenant/requests', label: 'My Rental Requests', icon: FileText },
-  { href: '/dashboard/bookings', label: 'My Bookings', icon: Home },
+  { href: '/dashboard/tenant/bookings', label: 'My Bookings', icon: Home },
   { href: '/dashboard/wishlist', label: 'Wishlist', icon: Heart },
   { href: '/dashboard/tenant/payments', label: 'Payments', icon: CreditCard },
   { href: '/dashboard/tenant/reviews', label: 'My Reviews', icon: Star },

@@ -102,25 +102,33 @@ export interface FilterState {
 }
 
 export const CATEGORIES = [
-  "Villa",
   "Apartment",
-  "House",
+  "Flat",
+  "Family House",
+  "Studio Apartment",
+  "Bachelor Mess",
+  "Sublet",
+  "Duplex",
+  "Villa",
   "Penthouse",
-  "Condo",
-  "Studio",
-  "Townhouse",
-  "Luxury Estate",
+  "Office Space",
+  "Shop / Showroom",
+  "Warehouse",
 ];
 
 export const CITIES = [
+  "Dhaka",
+  "Chittagong",
+  "Sylhet",
+  "Rajshahi",
+  "Khulna",
+  "Barisal",
+  "Rangpur",
+  "Comilla",
   "Malibu",
-  "Los Angeles",
-  "Beverly Hills",
   "New York",
+  "Los Angeles",
   "Miami",
-  "San Francisco",
-  "Chicago",
-  "Austin",
 ];
 
 export const AMENITIES_LIST = [
