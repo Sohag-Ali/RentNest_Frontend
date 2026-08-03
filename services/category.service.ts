@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Category, CategoriesApiResponse } from "@/types/category";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://rentnest-backend-ezd1.onrender.com";
 
 export const categoryApiClient = axios.create({
   baseURL: API_BASE_URL,
