@@ -2,7 +2,7 @@ import React from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { getLandlordRequests, LandlordRequestItem } from "@/app/(dashboardRoute)/_action/landlord-request.actions"
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
+import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
@@ -16,29 +16,30 @@ import {
   Building2Icon,
 } from "lucide-react"
 
-/**
- * LandlordDashboardHome Component (Server Component)
- * 
- * Why this file exists:
- * Serves as the main dashboard home page for Landlords (/dashboard/landlord).
- * 
- * Why Server Component:
- * Fetches landlord summary data directly on the server for speed and SEO.
- */
 export default async function LandlordDashboardHome() {
-  // Fetch incoming booking requests using Server Action
   const response = await getLandlordRequests()
   const requests: LandlordRequestItem[] = response.data || []
 
-  // Compute summary stats
   const pendingCount = requests.filter((r) => r.status === "PENDING").length
   const approvedCount = requests.filter((r) => r.status === "APPROVED").length
   const rejectedCount = requests.filter((r) => r.status === "REJECTED").length
 
-  // Calculate monthly earnings from approved rental requests
   const monthlyEarnings = requests
     .filter((r) => r.status === "APPROVED")
     .reduce((sum, r) => sum + (r.property?.price || 0), 0)
+
+  const getPropertyImageUrl = (property: any) => {
+    if (property?.mainImage && typeof property.mainImage === "string" && property.mainImage.trim() !== "") {
+      return property.mainImage
+    }
+    if (property?.image && typeof property.image === "string" && property.image.trim() !== "") {
+      return property.image
+    }
+    if (Array.isArray(property?.images) && property.images.length > 0 && typeof property.images[0] === "string" && property.images[0].trim() !== "") {
+      return property.images[0]
+    }
+    return "https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=1200&q=80"
+  }
 
   return (
     <div className="p-6 space-y-8 max-w-7xl mx-auto">
@@ -170,58 +171,63 @@ export default async function LandlordDashboardHome() {
           </div>
         ) : (
           <div className="space-y-3">
-            {requests.slice(0, 5).map((req) => (
-              <div
-                key={req.id}
-                className="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-2xl bg-muted/30 border border-border/40 gap-4"
-              >
-                <div className="flex items-center gap-3.5">
-                  <div className="relative h-12 w-14 rounded-xl overflow-hidden shrink-0 bg-muted">
-                    <Image
-                      src={req.property?.mainImage || "/placeholder.jpg"}
-                      alt={req.property?.title || "Property"}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <div>
-                    <h4 className="text-xs font-bold text-foreground line-clamp-1">
-                      {req.property?.title || "Rental Property"}
-                    </h4>
-                    <p className="text-[11px] text-muted-foreground flex items-center gap-1 mt-0.5">
-                      <MapPinIcon className="h-3 w-3 text-primary shrink-0" />
-                      {req.property?.location}
-                    </p>
-                    <p className="text-[11px] text-muted-foreground mt-0.5">
-                      Tenant: <span className="font-semibold text-foreground">{req.tenant?.name || req.tenant?.email}</span>
-                    </p>
-                  </div>
-                </div>
+            {requests.slice(0, 5).map((req) => {
+              const imgUrl = getPropertyImageUrl(req.property)
 
-                <div className="flex items-center justify-between sm:justify-end gap-4 shrink-0">
-                  <div className="text-right">
-                    <div className="text-xs font-extrabold text-foreground font-mono">
-                      ${req.property?.price ? req.property.price.toLocaleString() : 0} <span className="text-[10px] text-muted-foreground font-normal">/ mo</span>
+              return (
+                <div
+                  key={req.id}
+                  className="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-2xl bg-muted/30 border border-border/40 gap-4 hover:border-border/80 transition-colors"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="relative h-16 w-20 rounded-2xl overflow-hidden shrink-0 bg-muted border border-border/60 shadow-sm">
+                      <Image
+                        src={imgUrl}
+                        alt={req.property?.title || "Property"}
+                        fill
+                        sizes="80px"
+                        className="object-cover"
+                      />
                     </div>
-                    <div className="text-[10px] text-muted-foreground flex items-center gap-1 justify-end mt-0.5">
-                      <CalendarIcon className="h-3 w-3" />
-                      Move-in: {req.moveInDate ? new Date(req.moveInDate).toLocaleDateString() : "N/A"}
+                    <div>
+                      <h4 className="text-sm font-bold text-foreground line-clamp-1">
+                        {req.property?.title || "Rental Property"}
+                      </h4>
+                      <p className="text-xs text-muted-foreground flex items-center gap-1 mt-0.5">
+                        <MapPinIcon className="h-3.5 w-3.5 text-primary shrink-0" />
+                        {req.property?.location}
+                      </p>
+                      <p className="text-xs text-muted-foreground mt-0.5">
+                        Tenant: <span className="font-semibold text-foreground">{req.tenant?.name || req.tenant?.email}</span>
+                      </p>
                     </div>
                   </div>
 
-                  {/* Status Badge */}
-                  {req.status === "APPROVED" ? (
-                    <Badge variant="success" className="text-[11px]">Approved</Badge>
-                  ) : req.status === "REJECTED" ? (
-                    <Badge variant="destructive" className="text-[11px]">Rejected</Badge>
-                  ) : (
-                    <Badge variant="secondary" className="text-[11px] bg-amber-500/20 text-amber-600 dark:text-amber-400 border-amber-500/30">
-                      Pending
-                    </Badge>
-                  )}
+                  <div className="flex items-center justify-between sm:justify-end gap-4 shrink-0">
+                    <div className="text-right">
+                      <div className="text-sm font-extrabold text-foreground font-mono">
+                        ${req.property?.price ? req.property.price.toLocaleString() : 0} <span className="text-[10px] text-muted-foreground font-normal">/ mo</span>
+                      </div>
+                      <div className="text-[11px] text-muted-foreground flex items-center gap-1 justify-end mt-0.5">
+                        <CalendarIcon className="h-3 w-3" />
+                        Move-in: {req.moveInDate ? new Date(req.moveInDate).toLocaleDateString() : "N/A"}
+                      </div>
+                    </div>
+
+                    {/* Status Badge */}
+                    {req.status === "APPROVED" ? (
+                      <Badge variant="success" className="text-xs px-2.5 py-1">Approved</Badge>
+                    ) : req.status === "REJECTED" ? (
+                      <Badge variant="destructive" className="text-xs px-2.5 py-1">Rejected</Badge>
+                    ) : (
+                      <Badge variant="secondary" className="text-xs px-2.5 py-1 bg-amber-500/20 text-amber-600 dark:text-amber-400 border-amber-500/30">
+                        Pending
+                      </Badge>
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
         )}
       </Card>

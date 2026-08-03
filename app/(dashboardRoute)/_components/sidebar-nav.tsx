@@ -35,7 +35,7 @@ const landlordNavItems = [
   { href: '/dashboard/landlord', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/dashboard/landlord/properties', label: 'My Properties', icon: Building2 },
   { href: '/dashboard/landlord/requests', label: 'Incoming Requests', icon: Inbox },
-  { href: '/dashboard/landlord/approved', label: 'Approved Bookings', icon: CheckCircle2 },
+  { href: '/dashboard/landlord/bookings', label: 'Rented Properties', icon: CheckCircle2 },
   { href: '/dashboard/landlord/payments', label: 'Payments', icon: CreditCard },
   { href: '/dashboard/landlord/reviews', label: 'Reviews', icon: Star },
 ];
