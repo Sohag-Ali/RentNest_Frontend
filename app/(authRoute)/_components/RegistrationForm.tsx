@@ -70,18 +70,18 @@ const RegistrationForm = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-6"
+        className="space-y-5"
         noValidate
       >
         <FormField
           control={form.control}
           name="name"
           render={({ field }) => (
-            <FormItem>
-              <FormLabel>Full Name</FormLabel>
+            <FormItem className="space-y-1.5">
+              <FormLabel className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Full Name</FormLabel>
 
               <FormControl>
-                <Input placeholder="John Doe" {...field} />
+                <Input placeholder="John Doe" className="h-11 rounded-xl" {...field} />
               </FormControl>
 
               <FormMessage />
@@ -93,11 +93,11 @@ const RegistrationForm = () => {
           control={form.control}
           name="email"
           render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email Address</FormLabel>
+            <FormItem className="space-y-1.5">
+              <FormLabel className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Email Address</FormLabel>
 
               <FormControl>
-                <Input type="email" placeholder="you@example.com" {...field} />
+                <Input type="email" placeholder="you@example.com" className="h-11 rounded-xl" {...field} />
               </FormControl>
 
               <FormMessage />
@@ -109,11 +109,11 @@ const RegistrationForm = () => {
           control={form.control}
           name="phone"
           render={({ field }) => (
-            <FormItem>
-              <FormLabel>Phone Number</FormLabel>
+            <FormItem className="space-y-1.5">
+              <FormLabel className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Phone Number</FormLabel>
 
               <FormControl>
-                <Input placeholder="017XXXXXXXX" {...field} />
+                <Input placeholder="017XXXXXXXX" className="h-11 rounded-xl" {...field} />
               </FormControl>
 
               <FormMessage />
@@ -125,38 +125,38 @@ const RegistrationForm = () => {
           control={form.control}
           name="role"
           render={({ field }) => (
-            <FormItem className="space-y-3">
-              <FormLabel className="text-sm font-medium text-foreground">
+            <FormItem className="space-y-2">
+              <FormLabel className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
                 Account Type
               </FormLabel>
 
               <FormControl>
-                <RadioGroup onValueChange={field.onChange} value={field.value}>
-                  <div className="flex cursor-pointer items-center space-x-3 rounded-lg border border-white/10 bg-background/50 p-3 transition-colors hover:bg-background/75">
+                <RadioGroup onValueChange={field.onChange} value={field.value} className="grid grid-cols-2 gap-3">
+                  <div className="flex cursor-pointer items-center space-x-3 rounded-xl border border-border bg-card p-3.5 transition-all hover:border-primary">
                     <RadioGroupItem value="TENANT" id="tenant" />
                     <Label
                       htmlFor="tenant"
-                      className="flex-1 cursor-pointer space-y-1"
+                      className="flex-1 cursor-pointer space-y-0.5 select-none"
                     >
-                      <div className="text-sm font-medium text-foreground">
+                      <div className="text-sm font-semibold text-foreground">
                         I&apos;m a Tenant
                       </div>
-                      <p className="text-xs text-muted-foreground">
-                        Looking for rental properties
+                      <p className="text-[11px] text-muted-foreground">
+                        Looking for rentals
                       </p>
                     </Label>
                   </div>
-                  <div className="flex cursor-pointer items-center space-x-3 rounded-lg border border-white/10 bg-background/50 p-3 transition-colors hover:bg-background/75">
+                  <div className="flex cursor-pointer items-center space-x-3 rounded-xl border border-border bg-card p-3.5 transition-all hover:border-primary">
                     <RadioGroupItem value="LANDLORD" id="landlord" />
                     <Label
                       htmlFor="landlord"
-                      className="flex-1 cursor-pointer space-y-1"
+                      className="flex-1 cursor-pointer space-y-0.5 select-none"
                     >
-                      <div className="text-sm font-medium text-foreground">
+                      <div className="text-sm font-semibold text-foreground">
                         I&apos;m a Landlord
                       </div>
-                      <p className="text-xs text-muted-foreground">
-                        Managing rental properties
+                      <p className="text-[11px] text-muted-foreground">
+                        Managing properties
                       </p>
                     </Label>
                   </div>
@@ -172,8 +172,8 @@ const RegistrationForm = () => {
           control={form.control}
           name="password"
           render={({ field }) => (
-            <FormItem className="space-y-2">
-              <FormLabel className="text-sm font-medium text-foreground">
+            <FormItem className="space-y-1.5">
+              <FormLabel className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
                 Password
               </FormLabel>
 
@@ -182,7 +182,7 @@ const RegistrationForm = () => {
                   <Input
                     type={showPassword ? "text" : "password"}
                     placeholder="••••••••"
-                    className="h-11 border-white/10 bg-background/50 pr-10 placeholder:text-muted-foreground/50 focus:border-primary/50"
+                    className="h-11 rounded-xl pr-10"
                     {...field}
                   />
                 </FormControl>
@@ -190,7 +190,7 @@ const RegistrationForm = () => {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute top-1/2 right-3 -translate-y-1/2 text-muted-foreground transition-colors hover:text-foreground"
+                  className="absolute top-1/2 right-3 -translate-y-1/2 text-muted-foreground transition-colors hover:text-foreground cursor-pointer"
                 >
                   {showPassword ? (
                     <EyeOff className="h-4 w-4" />
@@ -208,8 +208,8 @@ const RegistrationForm = () => {
           control={form.control}
           name="confirmPassword"
           render={({ field }) => (
-            <FormItem className="space-y-2">
-              <FormLabel className="text-sm font-medium text-foreground">
+            <FormItem className="space-y-1.5">
+              <FormLabel className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
                 Confirm Password
               </FormLabel>
 
@@ -218,7 +218,7 @@ const RegistrationForm = () => {
                   <Input
                     type={showConfirmPassword ? "text" : "password"}
                     placeholder="••••••••"
-                    className="h-11 border-white/10 bg-background/50 pr-10 placeholder:text-muted-foreground/50 focus:border-primary/50"
+                    className="h-11 rounded-xl pr-10"
                     {...field}
                   />
                 </FormControl>
@@ -226,7 +226,7 @@ const RegistrationForm = () => {
                 <button
                   type="button"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute top-1/2 right-3 -translate-y-1/2 text-muted-foreground transition-colors hover:text-foreground"
+                  className="absolute top-1/2 right-3 -translate-y-1/2 text-muted-foreground transition-colors hover:text-foreground cursor-pointer"
                 >
                   {showConfirmPassword ? (
                     <EyeOff className="h-4 w-4" />
@@ -241,13 +241,13 @@ const RegistrationForm = () => {
           )}
         />
 
-        <p className="text-center text-xs text-muted-foreground">
+        <p className="text-center text-xs text-muted-foreground pt-1">
           By creating an account, you agree to our{" "}
-          <Link href="/terms" className="text-primary hover:underline">
+          <Link href="/terms" className="text-primary font-semibold hover:underline">
             Terms of Service
           </Link>{" "}
           and{" "}
-          <Link href="/privacy" className="text-primary hover:underline">
+          <Link href="/privacy" className="text-primary font-semibold hover:underline">
             Privacy Policy
           </Link>
         </p>
@@ -255,7 +255,8 @@ const RegistrationForm = () => {
         <Button
           type="submit"
           disabled={isPending}
-          className="group h-11 w-full rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 font-semibold text-white transition-all duration-200 hover:from-blue-600 hover:to-cyan-600"
+          variant="gradient"
+          className="group h-12 w-full rounded-xl text-base font-semibold"
         >
           {isPending ? "Creating Account..." : "Create Account"}
           <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />

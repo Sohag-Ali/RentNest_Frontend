@@ -1,5 +1,4 @@
-
-import {  Home } from 'lucide-react';
+import { Home } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
@@ -7,93 +6,88 @@ import Link from 'next/link';
 import LoginForm from '../../_components/LoginForm';
 
 export default function LoginPage() {
-
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
-      <div className="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+    <div className="min-h-screen bg-background flex items-center justify-center px-4 pt-24 sm:pt-28 pb-12 sm:px-6 lg:px-8 relative overflow-hidden">
+      {/* Background Decorative Gradients */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-blue-500/10 dark:bg-blue-500/15 rounded-full blur-[140px]" />
+        <div className="absolute bottom-1/4 right-1/4 w-[450px] h-[450px] bg-sky-500/10 dark:bg-sky-500/15 rounded-full blur-[140px]" />
+      </div>
+
+      <div className="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10">
         
         {/* Left side - Branding & Illustration (Desktop only) */}
-        <div className="hidden lg:flex flex-col justify-center space-y-8">
+        <div className="hidden lg:flex lg:col-span-7 flex-col justify-center space-y-8 pr-6">
           <div className="space-y-6">
-            <div className="inline-flex items-center gap-2 w-fit">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center">
+            <Link href="/" className="inline-flex items-center gap-3 group">
+              <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-blue-600 via-sky-500 to-teal-500 flex items-center justify-center text-white shadow-lg shadow-blue-500/25 group-hover:scale-105 transition-transform duration-300">
                 <Home className="w-6 h-6 text-white" />
               </div>
-              <span className="text-2xl font-bold text-foreground">RentNest</span>
-            </div>
+              <span className="text-2xl font-extrabold text-foreground tracking-tight">RentNest</span>
+            </Link>
             
             <div className="space-y-4">
-              <h1 className="text-5xl font-bold text-foreground leading-tight text-balance">
-                Welcome to your rental home
+              <h1 className="text-5xl font-black text-foreground tracking-tight leading-[1.12]">
+                Welcome back to your{' '}
+                <span className="bg-gradient-to-r from-blue-600 via-sky-500 to-teal-500 bg-clip-text text-transparent">
+                  Rental Portal
+                </span>
               </h1>
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                Find the perfect property, connect with landlords, and manage your rental experience all in one place.
+              <p className="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-xl">
+                Access your verified property listings, manage tenant applications, review rental agreements, and make secure payments.
               </p>
             </div>
 
-            <div className="grid grid-cols-3 gap-6 pt-8">
-              <div className="space-y-2">
-                <div className="text-3xl font-bold text-primary">10k+</div>
-                <p className="text-sm text-muted-foreground">Properties Listed</p>
+            <div className="grid grid-cols-3 gap-6 pt-4">
+              <div className="space-y-1 p-4 rounded-2xl bg-card border border-border/80 shadow-xs">
+                <div className="text-2xl font-extrabold text-primary">10k+</div>
+                <p className="text-xs text-muted-foreground font-medium">Verified Homes</p>
               </div>
-              <div className="space-y-2">
-                <div className="text-3xl font-bold text-primary">50k+</div>
-                <p className="text-sm text-muted-foreground">Active Renters</p>
+              <div className="space-y-1 p-4 rounded-2xl bg-card border border-border/80 shadow-xs">
+                <div className="text-2xl font-extrabold text-sky-500">50k+</div>
+                <p className="text-xs text-muted-foreground font-medium">Happy Renters</p>
               </div>
-              <div className="space-y-2">
-                <div className="text-3xl font-bold text-primary">100+</div>
-                <p className="text-sm text-muted-foreground">Cities Covered</p>
+              <div className="space-y-1 p-4 rounded-2xl bg-card border border-border/80 shadow-xs">
+                <div className="text-2xl font-extrabold text-teal-500">100%</div>
+                <p className="text-xs text-muted-foreground font-medium">Secure Lease</p>
               </div>
-            </div>
-          </div>
-
-          {/* Illustration placeholder */}
-          <div className="relative h-96 rounded-2xl bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-cyan-500/10 border border-white/10 flex items-center justify-center overflow-hidden">
-            <div className="absolute inset-0 bg-grid-white/5 bg-grid" />
-            <div className="relative text-center space-y-4">
-              <div className="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 opacity-20" />
-              <p className="text-muted-foreground text-sm">Beautiful rental homes await</p>
             </div>
           </div>
         </div>
 
         {/* Right side - Login Card */}
-        <div className="w-full max-w-md mx-auto lg:mx-0">
-          {/* Mobile logo - visible on mobile only */}
-          <div className="lg:hidden flex items-center gap-2 mb-8">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center">
-              <Home className="w-6 h-6 text-white" />
+        <div className="w-full lg:col-span-5 max-w-md mx-auto lg:mx-0">
+          {/* Mobile logo */}
+          <div className="lg:hidden flex items-center gap-3 mb-8">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 via-sky-500 to-teal-500 flex items-center justify-center text-white shadow-md">
+              <Home className="w-5 h-5 text-white" />
             </div>
-            <span className="text-2xl font-bold text-foreground">RentNest</span>
+            <span className="text-2xl font-extrabold text-foreground">RentNest</span>
           </div>
 
-          <Card className="border-0 shadow-lg backdrop-blur-sm bg-card/95">
+          <Card variant="glass" className="rounded-3xl shadow-luxury">
             <CardContent className="space-y-6 pt-8">
-              
-              {/* Header */}
-              <div className="space-y-2">
-                <h2 className="text-3xl font-bold text-foreground">Welcome back</h2>
-                <p className="text-sm text-muted-foreground">
-                  Sign in to access your rental dashboard
+              <div className="space-y-1.5">
+                <h2 className="text-2xl font-bold text-foreground tracking-tight">Sign In</h2>
+                <p className="text-xs text-muted-foreground">
+                  Enter your credentials to access your RentNest account
                 </p>
               </div>
 
-             <LoginForm />
+              <LoginForm />
 
-              {/* Divider */}
               <div className="relative">
-                <Separator className="bg-border" />
-                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-card px-2 text-xs text-muted-foreground">
+                <Separator className="bg-border/60" />
+                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-card px-3 text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
                   OR
                 </div>
               </div>
 
-              {/* Google Login */}
               <Button 
                 variant="outline" 
-                className="w-full h-11 border-input hover:bg-accent/50 text-foreground font-medium rounded-lg transition-colors"
+                className="w-full h-11 border-border bg-background hover:bg-muted text-foreground font-semibold rounded-xl transition-all cursor-pointer"
               >
-                <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24">
                   <path
                     fill="currentColor"
                     d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -114,31 +108,17 @@ export default function LoginPage() {
                 Continue with Google
               </Button>
 
-              {/* Sign Up Link */}
-              <p className="text-center text-sm text-muted-foreground">
+              <p className="text-center text-xs text-muted-foreground">
                 Don&apos;t have an account?{' '}
                 <Link 
-                  href="#" 
-                  className="text-primary hover:text-primary/80 font-semibold transition-colors"
+                  href="/auth/register" 
+                  className="text-primary hover:underline font-bold"
                 >
-                  Sign Up
+                  Create Account
                 </Link>
               </p>
-
             </CardContent>
           </Card>
-
-          {/* Privacy & Terms */}
-          <p className="text-center text-xs text-muted-foreground mt-6">
-            By signing in, you agree to our{' '}
-            <Link href="#" className="text-primary/70 hover:text-primary transition-colors">
-              Terms of Service
-            </Link>
-            {' '}and{' '}
-            <Link href="#" className="text-primary/70 hover:text-primary transition-colors">
-              Privacy Policy
-            </Link>
-          </p>
         </div>
       </div>
     </div>

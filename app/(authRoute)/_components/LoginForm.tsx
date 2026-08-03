@@ -76,14 +76,14 @@ const LoginForm = () => {
           name="email"
           render={({ field }) => (
             <FormItem className="space-y-2">
-              <FormLabel className="text-sm font-medium text-foreground">
+              <FormLabel className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
                 Email Address
               </FormLabel>
               <FormControl>
                 <Input
                   type="email"
                   placeholder="you@example.com"
-                  className="h-11 border-input bg-background placeholder:text-muted-foreground focus:ring-2 focus:ring-primary/20"
+                  className="h-11 rounded-xl"
                   {...field}
                 />
               </FormControl>
@@ -99,12 +99,12 @@ const LoginForm = () => {
           render={({ field }) => (
             <FormItem className="space-y-2">
               <div className="flex items-center justify-between">
-                <FormLabel className="text-sm font-medium text-foreground">
+                <FormLabel className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
                   Password
                 </FormLabel>
                 <Link
                   href="#"
-                  className="text-xs font-medium text-primary transition-colors hover:text-primary/80"
+                  className="text-xs font-semibold text-primary hover:underline"
                 >
                   Forgot password?
                 </Link>
@@ -114,14 +114,14 @@ const LoginForm = () => {
                   <Input
                     type={showPassword ? "text" : "password"}
                     placeholder="Enter your password"
-                    className="h-11 border-input bg-background pr-10 placeholder:text-muted-foreground focus:ring-2 focus:ring-primary/20"
+                    className="h-11 rounded-xl pr-10"
                     {...field}
                   />
                 </FormControl>
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute top-1/2 right-3 -translate-y-1/2 text-muted-foreground transition-colors hover:text-foreground"
+                  className="absolute top-1/2 right-3 -translate-y-1/2 text-muted-foreground transition-colors hover:text-foreground cursor-pointer"
                   aria-label={showPassword ? "Hide password" : "Show password"}
                 >
                   {showPassword ? (
@@ -142,11 +142,11 @@ const LoginForm = () => {
             id="remember"
             checked={rememberMe}
             onCheckedChange={(checked) => setRememberMe(checked as boolean)}
-            className="border-input"
+            className="rounded-md"
           />
           <Label
             htmlFor="remember"
-            className="cursor-pointer text-sm font-medium text-foreground"
+            className="cursor-pointer text-sm font-medium text-foreground select-none"
           >
             Remember me
           </Label>
@@ -156,7 +156,8 @@ const LoginForm = () => {
         <Button
           type="submit"
           disabled={isPending}
-          className="group flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-primary font-semibold text-primary-foreground transition-all duration-200 hover:bg-primary/90"
+          variant="gradient"
+          className="group flex h-12 w-full items-center justify-center gap-2 rounded-xl text-base font-semibold"
         >
           {isPending ? "Signing in..." : "Sign In"}
           <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

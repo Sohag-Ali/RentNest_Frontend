@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { motion } from 'framer-motion';
 import {
   LayoutDashboard,
   Home,
@@ -15,12 +16,13 @@ import {
   FileText,
   Users,
   LogOut,
+  Sparkles,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { logoutAction } from '@/app/(authRoute)/_actions/authActions';
 import { toast } from 'sonner';
 
-// Standard Tenant navigation links (Profile & Settings removed)
+// Standard Tenant navigation links
 const tenantNavItems = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/dashboard/tenant/requests', label: 'My Rental Requests', icon: FileText },
@@ -31,7 +33,7 @@ const tenantNavItems = [
   { href: '/dashboard/notifications', label: 'Notifications', icon: Bell },
 ];
 
-// Landlord navigation links (Profile & Settings removed)
+// Landlord navigation links
 const landlordNavItems = [
   { href: '/dashboard/landlord', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/dashboard/landlord/properties', label: 'My Properties', icon: Building2 },
@@ -41,7 +43,7 @@ const landlordNavItems = [
   { href: '/dashboard/landlord/reviews', label: 'Reviews', icon: Star },
 ];
 
-// Admin navigation links (Settings removed)
+// Admin navigation links
 const adminNavItems = [
   { href: '/dashboard/admin', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/dashboard/admin/users', label: 'Users', icon: Users },
@@ -70,30 +72,54 @@ export function SidebarNav() {
   };
 
   return (
-    <div className="flex flex-col justify-between h-full min-h-[calc(100vh-7rem)]">
+    <div className="flex flex-col justify-between h-full min-h-[calc(100vh-7rem)] p-1">
       {/* Top Nav Items */}
-      <nav className="space-y-1.5">
-        {activeNavItems.map(({ href, label, icon: Icon }) => {
-          const isActive =
-            pathname === href || (href !== '/dashboard/landlord' && href !== '/dashboard' && pathname.startsWith(href));
+      <div className="space-y-6">
+        <div className="px-3 py-2 rounded-2xl bg-gradient-to-r from-blue-500/10 via-sky-500/5 to-teal-500/10 border border-blue-500/20 dark:border-blue-500/30 flex items-center justify-between">
+          <span className="text-xs font-bold uppercase tracking-wider text-primary">
+            {isAdminRoute ? 'Admin Portal' : isLandlordRoute ? 'Landlord Suite' : 'Tenant Space'}
+          </span>
+          <Sparkles className="w-3.5 h-3.5 text-primary animate-pulse" />
+        </div>
 
-          return (
-            <Link
-              key={href}
-              href={href}
-              className={cn(
-                'flex items-center gap-3 px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all duration-200',
-                isActive
-                  ? 'bg-primary text-primary-foreground shadow-md'
-                  : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
-              )}
-            >
-              <Icon className="h-4 w-4 shrink-0" />
-              <span>{label}</span>
-            </Link>
-          );
-        })}
-      </nav>
+        <nav className="space-y-1">
+          {activeNavItems.map(({ href, label, icon: Icon }) => {
+            const isActive =
+              pathname === href ||
+              (href !== '/dashboard/landlord' &&
+                href !== '/dashboard' &&
+                href !== '/dashboard/admin' &&
+                pathname.startsWith(href));
+
+            return (
+              <Link
+                key={href}
+                href={href}
+                className="relative block"
+              >
+                <div
+                  className={cn(
+                    'relative flex items-center gap-3 px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all duration-200 select-none',
+                    isActive
+                      ? 'text-white'
+                      : 'text-muted-foreground hover:text-foreground hover:bg-muted/60'
+                  )}
+                >
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeSidebarItem"
+                      className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-600 via-blue-600 to-sky-500 shadow-md shadow-blue-500/20 -z-10"
+                      transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                    />
+                  )}
+                  <Icon className={cn('h-4 w-4 shrink-0', isActive ? 'text-white' : 'text-muted-foreground')} />
+                  <span>{label}</span>
+                </div>
+              </Link>
+            );
+          })}
+        </nav>
+      </div>
 
       {/* Bottom Logout Action */}
       <div className="pt-4 border-t border-border mt-auto">

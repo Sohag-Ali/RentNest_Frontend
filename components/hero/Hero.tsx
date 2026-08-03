@@ -5,12 +5,12 @@ import { HeroButtons } from './HeroButtons';
 import { HeroSearch } from './HeroSearch';
 import { HeroStats } from './HeroStats';
 import { FloatingCards } from './FloatingCards';
-import { Sparkles, ShieldCheck } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 
 export function Hero() {
   return (
-    <section className="relative w-full min-h-[92vh] flex items-center justify-center overflow-hidden bg-background pt-8 pb-16 lg:py-26">
+    <section className="relative w-full min-h-[92vh] flex items-center justify-center overflow-hidden bg-background pt-24 sm:pt-28 lg:pt-32 pb-16 lg:pb-24">
       {/* Background Decorative Gradients & Grid Pattern */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {/* Radial Light Glow Blobs */}
@@ -40,7 +40,7 @@ export function Hero() {
             >
               <Badge
                 variant="glass"
-                className="rounded-full px-4 py-1.5 text-xs font-bold gap-2 border-primary/30 text-primary bg-primary/10 shadow-sm"
+                className="rounded-full px-4 py-1.5 text-xs font-bold gap-2 border-primary/30 text-primary bg-primary/10 shadow-xs"
               >
                 <Sparkles className="h-3.5 w-3.5 text-amber-500 fill-amber-500" />
                 <span>The Next Generation Rental Platform</span>

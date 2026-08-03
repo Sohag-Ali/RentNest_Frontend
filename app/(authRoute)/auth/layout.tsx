@@ -11,10 +11,10 @@ export default async function AuthLayout({
   const user = userRes?.data || null
 
   return (
-    <div>
-        <Navbar user={user} />
-        {children}
-        <Toaster richColors position="top-right" />
+    <div className="min-h-screen flex flex-col relative">
+      <Navbar user={user} />
+      <div className="flex-1">{children}</div>
+      <Toaster richColors position="top-right" />
     </div>
   )
 }

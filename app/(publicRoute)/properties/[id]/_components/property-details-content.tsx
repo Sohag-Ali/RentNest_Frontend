@@ -54,7 +54,7 @@ export function PropertyDetailsContent({
     fullDescription.length > shortDescription.length;
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-slate-50/60 via-slate-100/50 to-slate-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 text-slate-900 dark:text-slate-100 py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-8 relative overflow-hidden">
+    <main className="min-h-screen  py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-8 relative overflow-hidden">
       {/* Background Soft Glow */}
       <div className="absolute top-20 left-1/3 w-[600px] h-[600px] bg-blue-500/5 dark:bg-blue-500/10 rounded-full blur-[150px] pointer-events-none -z-10" />
 
