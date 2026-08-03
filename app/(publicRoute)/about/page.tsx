@@ -24,7 +24,7 @@ export default function AboutPage() {
       <WorkingProcess />
       <CoreValues />
       <TeamSection />
-      <Testimonials />
+      {/* <Testimonials /> */}
       <AboutCTA />
     </main>
   );

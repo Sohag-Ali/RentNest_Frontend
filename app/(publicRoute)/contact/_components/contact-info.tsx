@@ -1,106 +1,111 @@
 'use client';
 
-import { Mail, Phone, MapPin, Globe, Clock, Building } from 'lucide-react';
+import { Mail, Phone, MapPin, Globe, Clock, ShieldCheck, Home } from 'lucide-react';
 import { Card } from '@/components/ui/card';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 
 export function ContactInfo() {
+  const contactDetails = [
+    {
+      icon: MapPin,
+      title: 'Head Office Address',
+      value: '123 Rental Street, Suite 400, San Francisco, CA 94105',
+      color: 'text-blue-500 bg-blue-500/10 border-blue-500/20',
+    },
+    {
+      icon: Mail,
+      title: 'Email Address',
+      value: 'support@rentnest.com',
+      color: 'text-sky-500 bg-sky-500/10 border-sky-500/20',
+    },
+    {
+      icon: Phone,
+      title: 'Direct Phone',
+      value: '+1-800-RENTNEST (+1 800-736-8637)',
+      color: 'text-teal-500 bg-teal-500/10 border-teal-500/20',
+    },
+    {
+      icon: Globe,
+      title: 'Website',
+      value: 'www.rentnest.com',
+      color: 'text-emerald-500 bg-emerald-500/10 border-emerald-500/20',
+    },
+    {
+      icon: Clock,
+      title: 'Business Hours',
+      value: 'Mon - Fri: 9:00 AM - 6:00 PM PST (Sat: 10:00 AM - 4:00 PM)',
+      color: 'text-amber-500 bg-amber-500/10 border-amber-500/20',
+    },
+  ];
+
   return (
-    <div className="w-full lg:w-1/2">
-      <Card className="p-8 border-border/50 bg-gradient-to-br from-card/50 to-card/30 backdrop-blur-sm hover:bg-card/80 transition-all duration-300 h-full">
+    <Card variant="glass" className="p-6 sm:p-8 lg:p-10 rounded-3xl shadow-luxury border border-border/80 h-full flex flex-col justify-between relative overflow-hidden">
+      {/* Background Soft Glow */}
+      <div className="absolute -bottom-24 -left-24 w-60 h-60 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
+
+      <div>
         {/* Company Header */}
-        <div className="mb-8">
-          <div className="flex items-center gap-4 mb-6">
-            <Avatar className="w-16 h-16 bg-primary/10 border-2 border-primary/20">
-              <AvatarFallback className="bg-gradient-to-br from-primary to-accent text-primary-foreground font-bold text-lg">
-                RN
-              </AvatarFallback>
-            </Avatar>
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-600 via-sky-500 to-teal-500 flex items-center justify-center text-white font-extrabold shadow-md shadow-blue-500/25">
+              <Home className="w-6 h-6 text-white" />
+            </div>
             <div>
-              <h3 className="text-2xl font-bold text-foreground">RentNest</h3>
-              <p className="text-muted-foreground text-sm">Premium Rental Platform</p>
+              <h3 className="text-xl sm:text-2xl font-extrabold text-foreground tracking-tight">
+                RentNest Inc.
+              </h3>
+              <p className="text-xs text-primary font-semibold">
+                Premium Rental Platform
+              </p>
             </div>
           </div>
-          <p className="text-muted-foreground leading-relaxed">
-            We&apos;re dedicated to making rental management simple, transparent, and accessible for everyone.
-          </p>
+
+          <Badge variant="success" className="gap-1 text-[11px]">
+            <ShieldCheck className="w-3.5 h-3.5" /> Verified
+          </Badge>
         </div>
 
-        <Separator className="my-6" />
+        <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-6">
+          Dedicated to providing 100% verified rentals, direct landlord communication, and seamless digital lease agreements.
+        </p>
 
-        {/* Contact Information */}
-        <div className="space-y-6">
-          {/* Address */}
-          <div className="flex gap-4">
-            <div className="flex-shrink-0">
-              <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 text-primary">
-                <MapPin className="w-5 h-5" />
-              </div>
-            </div>
-            <div>
-              <h4 className="font-semibold text-foreground mb-1">Office Address</h4>
-              <p className="text-muted-foreground text-sm">123 Rental Street, San Francisco, CA 94105</p>
-            </div>
-          </div>
+        <Separator className="my-6 bg-border/60" />
 
-          {/* Email */}
-          <div className="flex gap-4">
-            <div className="flex-shrink-0">
-              <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 text-primary">
-                <Mail className="w-5 h-5" />
+        {/* Contact Items List */}
+        <div className="space-y-4">
+          {contactDetails.map((item) => {
+            const Icon = item.icon;
+            return (
+              <div
+                key={item.title}
+                className="flex items-start gap-3.5 p-3.5 rounded-2xl bg-card/60 border border-border/60 transition-all hover:border-primary/30"
+              >
+                <div className={`p-2.5 rounded-xl border ${item.color} shrink-0`}>
+                  <Icon className="w-4 h-4" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                    {item.title}
+                  </h4>
+                  <p className="text-xs sm:text-sm font-semibold text-foreground truncate mt-0.5">
+                    {item.value}
+                  </p>
+                </div>
               </div>
-            </div>
-            <div>
-              <h4 className="font-semibold text-foreground mb-1">Email</h4>
-              <p className="text-muted-foreground text-sm">support@rentnest.com</p>
-            </div>
-          </div>
-
-          {/* Phone */}
-          <div className="flex gap-4">
-            <div className="flex-shrink-0">
-              <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 text-primary">
-                <Phone className="w-5 h-5" />
-              </div>
-            </div>
-            <div>
-              <h4 className="font-semibold text-foreground mb-1">Phone</h4>
-              <p className="text-muted-foreground text-sm">+1 (555) 123-4567</p>
-            </div>
-          </div>
-
-          {/* Website */}
-          <div className="flex gap-4">
-            <div className="flex-shrink-0">
-              <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 text-primary">
-                <Globe className="w-5 h-5" />
-              </div>
-            </div>
-            <div>
-              <h4 className="font-semibold text-foreground mb-1">Website</h4>
-              <p className="text-muted-foreground text-sm">www.rentnest.com</p>
-            </div>
-          </div>
-
-          {/* Hours */}
-          <div className="flex gap-4">
-            <div className="flex-shrink-0">
-              <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 text-primary">
-                <Clock className="w-5 h-5" />
-              </div>
-            </div>
-            <div>
-              <h4 className="font-semibold text-foreground mb-1">Business Hours</h4>
-              <div className="text-muted-foreground text-sm space-y-1">
-                <p>Monday - Friday: 9 AM - 6 PM PST</p>
-                <p>Saturday: 10 AM - 4 PM PST</p>
-                <p>Sunday: Closed</p>
-              </div>
-            </div>
-          </div>
+            );
+          })}
         </div>
-      </Card>
-    </div>
+      </div>
+
+      <div className="pt-6 mt-6 border-t border-border/50 text-center">
+        <p className="text-xs text-muted-foreground">
+          Need urgent support? Visit our{' '}
+          <a href="/faq" className="text-primary font-semibold hover:underline">
+            Help Center & FAQ
+          </a>
+        </p>
+      </div>
+    </Card>
   );
 }

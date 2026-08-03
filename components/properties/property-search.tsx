@@ -5,14 +5,9 @@ import { motion } from 'framer-motion';
 import { Input } from '@/components/ui/input';
 import { Select } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
-import { CATEGORIES, CITIES } from '@/types/property';
 import {
   SearchIcon,
-  MapPinIcon,
-  HomeIcon,
   DollarSignIcon,
-  BedIcon,
-  BathIcon,
   CalendarIcon,
   RotateCcwIcon,
   FilterIcon,
@@ -51,9 +46,9 @@ export function PropertySearch({
       {/* Background Soft Glow */}
       <div className="absolute -right-20 -top-20 w-80 h-80 bg-gradient-to-br from-blue-500/10 via-sky-500/5 to-teal-500/10 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 relative z-10">
-        {/* Search Input Keyword */}
-        <div className="space-y-1.5 col-span-1 sm:col-span-2 lg:col-span-1">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-end relative z-10">
+        {/* 1. Search Input Keyword */}
+        <div className="space-y-1.5">
           <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider pl-1">
             Search Keyword
           </label>
@@ -68,45 +63,7 @@ export function PropertySearch({
           </div>
         </div>
 
-        {/* Location Select */}
-        <div className="space-y-1.5">
-          <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider pl-1">
-            Location
-          </label>
-          <Select
-            value={searchState.location}
-            onChange={(e) => onSearchChange('location', e.target.value)}
-            icon={<MapPinIcon className="h-4 w-4 text-[#0EA5E9]" />}
-            className="h-12 rounded-2xl bg-slate-50/80 dark:bg-slate-800/80 border-slate-200/80 dark:border-slate-700 text-slate-900 dark:text-white focus-visible:ring-2 focus-visible:ring-[#2563EB] text-sm shadow-inner"
-          >
-            {CITIES.map((city) => (
-              <option key={city} value={city === 'All' ? '' : city}>
-                {city === 'All' ? 'All Locations' : city}
-              </option>
-            ))}
-          </Select>
-        </div>
-
-        {/* Category Select */}
-        <div className="space-y-1.5">
-          <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider pl-1">
-            Property Category
-          </label>
-          <Select
-            value={searchState.category}
-            onChange={(e) => onSearchChange('category', e.target.value)}
-            icon={<HomeIcon className="h-4 w-4 text-[#14B8A6]" />}
-            className="h-12 rounded-2xl bg-slate-50/80 dark:bg-slate-800/80 border-slate-200/80 dark:border-slate-700 text-slate-900 dark:text-white focus-visible:ring-2 focus-visible:ring-[#2563EB] text-sm shadow-inner"
-          >
-            {CATEGORIES.map((cat) => (
-              <option key={cat} value={cat === 'All' ? '' : cat}>
-                {cat === 'All' ? 'All Categories' : cat}
-              </option>
-            ))}
-          </Select>
-        </div>
-
-        {/* Price Range */}
+        {/* 2. Max Price */}
         <div className="space-y-1.5">
           <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider pl-1">
             Max Price
@@ -125,46 +82,7 @@ export function PropertySearch({
           </Select>
         </div>
 
-        {/* Bedrooms */}
-        <div className="space-y-1.5">
-          <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider pl-1">
-            Bedrooms
-          </label>
-          <Select
-            value={searchState.bedrooms}
-            onChange={(e) => onSearchChange('bedrooms', e.target.value)}
-            icon={<BedIcon className="h-4 w-4 text-[#0EA5E9]" />}
-            className="h-12 rounded-2xl bg-slate-50/80 dark:bg-slate-800/80 border-slate-200/80 dark:border-slate-700 text-slate-900 dark:text-white focus-visible:ring-2 focus-visible:ring-[#2563EB] text-sm shadow-inner"
-          >
-            <option value="">Any Beds</option>
-            <option value="1">1+ Bedrooms</option>
-            <option value="2">2+ Bedrooms</option>
-            <option value="3">3+ Bedrooms</option>
-            <option value="4">4+ Bedrooms</option>
-            <option value="5">5+ Bedrooms</option>
-          </Select>
-        </div>
-
-        {/* Bathrooms */}
-        <div className="space-y-1.5">
-          <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider pl-1">
-            Bathrooms
-          </label>
-          <Select
-            value={searchState.bathrooms}
-            onChange={(e) => onSearchChange('bathrooms', e.target.value)}
-            icon={<BathIcon className="h-4 w-4 text-[#14B8A6]" />}
-            className="h-12 rounded-2xl bg-slate-50/80 dark:bg-slate-800/80 border-slate-200/80 dark:border-slate-700 text-slate-900 dark:text-white focus-visible:ring-2 focus-visible:ring-[#2563EB] text-sm shadow-inner"
-          >
-            <option value="">Any Baths</option>
-            <option value="1">1+ Bathrooms</option>
-            <option value="2">2+ Bathrooms</option>
-            <option value="3">3+ Bathrooms</option>
-            <option value="4">4+ Bathrooms</option>
-          </Select>
-        </div>
-
-        {/* Availability */}
+        {/* 3. Availability */}
         <div className="space-y-1.5">
           <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider pl-1">
             Availability
@@ -172,7 +90,7 @@ export function PropertySearch({
           <Select
             value={searchState.availability}
             onChange={(e) => onSearchChange('availability', e.target.value)}
-            icon={<CalendarIcon className="h-4 w-4 text-[#2563EB]" />}
+            icon={<CalendarIcon className="h-4 w-4 text-[#0EA5E9]" />}
             className="h-12 rounded-2xl bg-slate-50/80 dark:bg-slate-800/80 border-slate-200/80 dark:border-slate-700 text-slate-900 dark:text-white focus-visible:ring-2 focus-visible:ring-[#2563EB] text-sm shadow-inner"
           >
             <option value="">Any Status</option>
@@ -181,14 +99,14 @@ export function PropertySearch({
           </Select>
         </div>
 
-        {/* Action Buttons */}
-        <div className="flex items-end gap-2 pt-1">
+        {/* 4. Action Buttons */}
+        <div className="flex items-center gap-2 pt-1 sm:pt-0">
           <Button
             onClick={onApplySearch}
             className="h-12 flex-1 rounded-2xl font-semibold text-sm gap-2 bg-gradient-to-r from-[#2563EB] via-[#0EA5E9] to-[#14B8A6] hover:from-blue-700 hover:to-teal-600 text-white shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/30 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 cursor-pointer"
           >
-            <FilterIcon className="h-4 w-4" />
-            Apply Filters
+            <FilterIcon className="h-4 w-4 text-white" />
+            <span>Apply Filters</span>
           </Button>
           <Button
             variant="outline"

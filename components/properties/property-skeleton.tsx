@@ -6,11 +6,11 @@ import { Card, CardContent } from '@/components/ui/card';
 
 export function SearchSkeleton() {
   return (
-    <div className="w-full rounded-3xl bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 p-6 shadow-xl shadow-blue-500/5 mb-8 space-y-4">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {Array.from({ length: 8 }).map((_, i) => (
+    <div className="w-full rounded-3xl bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 p-6 shadow-xl shadow-blue-500/5 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-end">
+        {Array.from({ length: 4 }).map((_, i) => (
           <div key={i} className="space-y-2">
-            <Skeleton className="h-4 w-24 bg-slate-200 dark:bg-slate-800" />
+            <Skeleton className="h-3.5 w-24 bg-slate-200 dark:bg-slate-800 rounded-md" />
             <Skeleton className="h-12 w-full rounded-2xl bg-slate-200 dark:bg-slate-800" />
           </div>
         ))}
@@ -27,7 +27,7 @@ export function SidebarSkeleton() {
         <Skeleton className="h-5 w-16 rounded-full bg-slate-200 dark:bg-slate-800" />
       </div>
       <div className="space-y-4">
-        {Array.from({ length: 6 }).map((_, i) => (
+        {Array.from({ length: 4 }).map((_, i) => (
           <div key={i} className="space-y-2">
             <Skeleton className="h-4 w-20 bg-slate-200 dark:bg-slate-800" />
             <Skeleton className="h-11 w-full rounded-2xl bg-slate-200 dark:bg-slate-800" />

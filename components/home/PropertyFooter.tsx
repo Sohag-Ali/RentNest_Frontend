@@ -1,10 +1,10 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { Landlord } from "@/types/property";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 interface PropertyFooterProps {
   landlord?: Landlord;
@@ -20,22 +20,41 @@ export function PropertyFooter({
   className = "",
 }: PropertyFooterProps) {
   const landlordName = landlord?.name || "Verified Landlord";
-  const landlordAvatar = landlord?.image || landlord?.avatar || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80";
-  const isVerified = landlord?.isVerified ?? true; // Defaults to verified if true or unset for premium feel
+
+  // Check all possible avatar fields from backend API response
+  const rawAvatar =
+    landlord?.avatar ||
+    landlord?.image ||
+    (landlord as unknown as Record<string, string>)?.avatarUrl ||
+    (landlord as unknown as Record<string, string>)?.profilePic ||
+    (landlord as unknown as Record<string, string>)?.profileImage ||
+    (landlord as unknown as Record<string, string>)?.photo ||
+    (landlord as unknown as Record<string, string>)?.picture ||
+    (landlord as unknown as Record<string, string>)?.url;
+
+  const isVerified = landlord?.isVerified ?? true;
+
+  // Extract initials (e.g. "L1" -> "L1", "Sarah Anderson" -> "SA")
+  const initials = landlordName
+    ? landlordName
+        .split(" ")
+        .map((part) => part[0])
+        .join("")
+        .slice(0, 2)
+        .toUpperCase()
+    : "L";
 
   return (
     <div className={`flex items-center justify-between gap-3 pt-4 border-t border-slate-200/70 dark:border-slate-800/70 ${className}`}>
       {/* Landlord Information */}
       <div className="flex items-center gap-2.5 min-w-0">
-        <div className="relative w-9 h-9 rounded-full overflow-hidden shrink-0 border border-white dark:border-slate-700 shadow-xs">
-          <Image
-            src={landlordAvatar}
-            alt={landlordName}
-            fill
-            sizes="36px"
-            className="object-cover"
-          />
-        </div>
+        <Avatar className="h-9 w-9 border border-white dark:border-slate-700 shadow-xs shrink-0">
+          {rawAvatar && <AvatarImage src={rawAvatar} alt={landlordName} />}
+          <AvatarFallback className="bg-gradient-to-br from-blue-600 to-sky-500 text-white font-extrabold text-xs">
+            {initials}
+          </AvatarFallback>
+        </Avatar>
+
         <div className="truncate min-w-0">
           <div className="flex items-center gap-1">
             <span className="text-xs font-bold text-slate-900 dark:text-slate-100 truncate">

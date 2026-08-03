@@ -1,5 +1,6 @@
-
 import { Separator } from '@/components/ui/separator';
+import { Badge } from '@/components/ui/badge';
+import { Sparkles } from 'lucide-react';
 import { ContactCards } from './_components/contact-cards';
 import { HeroSection } from './_components/hero-section';
 import { ContactForm } from './_components/contact-form';
@@ -18,18 +19,29 @@ export default function ContactPage() {
       <ContactCards />
 
       {/* Main Contact Section */}
-      <section id="contact-form" className="w-full py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-background to-secondary/5">
-        <div className="max-w-7xl mx-auto">
-          <div className="mb-12 text-center">
-            <h2 className="text-4xl sm:text-5xl font-bold mb-4 text-foreground">
-              Get in Touch
+      <section id="contact-form" className="w-full py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-background via-muted/20 to-background">
+        <div className="max-w-7xl mx-auto space-y-12">
+          {/* Header */}
+          <div className="flex flex-col items-center gap-3 text-center">
+            <Badge variant="glass" className="gap-1.5 px-3.5 py-1 text-xs">
+              <Sparkles className="w-3.5 h-3.5 text-primary" />
+              <span>We Are Here to Help</span>
+            </Badge>
+
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-foreground tracking-tight leading-tight">
+              Get in Touch with{' '}
+              <span className="bg-gradient-to-r from-blue-600 via-sky-500 to-teal-500 bg-clip-text text-transparent">
+                RentNest
+              </span>
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Have any questions or feedback? We&apos;d love to hear from you. Send us a message and our team will respond within 24 hours.
+
+            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl text-balance leading-relaxed">
+              Have questions, feedback, or need help with a property listing? Send us a message and our support team will respond within a few hours.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+          {/* Form & Info Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-stretch">
             <ContactForm />
             <ContactInfo />
           </div>

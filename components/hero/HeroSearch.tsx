@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { Search, MapPin, Home, DollarSign, Bed, Sparkles } from 'lucide-react';
+import { Search, MapPin, Home, DollarSign, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { CATEGORIES, CITIES } from '@/types/property';
 
@@ -13,7 +13,6 @@ export function HeroSearch() {
   const [category, setCategory] = useState('');
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
-  const [bedrooms, setBedrooms] = useState('');
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,7 +21,6 @@ export function HeroSearch() {
     if (category) params.set('category', category);
     if (minPrice) params.set('minPrice', minPrice);
     if (maxPrice) params.set('maxPrice', maxPrice);
-    if (bedrooms) params.set('bedrooms', bedrooms);
 
     const queryString = params.toString();
     router.push(queryString ? `/properties?${queryString}` : '/properties');
@@ -31,12 +29,12 @@ export function HeroSearch() {
   return (
     <motion.form
       onSubmit={handleSearch}
-      initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
-      animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-      transition={{ duration: 0.8, delay: 0.4 }}
-      className="w-full rounded-3xl border border-white/20 bg-background/75 backdrop-blur-2xl p-4 sm:p-5 shadow-2xl shadow-primary/10 ring-1 ring-black/5 dark:ring-white/10 transition-all hover:shadow-3xl"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: 0.2 }}
+      className="w-full rounded-3xl glass-card p-4 sm:p-6 shadow-luxury border border-border/80 transition-all"
     >
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5 items-end">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-end">
         {/* Location Select */}
         <div className="space-y-1.5">
           <label className="text-[11px] font-bold uppercase text-muted-foreground tracking-wider flex items-center gap-1 pl-1">
@@ -46,16 +44,16 @@ export function HeroSearch() {
             <select
               value={location}
               onChange={(e) => setLocation(e.target.value)}
-              className="w-full h-12 px-3.5 rounded-2xl bg-muted/40 border border-border/60 text-xs font-semibold text-foreground focus:bg-background focus:outline-none focus:ring-2 focus:ring-primary/40 transition-all cursor-pointer appearance-none"
+              className="w-full h-12 px-3.5 rounded-xl bg-card dark:bg-slate-900/80 border border-border text-xs font-semibold text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all cursor-pointer appearance-none shadow-xs"
             >
-              <option value="">Any Location</option>
+              <option value="" className="bg-card text-foreground">Any Location</option>
               {CITIES.filter((c) => c !== 'All').map((city) => (
-                <option key={city} value={city}>
+                <option key={city} value={city} className="bg-card text-foreground">
                   {city}
                 </option>
               ))}
             </select>
-            <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground text-xs">
+            <div className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground text-[10px]">
               ▼
             </div>
           </div>
@@ -64,22 +62,22 @@ export function HeroSearch() {
         {/* Property Type Select */}
         <div className="space-y-1.5">
           <label className="text-[11px] font-bold uppercase text-muted-foreground tracking-wider flex items-center gap-1 pl-1">
-            <Home className="h-3.5 w-3.5 text-primary" /> Property Type
+            <Home className="h-3.5 w-3.5 text-sky-500" /> Property Type
           </label>
           <div className="relative">
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              className="w-full h-12 px-3.5 rounded-2xl bg-muted/40 border border-border/60 text-xs font-semibold text-foreground focus:bg-background focus:outline-none focus:ring-2 focus:ring-primary/40 transition-all cursor-pointer appearance-none"
+              className="w-full h-12 px-3.5 rounded-xl bg-card dark:bg-slate-900/80 border border-border text-xs font-semibold text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all cursor-pointer appearance-none shadow-xs"
             >
-              <option value="">All Types</option>
+              <option value="" className="bg-card text-foreground">All Types</option>
               {CATEGORIES.filter((c) => c !== 'All').map((cat) => (
-                <option key={cat} value={cat}>
+                <option key={cat} value={cat} className="bg-card text-foreground">
                   {cat}
                 </option>
               ))}
             </select>
-            <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground text-xs">
+            <div className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground text-[10px]">
               ▼
             </div>
           </div>
@@ -88,59 +86,36 @@ export function HeroSearch() {
         {/* Price Range (Min - Max) */}
         <div className="space-y-1.5">
           <label className="text-[11px] font-bold uppercase text-muted-foreground tracking-wider flex items-center gap-1 pl-1">
-            <DollarSign className="h-3.5 w-3.5 text-primary" /> Price Range
+            <DollarSign className="h-3.5 w-3.5 text-teal-500" /> Price Range
           </label>
-          <div className="grid grid-cols-2 gap-1.5">
+          <div className="grid grid-cols-2 gap-2">
             <input
               type="number"
               placeholder="Min $"
               value={minPrice}
               onChange={(e) => setMinPrice(e.target.value)}
-              className="w-full h-12 px-3 rounded-2xl bg-muted/40 border border-border/60 text-xs font-semibold text-foreground focus:bg-background focus:outline-none focus:ring-2 focus:ring-primary/40 transition-all"
+              className="w-full h-12 px-3 rounded-xl bg-card dark:bg-slate-900/80 border border-border text-xs font-semibold text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all shadow-xs"
             />
             <input
               type="number"
               placeholder="Max $"
               value={maxPrice}
               onChange={(e) => setMaxPrice(e.target.value)}
-              className="w-full h-12 px-3 rounded-2xl bg-muted/40 border border-border/60 text-xs font-semibold text-foreground focus:bg-background focus:outline-none focus:ring-2 focus:ring-primary/40 transition-all"
+              className="w-full h-12 px-3 rounded-xl bg-card dark:bg-slate-900/80 border border-border text-xs font-semibold text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all shadow-xs"
             />
           </div>
         </div>
 
-        {/* Bedrooms Select */}
-        <div className="space-y-1.5">
-          <label className="text-[11px] font-bold uppercase text-muted-foreground tracking-wider flex items-center gap-1 pl-1">
-            <Bed className="h-3.5 w-3.5 text-primary" /> Bedrooms
-          </label>
-          <div className="relative">
-            <select
-              value={bedrooms}
-              onChange={(e) => setBedrooms(e.target.value)}
-              className="w-full h-12 px-3.5 rounded-2xl bg-muted/40 border border-border/60 text-xs font-semibold text-foreground focus:bg-background focus:outline-none focus:ring-2 focus:ring-primary/40 transition-all cursor-pointer appearance-none"
-            >
-              <option value="">Any Beds</option>
-              <option value="1">1+ Bedrooms</option>
-              <option value="2">2+ Bedrooms</option>
-              <option value="3">3+ Bedrooms</option>
-              <option value="4">4+ Bedrooms</option>
-              <option value="5">5+ Bedrooms</option>
-            </select>
-            <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground text-xs">
-              ▼
-            </div>
-          </div>
-        </div>
-
         {/* Submit Search Button */}
-        <div className="pt-1 sm:pt-0">
+        <div>
           <Button
             type="submit"
-            className="w-full h-12 rounded-2xl bg-gradient-to-r from-blue-600 via-sky-500 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-bold text-xs gap-2 shadow-lg shadow-blue-500/25 hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer flex items-center justify-center"
+            variant="gradient"
+            className="w-full h-12 rounded-xl text-white font-extrabold text-xs gap-2 shadow-md shadow-blue-500/25 hover:shadow-lg active:scale-[0.98] transition-all cursor-pointer flex items-center justify-center"
           >
-            <Search className="h-4 w-4 shrink-0" />
-            <span>Search Properties</span>
-            <Sparkles className="h-3.5 w-3.5 text-amber-300 fill-amber-300" />
+            <Search className="h-4 w-4 shrink-0 text-white" />
+            <span className="text-white">Search Properties</span>
+            {/* <Sparkles className="h-3.5 w-3.5 text-amber-300 fill-amber-300" /> */}
           </Button>
         </div>
       </div>
