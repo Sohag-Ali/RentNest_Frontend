@@ -15,24 +15,26 @@ export function HeroButtons() {
     >
       {/* Primary CTA Buttons */}
       <div className="flex flex-wrap items-center gap-3.5">
-        <Button
-          render={<Link href="/properties" />}
-          size="lg"
-          className="rounded-2xl px-7 h-13 text-sm font-bold bg-primary text-primary-foreground hover:bg-primary/90 shadow-xl shadow-primary/25 hover:shadow-2xl hover:scale-[1.02] active:scale-[0.98] transition-all gap-2 flex items-center group cursor-pointer"
-        >
-          <span>Browse Properties</span>
-          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-        </Button>
+        <Link href="/properties">
+          <Button
+            size="lg"
+            className="rounded-2xl px-7 h-13 text-sm font-bold bg-primary text-primary-foreground hover:bg-primary/90 shadow-xl shadow-primary/25 hover:shadow-2xl hover:scale-[1.02] active:scale-[0.98] transition-all gap-2 flex items-center group cursor-pointer"
+          >
+            <span>Browse Properties</span>
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </Button>
+        </Link>
 
-        <Button
-          render={<Link href="/dashboard/landlord" />}
-          size="lg"
-          variant="outline"
-          className="rounded-2xl px-7 h-13 text-sm font-bold border-border/80 bg-background/60 backdrop-blur-xl hover:bg-muted/80 hover:scale-[1.02] active:scale-[0.98] transition-all gap-2 flex items-center cursor-pointer"
-        >
-          <Building2 className="h-4 w-4 text-primary" />
-          <span>Become a Landlord</span>
-        </Button>
+        <Link href="/dashboard/landlord">
+          <Button
+            size="lg"
+            variant="outline"
+            className="rounded-2xl px-7 h-13 text-sm font-bold border-border/80 bg-background/60 backdrop-blur-xl hover:bg-muted/80 hover:scale-[1.02] active:scale-[0.98] transition-all gap-2 flex items-center cursor-pointer"
+          >
+            <Building2 className="h-4 w-4 text-primary" />
+            <span>Become a Landlord</span>
+          </Button>
+        </Link>
       </div>
 
       {/* Trust Badges */}

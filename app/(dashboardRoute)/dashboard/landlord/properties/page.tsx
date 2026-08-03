@@ -12,7 +12,7 @@ import { Building2Icon, PlusIcon, SparklesIcon } from "lucide-react";
  * Landlord Properties Page (Server Component)
  * Route: /dashboard/landlord/properties
  * 
- * Fetches all properties from GET http://localhost:5000/api/properties
+ * Fetches all properties from GET https://rentnest-backend-ezd1.onrender.com/api/properties
  * Filters properties so ONLY the logged-in landlord's created properties are shown.
  */
 export default async function LandlordPropertiesPage() {

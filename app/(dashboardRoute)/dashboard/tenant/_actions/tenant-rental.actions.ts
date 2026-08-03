@@ -40,7 +40,7 @@ export interface TenantRentalItem {
 
 /**
  * Server Action: Fetch all rental requests for the currently logged-in tenant
- * Target Endpoint: GET http://localhost:5000/api/rentals
+ * Target Endpoint: GET https://rentnest-backend-ezd1.onrender.com/api/rentals
  */
 export const getMyRentals = async () => {
   try {

@@ -34,7 +34,7 @@ bookingApiClient.interceptors.request.use((config) => {
 export const bookingService = {
   /**
    * Fetches landlord rented properties & bookings summary from backend.
-   * GET http://localhost:5000/api/landlord/rented-properties
+   * GET https://rentnest-backend-ezd1.onrender.com/api/landlord/rented-properties
    */
   getLandlordBookings: async (params?: LandlordBookingsParams): Promise<LandlordBookingsResponse> => {
     // Build clean query params object with non-empty values

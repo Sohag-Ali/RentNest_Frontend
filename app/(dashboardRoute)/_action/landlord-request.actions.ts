@@ -31,7 +31,7 @@ export interface LandlordRequestItem {
 
 /**
  * Server Action: Fetch all incoming rental requests for the logged-in Landlord
- * Target Endpoint: GET http://localhost:5000/api/landlord/requests
+ * Target Endpoint: GET https://rentnest-backend-ezd1.onrender.com/api/landlord/requests
  */
 export const getLandlordRequests = async () => {
   try {
@@ -96,7 +96,7 @@ export const getLandlordRequests = async () => {
 
 /**
  * Server Action: Approve or Reject a specific booking request
- * Target Endpoint: PATCH http://localhost:5000/api/landlord/requests/:requestId
+ * Target Endpoint: PATCH https://rentnest-backend-ezd1.onrender.com/api/landlord/requests/:requestId
  * Body: { "status": "APPROVED" | "REJECTED" }
  */
 export const updateLandlordRequestStatus = async (
