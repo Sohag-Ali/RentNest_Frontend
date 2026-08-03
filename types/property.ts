@@ -41,8 +41,8 @@ export interface CreatePropertyInput {
   bedrooms: number;
   bathrooms: number;
   areaSqFt: number;
-  isFeatured: boolean;
-  isAvailable: boolean;
+  isFeatured?: boolean;
+  isAvailable?: boolean;
   mainImage: string;
   images: string[];
   amenities: string[];
@@ -52,10 +52,12 @@ export interface CreatePropertyInput {
 
 export interface Property extends CreatePropertyInput {
   id: string;
-  category?: string;
+  category?: string | { id: string; name: string };
   rating?: number;
+  averageRating?: number;
   reviewsCount?: number;
   reviewCount?: number;
+  wishlistCount?: number;
   landlord?: Landlord;
   createdAt?: string;
   updatedAt?: string;
@@ -65,6 +67,12 @@ export interface PropertyResponse {
   success: boolean;
   message?: string;
   data?: Property;
+}
+
+export interface FeaturedPropertiesResponse {
+  success: boolean;
+  message?: string;
+  data: Property[];
 }
 
 export interface SearchState {

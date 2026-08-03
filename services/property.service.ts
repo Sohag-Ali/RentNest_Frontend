@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CreatePropertyInput, PropertyResponse } from "@/types/property";
+import { CreatePropertyInput, PropertyResponse, Property } from "@/types/property";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
@@ -43,8 +43,8 @@ export const propertyService = {
         payload
       );
       return response.data;
-    } catch (error: any) {
-      if (error.response?.status === 405) {
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error) && error.response?.status === 405) {
         const patchRes = await propertyApiClient.patch<PropertyResponse>(
           `/api/landlord/properties/${id}`,
           payload
@@ -60,5 +60,16 @@ export const propertyService = {
       `/api/properties/${id}`
     );
     return response.data;
+  },
+
+  getFeaturedProperties: async (): Promise<Property[]> => {
+    const response = await propertyApiClient.get("/api/properties/featured");
+    if (response.data && response.data.success && Array.isArray(response.data.data)) {
+      return response.data.data;
+    }
+    if (Array.isArray(response.data)) {
+      return response.data;
+    }
+    return response.data?.data || [];
   },
 };
