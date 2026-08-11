@@ -11,6 +11,22 @@ export interface Category {
 
 export interface CategoriesApiResponse {
   success: boolean;
-  data: Category[];
+  statusCode?: number;
   message?: string;
+  data: Category[];
 }
+
+export interface CreateCategoryResponse {
+  success: boolean;
+  statusCode?: number;
+  message?: string;
+  data?: Category;
+}
+
+export interface CategoryActionResult<T = any> {
+  success: boolean;
+  statusCode: number;
+  message: string;
+  data: T;
+}
+

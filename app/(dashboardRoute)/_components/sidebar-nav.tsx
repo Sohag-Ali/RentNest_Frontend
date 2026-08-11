@@ -15,6 +15,7 @@ import {
   FileText,
   Users,
   LogOut,
+  FolderTree,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { logoutAction } from '@/app/(authRoute)/_actions/authActions';
@@ -45,6 +46,7 @@ const adminNavItems = [
   { href: '/dashboard/admin', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/dashboard/admin/users', label: 'Users', icon: Users },
   { href: '/dashboard/admin/properties', label: 'Properties', icon: Building2 },
+  { href: '/dashboard/admin/categories', label: 'Categories', icon: FolderTree },
   { href: '/dashboard/admin/rentals', label: 'Rental Requests', icon: FileText },
   { href: '/dashboard/admin/payments', label: 'Payments', icon: CreditCard },
 ];
