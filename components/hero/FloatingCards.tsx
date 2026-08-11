@@ -1,147 +1,212 @@
 'use client';
 
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
-import { Star, Heart, MapPin, ShieldCheck, DollarSign, CheckCircle2 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+  Star,
+  Heart,
+  ShieldCheck,
+  ChevronLeft,
+  ChevronRight,
+  Sparkles,
+  MapPin,
+  CheckCircle2,
+} from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 
-const LUXURY_HERO_IMAGE =
-  'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1400&q=85';
+interface PropertySlide {
+  id: string;
+  title: string;
+  location: string;
+  price: string;
+  rating: string;
+  reviews: string;
+  saved: string;
+  image: string;
+  tag: string;
+}
+
+const HERO_SLIDES: PropertySlide[] = [
+  {
+    id: 'slide-1',
+    title: 'Skyline Luxury Penthouse',
+    location: 'Gulshan, Dhaka',
+    price: '$1,200',
+    rating: '4.9',
+    reviews: '520+ Reviews',
+    saved: '640+ Saved',
+    image:
+      'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1400&q=85',
+    tag: 'Featured Penthouse',
+  },
+  {
+    id: 'slide-2',
+    title: 'Contemporary Duplex Residence',
+    location: 'Banani, Dhaka',
+    price: '$1,450',
+    rating: '4.95',
+    reviews: '410+ Reviews',
+    saved: '780+ Saved',
+    image:
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=85',
+    tag: 'Top Pick Duplex',
+  },
+  {
+    id: 'slide-3',
+    title: 'Modern Waterfront Villa',
+    location: 'Bashundhara R/A, Dhaka',
+    price: '$1,800',
+    rating: '5.0',
+    reviews: '630+ Reviews',
+    saved: '920+ Saved',
+    image:
+      'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=1400&q=85',
+    tag: 'Exclusive Villa',
+  },
+];
 
 export function FloatingCards() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+
+  const currentSlide = HERO_SLIDES[currentIndex];
+
+  useEffect(() => {
+    if (!isAutoPlaying) return;
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % HERO_SLIDES.length);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, [isAutoPlaying]);
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % HERO_SLIDES.length);
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev - 1 + HERO_SLIDES.length) % HERO_SLIDES.length);
+  };
+
   return (
-    <div className="relative w-full aspect-[4/3] lg:aspect-[5/4] max-w-xl mx-auto flex items-center justify-center">
-      {/* Glow Halo behind image */}
-      <div className="absolute -inset-4 rounded-3xl bg-gradient-to-r from-blue-500/20 via-sky-400/20 to-teal-400/20 blur-3xl opacity-70 animate-pulse pointer-events-none" />
+    <div
+      onMouseEnter={() => setIsAutoPlaying(false)}
+      onMouseLeave={() => setIsAutoPlaying(true)}
+      className="relative w-full max-w-lg mx-auto"
+    >
+      {/* Background Soft Radial Glow */}
+      <div className="absolute -inset-4 rounded-3xl bg-gradient-to-r from-blue-500/20 via-sky-400/20 to-teal-400/20 blur-2xl opacity-60 pointer-events-none" />
 
-      {/* Main Ultra Luxury Property Image Frame */}
-      <motion.div
-        initial={{ scale: 0.95, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 1, ease: 'easeOut' }}
-        className="relative w-full h-full rounded-3xl overflow-hidden border border-white/20 dark:border-white/10 shadow-2xl shadow-blue-500/10 group"
-      >
-        <Image
-          src={LUXURY_HERO_IMAGE}
-          alt="Luxury Apartment Interior"
-          fill
-          priority
-          sizes="(max-width: 1024px) 100vw, 50vw"
-          className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-        />
+      {/* Main Luxury Slider Card Frame */}
+      <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden border border-slate-200/80 dark:border-white/15 shadow-2xl shadow-blue-500/10 group bg-card">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentSlide.id}
+            initial={{ opacity: 0, x: 30, scale: 1.02 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            exit={{ opacity: 0, x: -30, scale: 0.98 }}
+            transition={{ duration: 0.3, ease: 'easeInOut' }}
+            className="relative w-full h-full"
+          >
+            <Image
+              src={currentSlide.image}
+              alt={currentSlide.title}
+              fill
+              priority
+              sizes="(max-width: 1024px) 100vw, 45vw"
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+            />
 
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/10" />
+            {/* Dark Gradient Protection Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-black/20" />
 
-        {/* Bottom Property Tag Overlay */}
-        <div className="absolute bottom-5 left-5 right-5 p-4 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 text-white flex items-center justify-between">
-          <div>
-            <div className="flex items-center gap-1.5">
-              <Badge className="bg-emerald-500/90 text-white font-bold text-[10px] px-2 py-0.5 border-none">
-                Featured Rental
+            {/* Top Bar inside image: Rating & Saved Badges */}
+            <div className="absolute top-3.5 left-3.5 right-3.5 flex items-center justify-between z-20">
+              <Badge className="bg-black/50 backdrop-blur-md border border-white/20 text-white font-semibold text-[11px] px-3 py-1 gap-1.5 rounded-full shadow-md">
+                <Sparkles className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
+                <span>{currentSlide.tag}</span>
               </Badge>
-              <span className="text-xs text-white/80 font-medium">Banani, Dhaka</span>
+
+              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1 bg-black/50 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/20 text-white text-xs font-bold shadow-md">
+                  <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                  <span>{currentSlide.rating}</span>
+                </div>
+                <div className="flex items-center gap-1 bg-black/50 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/20 text-white text-xs font-bold shadow-md">
+                  <Heart className="w-3.5 h-3.5 fill-rose-500 text-rose-500" />
+                  <span>{currentSlide.saved}</span>
+                </div>
+              </div>
             </div>
-            <h4 className="text-sm font-bold text-white mt-1 drop-shadow-sm">
-              Skyline Luxury Penthouse
-            </h4>
-          </div>
-          <div className="text-right">
-            <div className="text-xs text-white/70">Per Month</div>
-            <div className="text-base font-extrabold font-mono text-emerald-400">$1,200</div>
-          </div>
+
+            {/* Bottom Property Info Card inside image */}
+            <div className="absolute bottom-3.5 left-3.5 right-3.5 p-4 rounded-2xl bg-white/10 dark:bg-slate-950/60 backdrop-blur-xl border border-white/20 text-white flex items-center justify-between z-20 shadow-xl">
+              <div className="space-y-0.5 min-w-0 pr-2">
+                <div className="flex items-center gap-1 text-[11px] text-sky-300 font-semibold truncate">
+                  <MapPin className="w-3 h-3 text-sky-400 shrink-0" />
+                  <span className="truncate">{currentSlide.location}</span>
+                </div>
+                <h4 className="text-sm sm:text-base font-extrabold text-white truncate drop-shadow-sm">
+                  {currentSlide.title}
+                </h4>
+              </div>
+
+              <div className="text-right shrink-0">
+                <div className="text-[10px] text-white/70 font-semibold uppercase tracking-wider">Per Month</div>
+                <div className="text-base font-black font-mono text-emerald-400">
+                  {currentSlide.price}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Carousel Prev/Next Buttons */}
+        <button
+          onClick={handlePrev}
+          aria-label="Previous Property"
+          className="absolute left-3 top-1/2 -translate-y-1/2 z-30 p-2 rounded-full bg-black/40 hover:bg-black/70 text-white backdrop-blur-md transition-all cursor-pointer hover:scale-110 active:scale-95 border border-white/20"
+        >
+          <ChevronLeft className="w-4 h-4" />
+        </button>
+        <button
+          onClick={handleNext}
+          aria-label="Next Property"
+          className="absolute right-3 top-1/2 -translate-y-1/2 z-30 p-2 rounded-full bg-black/40 hover:bg-black/70 text-white backdrop-blur-md transition-all cursor-pointer hover:scale-110 active:scale-95 border border-white/20"
+        >
+          <ChevronRight className="w-4 h-4" />
+        </button>
+
+        {/* Slide Indicators */}
+        <div className="absolute bottom-1 right-4 z-30 flex items-center gap-1.5 pb-2">
+          {HERO_SLIDES.map((slide, idx) => (
+            <button
+              key={slide.id}
+              onClick={() => setCurrentIndex(idx)}
+              aria-label={`Slide ${idx + 1}`}
+              className={`transition-all rounded-full cursor-pointer ${
+                currentIndex === idx
+                  ? 'w-5 h-1.5 bg-sky-400'
+                  : 'w-1.5 h-1.5 bg-white/40 hover:bg-white'
+              }`}
+            />
+          ))}
         </div>
-      </motion.div>
+      </div>
 
-      {/* 1. Floating Card: Rating ⭐ 4.9 (Top Left) */}
-      <motion.div
-        initial={{ opacity: 0, x: -30, y: -20 }}
-        animate={{ opacity: 1, x: 0, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.5 }}
-      >
-        <motion.div
-          animate={{ y: [0, -8, 0] }}
-          transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute -top-4 -left-4 sm:top-4 sm:-left-6 rounded-2xl border border-white/30 bg-background/80 backdrop-blur-2xl p-3 shadow-xl flex items-center gap-2.5 z-20 cursor-default hover:scale-105 transition-transform"
-        >
-          <div className="h-9 w-9 rounded-xl bg-amber-500/15 text-amber-500 flex items-center justify-center font-bold">
-            <Star className="h-5 w-5 fill-amber-500" />
-          </div>
-          <div>
-            <div className="flex items-center gap-1">
-              <span className="text-xs font-extrabold text-foreground">4.9 Rating</span>
-            </div>
-            <span className="text-[10px] text-muted-foreground font-medium">500+ Verified Reviews</span>
-          </div>
-        </motion.div>
-      </motion.div>
-
-      {/* 2. Floating Card: Saved ❤️ 500 (Top Right) */}
-      <motion.div
-        initial={{ opacity: 0, x: 30, y: -20 }}
-        animate={{ opacity: 1, x: 0, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.6 }}
-      >
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-          className="absolute top-6 -right-4 sm:-right-6 rounded-2xl border border-white/30 bg-background/80 backdrop-blur-2xl p-3 shadow-xl flex items-center gap-2.5 z-20 cursor-default hover:scale-105 transition-transform"
-        >
-          <div className="h-9 w-9 rounded-xl bg-rose-500/15 text-rose-500 flex items-center justify-center font-bold">
-            <Heart className="h-5 w-5 fill-rose-500" />
-          </div>
-          <div>
-            <span className="text-xs font-extrabold text-foreground block">500+ Saved</span>
-            <span className="text-[10px] text-muted-foreground font-medium">Wishlisted Property</span>
-          </div>
-        </motion.div>
-      </motion.div>
-
-      {/* 3. Floating Card: Verified Property 🏠 (Bottom Left) */}
-      <motion.div
-        initial={{ opacity: 0, x: -30, y: 20 }}
-        animate={{ opacity: 1, x: 0, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.7 }}
-      >
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
-          className="absolute bottom-16 -left-6 sm:bottom-20 sm:-left-8 rounded-2xl border border-white/30 bg-background/80 backdrop-blur-2xl p-3 shadow-xl flex items-center gap-2.5 z-20 cursor-default hover:scale-105 transition-transform"
-        >
-          <div className="h-9 w-9 rounded-xl bg-blue-500/15 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold">
-            <ShieldCheck className="h-5 w-5" />
-          </div>
-          <div>
-            <span className="text-xs font-extrabold text-foreground flex items-center gap-1">
-              Verified Property <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 fill-emerald-500" />
-            </span>
-            <span className="text-[10px] text-muted-foreground font-medium">100% Protection</span>
-          </div>
-        </motion.div>
-      </motion.div>
-
-      {/* 4. Floating Card: Price Tag 💰 $1,200/mo (Bottom Right) */}
-      <motion.div
-        initial={{ opacity: 0, x: 30, y: 20 }}
-        animate={{ opacity: 1, x: 0, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.8 }}
-      >
-        <motion.div
-          animate={{ y: [0, -8, 0] }}
-          transition={{ duration: 3.8, repeat: Infinity, ease: 'easeInOut', delay: 1.2 }}
-          className="absolute -bottom-4 -right-4 sm:bottom-2 sm:-right-6 rounded-2xl border border-white/30 bg-background/80 backdrop-blur-2xl p-3.5 shadow-xl flex items-center gap-3 z-20 cursor-default hover:scale-105 transition-transform"
-        >
-          <div className="h-10 w-10 rounded-xl bg-emerald-500/15 text-emerald-500 flex items-center justify-center font-bold">
-            <DollarSign className="h-5 w-5" />
-          </div>
-          <div>
-            <span className="text-[10px] text-muted-foreground font-semibold uppercase tracking-wider block">
-              Starting From
-            </span>
-            <span className="text-sm font-extrabold font-mono text-foreground">$1,200 / month</span>
-          </div>
-        </motion.div>
-      </motion.div>
+      {/* Verified Shield Badge cleanly placed underneath */}
+      <div className="mt-3 flex items-center justify-between px-2 text-xs text-muted-foreground font-medium">
+        <div className="flex items-center gap-1.5">
+          <ShieldCheck className="w-4 h-4 text-blue-500" />
+          <span>100% Lease & Deposit Security</span>
+        </div>
+        <div className="flex items-center gap-1 text-emerald-500 font-bold">
+          <CheckCircle2 className="w-3.5 h-3.5 fill-current" />
+          <span>Verified Landlords</span>
+        </div>
+      </div>
     </div>
   );
 }
+
+
