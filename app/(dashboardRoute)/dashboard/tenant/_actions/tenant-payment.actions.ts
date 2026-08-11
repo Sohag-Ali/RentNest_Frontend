@@ -183,8 +183,8 @@ export async function getPaymentHistory() {
     const paymentList: PaymentItem[] = Array.isArray(result.data)
       ? result.data
       : Array.isArray(result)
-      ? result
-      : []
+        ? result
+        : []
 
     return {
       success: result.success ?? true,

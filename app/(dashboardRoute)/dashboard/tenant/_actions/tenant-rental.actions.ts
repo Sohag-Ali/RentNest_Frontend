@@ -40,7 +40,7 @@ export interface TenantRentalItem {
 
 /**
  * Server Action: Fetch all rental requests for the currently logged-in tenant
- * Target Endpoint: GET https://rentnest-backend-ezd1.onrender.com/api/rentals
+ * Target Endpoint: GET http://localhost:5000/api/rentals
  */
 export const getMyRentals = async () => {
   try {
@@ -83,8 +83,8 @@ export const getMyRentals = async () => {
     const rentalsList: TenantRentalItem[] = Array.isArray(result.data)
       ? result.data
       : Array.isArray(result)
-      ? result
-      : []
+        ? result
+        : []
 
     return {
       success: result.success ?? true,

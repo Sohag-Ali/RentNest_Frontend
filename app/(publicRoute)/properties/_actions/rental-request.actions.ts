@@ -17,7 +17,7 @@ interface CreateRentalRequestPayload {
  * Why this function exists:
  * Handles sending rental application data securely from the server to the backend API.
  * 
- * Target Endpoint: POST https://rentnest-backend-ezd1.onrender.com/api/rentals
+ * Target Endpoint: POST http://localhost:5000/api/rentals
  */
 export const createRentalRequest = async (payload: CreateRentalRequestPayload) => {
   try {

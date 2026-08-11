@@ -128,7 +128,7 @@ export async function getReviewsAction(propertyId?: string): Promise<{ success: 
   try {
     const API_URL = process.env.BACKEND_API_URL || "http://localhost:5000";
     const url = propertyId ? `${API_URL}/api/reviews?propertyId=${propertyId}` : `${API_URL}/api/reviews`;
-    
+
     const res = await fetch(url, { cache: "no-store" });
     if (!res.ok) {
       return { success: false, data: [] };
@@ -145,7 +145,7 @@ export async function getReviewsAction(propertyId?: string): Promise<{ success: 
 
 /**
  * Server Action: Fetch reviews submitted by the currently logged-in tenant
- * Target API: GET https://rentnest-backend-ezd1.onrender.com/api/reviews/me
+ * Target API: GET http://localhost:5000/api/reviews/me
  */
 export async function getMyReviewsAction(): Promise<{ success: boolean; data: MyReviewItem[] }> {
   try {
