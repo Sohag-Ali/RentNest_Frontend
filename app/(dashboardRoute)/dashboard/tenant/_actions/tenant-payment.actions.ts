@@ -260,3 +260,64 @@ export async function getPaymentDetails(paymentId: string) {
   }
 }
 
+/**
+ * Server Action: Fetch payment details by rental request ID
+ * Target Endpoint: GET /api/payments/rental/:rentalRequestId
+ * 
+ * Used by payment success page to verify payment completion status asynchronously.
+ * 
+ * @param rentalRequestId The unique ID of the rental request
+ */
+export async function getPaymentByRentalRequestId(rentalRequestId: string) {
+  try {
+    const cookieStore = await cookies()
+    const accessToken = cookieStore.get("accessToken")?.value || null
+
+    if (!accessToken) {
+      return {
+        success: false,
+        statusCode: 401,
+        message: "User not logged in.",
+        data: null as PaymentItem | null,
+      }
+    }
+
+    const res = await fetch(`${API_URL}/api/payments/rental/${rentalRequestId}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+        Cookie: `accessToken=${accessToken}`,
+      },
+      cache: "no-store", // Explicitly do not cache payment verification requests
+    })
+
+    if (!res.ok) {
+      return {
+        success: false,
+        statusCode: res.status,
+        message: "Payment record not found or pending verification.",
+        data: null as PaymentItem | null,
+      }
+    }
+
+    const result = await res.json()
+    const paymentData: PaymentItem | null = result.data || result || null
+
+    return {
+      success: result.success ?? true,
+      statusCode: result.statusCode ?? 200,
+      message: result.message || "Payment status fetched successfully",
+      data: paymentData,
+    }
+  } catch (error: any) {
+    console.error("Error in getPaymentByRentalRequestId server action:", error)
+    return {
+      success: false,
+      statusCode: 500,
+      message: error?.message || "Error verifying payment status.",
+      data: null as PaymentItem | null,
+    }
+  }
+}
+
+
