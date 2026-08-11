@@ -1,7 +1,10 @@
 import axios from "axios";
 import { CreatePropertyInput, PropertyResponse, Property } from "@/types/property";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL ||
+  process.env.NEXT_PUBLIC_BACKEND_API_URL ||
+  "http://localhost:5000";
 
 export const propertyApiClient = axios.create({
   baseURL: API_BASE_URL,
@@ -63,13 +66,40 @@ export const propertyService = {
   },
 
   getFeaturedProperties: async (): Promise<Property[]> => {
-    const response = await propertyApiClient.get("/api/properties/featured");
-    if (response.data && response.data.success && Array.isArray(response.data.data)) {
-      return response.data.data;
+    try {
+      const response = await propertyApiClient.get("/api/properties/featured");
+      if (response.data && response.data.success && Array.isArray(response.data.data)) {
+        return response.data.data;
+      }
+      if (Array.isArray(response.data)) {
+        return response.data;
+      }
+      if (response.data?.data && Array.isArray(response.data.data)) {
+        return response.data.data;
+      }
+    } catch (error) {
+      console.warn("Direct API call to featured properties failed, attempting relative proxy endpoint...", error);
+      try {
+        const res = await fetch("/api/properties/featured", {
+          headers: { "Content-Type": "application/json" },
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.success && Array.isArray(data.data)) {
+            return data.data;
+          }
+          if (Array.isArray(data)) {
+            return data;
+          }
+          if (data?.data && Array.isArray(data.data)) {
+            return data.data;
+          }
+        }
+      } catch (proxyError) {
+        console.error("Proxy fetch for featured properties also failed:", proxyError);
+      }
     }
-    if (Array.isArray(response.data)) {
-      return response.data;
-    }
-    return response.data?.data || [];
+    return [];
   },
 };
+

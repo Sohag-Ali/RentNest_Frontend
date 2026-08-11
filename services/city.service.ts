@@ -1,7 +1,10 @@
 import axios from "axios";
 import { CityData, CitiesApiResponse } from "@/types/city";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL ||
+  process.env.NEXT_PUBLIC_BACKEND_API_URL ||
+  "http://localhost:5000";
 
 export const cityApiClient = axios.create({
   baseURL: API_BASE_URL,
@@ -17,16 +20,44 @@ export const cityService = {
    * Endpoint: GET /api/cities
    */
   getCities: async (): Promise<CityData[]> => {
-    const response = await cityApiClient.get<CitiesApiResponse>("/api/cities");
+    try {
+      const response = await cityApiClient.get<CitiesApiResponse>("/api/cities");
 
-    if (response.data && response.data.success && Array.isArray(response.data.data)) {
-      return response.data.data;
+      if (response.data && response.data.success && Array.isArray(response.data.data)) {
+        return response.data.data;
+      }
+
+      if (Array.isArray(response.data)) {
+        return response.data;
+      }
+
+      if (response.data?.data && Array.isArray(response.data.data)) {
+        return response.data.data;
+      }
+    } catch (error) {
+      console.warn("Direct API call to cities failed, attempting relative proxy endpoint...", error);
+      try {
+        const res = await fetch("/api/cities", {
+          headers: { "Content-Type": "application/json" },
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.success && Array.isArray(data.data)) {
+            return data.data;
+          }
+          if (Array.isArray(data)) {
+            return data;
+          }
+          if (data?.data && Array.isArray(data.data)) {
+            return data.data;
+          }
+        }
+      } catch (proxyError) {
+        console.error("Proxy fetch for cities also failed:", proxyError);
+      }
     }
 
-    if (Array.isArray(response.data)) {
-      return response.data;
-    }
-
-    return response.data?.data || [];
+    return [];
   },
 };
+
