@@ -5,6 +5,7 @@ import { BrowseByCity } from '@/components/home/BrowseByCity';
 import { WhyChooseRentNest } from '@/components/home/WhyChooseRentNest';
 import { HowItWorks } from '@/components/home/HowItWorks';
 import { PopularAmenities } from '@/components/home/PopularAmenities';
+import { TestimonialsSection } from '@/components/home/TestimonialsSection';
 import { BecomeLandlordCTA } from '@/components/home/BecomeLandlordCTA';
 
 export const metadata = {
@@ -23,6 +24,7 @@ export default function HomePage() {
       <BrowseByCity />
       <WhyChooseRentNest />
       <HowItWorks />
+      <TestimonialsSection />
       <BecomeLandlordCTA />
     </main>
   );
