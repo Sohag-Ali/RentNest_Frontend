@@ -58,6 +58,7 @@ export interface Property extends CreatePropertyInput {
   reviewsCount?: number;
   reviewCount?: number;
   wishlistCount?: number;
+  rentalRequestCount?: number;
   landlord?: Landlord;
   createdAt?: string;
   updatedAt?: string;
