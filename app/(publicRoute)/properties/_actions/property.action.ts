@@ -20,38 +20,45 @@ export const getProperties = async () => {
       "Content-Type": "application/json",
     }
 
-    // If an access token exists, include it in the headers for authentication
+    // If an access token exists, include it in headers for authentication
     if (accessToken) {
       headers["Cookie"] = `accessToken=${accessToken}`
     }
 
-    // Perform the HTTP GET request to backend
-    const res = await fetch(`${API_URL}/api/properties`, {
-      headers,
-      cache: "no-store", // Fetch fresh data on every request
-    })
+    let allProperties: any[] = []
+    let page = 1
+    let total = 0
 
-    // Check if response was successful
-    if (!res.ok) {
-      console.error(`Failed to fetch properties. Status: ${res.status}`)
-      return []
-    }
+    // Fetch all pages of properties from backend
+    do {
+      const res = await fetch(`${API_URL}/api/properties?page=${page}`, {
+        headers,
+        cache: "no-store", // Fetch fresh data on every request
+      })
 
-    // Parse JSON response
-    const result = await res.json()
+      if (!res.ok) {
+        console.error(`Failed to fetch properties page ${page}. Status: ${res.status}`)
+        break
+      }
 
-    // If backend wraps response in { success: true, data: [...] }
-    if (result && result.data && Array.isArray(result.data)) {
-      return result.data
-    }
+      const result = await res.json()
+      const data =
+        result && result.data && Array.isArray(result.data)
+          ? result.data
+          : Array.isArray(result)
+          ? result
+          : []
 
-    // If backend returns array directly [...]
-    if (Array.isArray(result)) {
-      return result
-    }
+      if (data.length === 0) {
+        break
+      }
 
-    // Fallback empty array if data structure is unexpected
-    return []
+      allProperties.push(...data)
+      total = result?.meta?.total || allProperties.length
+      page++
+    } while (allProperties.length < total && page <= 50)
+
+    return allProperties
   } catch (error) {
     console.error("Error fetching properties in server action:", error)
     return []
