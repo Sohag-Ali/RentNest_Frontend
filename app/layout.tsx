@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { QueryProvider } from "@/components/providers/query-provider"
+import { NotificationProvider } from "@/providers/notification-provider"
 import { cn } from "@/lib/utils";
 import { Toaster } from "sonner"
 
@@ -27,11 +28,14 @@ export default function RootLayout({
       <body>
         <ThemeProvider>
           <QueryProvider>
-            {children}
-            <Toaster richColors position="top-right" />
+            <NotificationProvider>
+              {children}
+              <Toaster richColors position="top-right" />
+            </NotificationProvider>
           </QueryProvider>
         </ThemeProvider>
       </body>
     </html>
   )
 }
+

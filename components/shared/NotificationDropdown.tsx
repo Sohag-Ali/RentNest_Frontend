@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import Link from 'next/link';
 import {
   Bell,
   CheckCheck,
@@ -9,6 +9,9 @@ import {
   MessageSquare,
   Sparkles,
   ChevronRight,
+  ShieldCheck,
+  AlertCircle,
+  XCircle,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -20,75 +23,46 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Badge } from '@/components/ui/badge';
-import { toast } from 'sonner';
+import { useNotifications } from '@/providers/notification-provider';
+import { NotificationType, NotificationItem } from '@/types/notification.type';
 
-export interface NotificationItem {
-  id: string;
-  title: string;
-  message: string;
-  time: string;
-  read: boolean;
-  type: 'booking' | 'payment' | 'system' | 'message';
+function formatRelativeTime(dateString: string): string {
+  if (!dateString) return '';
+  const date = new Date(dateString);
+  const now = new Date();
+  const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+
+  if (isNaN(diffInSeconds) || diffInSeconds < 30) return 'Just now';
+  const minutes = Math.floor(diffInSeconds / 60);
+  if (minutes < 60) return `${minutes}m ago`;
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return `${hours}h ago`;
+  const days = Math.floor(hours / 24);
+  if (days < 7) return `${days}d ago`;
+  return date.toLocaleDateString();
 }
 
-const initialNotifications: NotificationItem[] = [
-  {
-    id: '1',
-    title: 'Rental Request Approved 🎉',
-    message: 'Your booking request for Modern Gulshan Apartment was accepted by the landlord.',
-    time: '10m ago',
-    read: false,
-    type: 'booking',
-  },
-  {
-    id: '2',
-    title: 'Payment Received 💳',
-    message: 'Rent payment of ৳25,000 for August 2026 was successfully processed.',
-    time: '2h ago',
-    read: false,
-    type: 'payment',
-  },
-  {
-    id: '3',
-    title: 'New Listing Alert 🏠',
-    message: 'A luxury 3-bedroom apartment in Banani matching your wishlist was published.',
-    time: '1d ago',
-    read: false,
-    type: 'system',
-  },
-  {
-    id: '4',
-    title: 'New Landlord Message 💬',
-    message: 'Host Sohag Ali replied: "Keys will be ready for handover tomorrow morning."',
-    time: '2d ago',
-    read: true,
-    type: 'message',
-  },
-];
-
 export function NotificationDropdown() {
-  const [notifications, setNotifications] = useState<NotificationItem[]>(initialNotifications);
+  const { notifications, unreadCount, markAllAsRead, handleNotificationClick } =
+    useNotifications();
 
-  const unreadCount = notifications.filter((n) => !n.read).length;
+  const displayNotifications = notifications.slice(0, 5);
 
-  const markAllAsRead = () => {
-    setNotifications((prev) => prev.map((item) => ({ ...item, read: true })));
-    toast.success('All notifications marked as read! ✨');
-  };
-
-  const toggleRead = (id: string) => {
-    setNotifications((prev) =>
-      prev.map((item) => (item.id === id ? { ...item, read: true } : item))
-    );
-  };
-
-  const getNotificationIcon = (type: NotificationItem['type']) => {
+  const getNotificationIcon = (type: NotificationType) => {
     switch (type) {
-      case 'booking':
+      case 'RENTAL_REQUEST':
+      case 'NEW_PROPERTY':
+      case 'PROPERTY_UPDATED':
         return <Building2 className="h-4 w-4 text-emerald-500" />;
-      case 'payment':
+      case 'RENTAL_APPROVED':
+        return <ShieldCheck className="h-4 w-4 text-green-500" />;
+      case 'RENTAL_REJECTED':
+      case 'RENTAL_CANCELLED':
+      case 'PAYMENT_FAILED':
+        return <XCircle className="h-4 w-4 text-rose-500" />;
+      case 'PAYMENT_SUCCESS':
         return <CreditCard className="h-4 w-4 text-blue-500" />;
-      case 'message':
+      case 'NEW_REVIEW':
         return <MessageSquare className="h-4 w-4 text-purple-500" />;
       default:
         return <Sparkles className="h-4 w-4 text-amber-500" />;
@@ -97,17 +71,22 @@ export function NotificationDropdown() {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="relative flex items-center justify-center h-9 w-9 rounded-full cursor-pointer hover:bg-muted transition-colors outline-none text-foreground">
+      <DropdownMenuTrigger
+        aria-label="Notifications"
+        className="relative flex items-center justify-center h-9 w-9 rounded-full cursor-pointer hover:bg-muted transition-colors outline-none text-foreground"
+      >
         <Bell className="h-5 w-5" />
         {unreadCount > 0 && (
-          <span className="absolute top-1 right-1 flex h-2.5 w-2.5">
+          <span className="absolute top-0.5 right-0.5 flex h-4 w-4 items-center justify-center">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500" />
+            <span className="relative inline-flex items-center justify-center rounded-full h-4 w-4 bg-red-500 text-[10px] font-bold text-white px-1">
+              {unreadCount > 99 ? '99+' : unreadCount}
+            </span>
           </span>
         )}
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent align="end" className="w-80 sm:w-96 p-2 rounded-3xl shadow-xl border-border/80 bg-card">
+      <DropdownMenuContent align="end" className="w-80 sm:w-96 p-2 rounded-3xl shadow-xl border-border/80 bg-card z-50">
         {/* Header */}
         <DropdownMenuLabel className="flex items-center justify-between p-2">
           <div className="flex items-center gap-2">
@@ -133,13 +112,13 @@ export function NotificationDropdown() {
 
         {/* Notifications List */}
         <div className="max-h-80 overflow-y-auto space-y-1 py-1 pr-1">
-          {notifications.length > 0 ? (
-            notifications.map((item) => (
+          {displayNotifications.length > 0 ? (
+            displayNotifications.map((item) => (
               <DropdownMenuItem
                 key={item.id}
-                onClick={() => toggleRead(item.id)}
+                onClick={() => handleNotificationClick(item)}
                 className={`p-3 rounded-2xl cursor-pointer transition-all flex items-start gap-3 ${
-                  item.read ? 'bg-transparent opacity-75 hover:bg-muted/50' : 'bg-primary/5 hover:bg-primary/10'
+                  item.isRead ? 'bg-transparent opacity-75 hover:bg-muted/50' : 'bg-primary/5 hover:bg-primary/10'
                 }`}
               >
                 <div className="h-9 w-9 rounded-xl bg-muted/80 flex items-center justify-center shrink-0 mt-0.5">
@@ -149,12 +128,14 @@ export function NotificationDropdown() {
                 <div className="flex-1 space-y-1 overflow-hidden">
                   <div className="flex items-center justify-between gap-2">
                     <p className="text-xs font-bold text-foreground truncate">{item.title}</p>
-                    <span className="text-[10px] text-muted-foreground shrink-0">{item.time}</span>
+                    <span className="text-[10px] text-muted-foreground shrink-0">
+                      {formatRelativeTime(item.createdAt)}
+                    </span>
                   </div>
                   <p className="text-xs text-muted-foreground leading-snug line-clamp-2">{item.message}</p>
                 </div>
 
-                {!item.read && <span className="h-2 w-2 rounded-full bg-primary shrink-0 mt-1.5" />}
+                {!item.isRead && <span className="h-2 w-2 rounded-full bg-primary shrink-0 mt-1.5" />}
               </DropdownMenuItem>
             ))
           ) : (
@@ -166,9 +147,11 @@ export function NotificationDropdown() {
 
         {/* Footer */}
         <div className="p-1">
-          <Button variant="ghost" className="w-full text-xs text-muted-foreground hover:text-foreground rounded-xl justify-center gap-1 h-8">
-            View All Notifications <ChevronRight className="h-3.5 w-3.5" />
-          </Button>
+          <Link href="/notifications">
+            <Button variant="ghost" className="w-full text-xs text-muted-foreground hover:text-foreground rounded-xl justify-center gap-1 h-8 cursor-pointer">
+              View All Notifications <ChevronRight className="h-3.5 w-3.5" />
+            </Button>
+          </Link>
         </div>
       </DropdownMenuContent>
     </DropdownMenu>
