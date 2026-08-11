@@ -11,6 +11,9 @@ import { PropertyStats } from "./PropertyStats";
 import { PropertyLocation } from "./PropertyLocation";
 import { PropertyFooter } from "./PropertyFooter";
 
+import { toggleWishlistAction } from "@/app/(dashboardRoute)/dashboard/tenant/_actions/wishlist.actions";
+import { toast } from "sonner";
+
 interface FeaturedPropertyCardProps {
   property: Property;
 }
@@ -20,6 +23,7 @@ export function FeaturedPropertyCard({ property }: FeaturedPropertyCardProps) {
   const [wishlistCountState, setWishlistCountState] = useState(
     property.wishlistCount ?? 0
   );
+  const [isToggling, setIsToggling] = useState(false);
 
   const categoryName =
     typeof property.category === "object"
@@ -46,14 +50,28 @@ export function FeaturedPropertyCard({ property }: FeaturedPropertyCardProps) {
     transparent 80%
   )`;
 
-  const toggleWishlist = (e: React.MouseEvent) => {
+  const toggleWishlist = async (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    setIsWishlisted((prev) => {
-      const newState = !prev;
-      setWishlistCountState((count) => (newState ? count + 1 : count - 1));
-      return newState;
-    });
+
+    if (!propertyId || isToggling) return;
+
+    setIsToggling(true);
+    try {
+      const res = await toggleWishlistAction(propertyId);
+      if (res.success) {
+        const newState = res.isWishlisted;
+        setIsWishlisted(newState);
+        setWishlistCountState((prev) => (newState ? prev + 1 : Math.max(0, prev - 1)));
+        toast.success(res.message || (newState ? "Saved to wishlist!" : "Removed from wishlist."));
+      } else {
+        toast.error(res.message || "Please sign in to save properties.");
+      }
+    } catch (error) {
+      toast.error("Failed to update wishlist.");
+    } finally {
+      setIsToggling(false);
+    }
   };
 
   return (

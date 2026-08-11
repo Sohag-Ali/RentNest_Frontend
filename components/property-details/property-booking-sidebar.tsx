@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import { toast } from 'sonner';
 import { Property } from '@/types/property';
 import { createRentalRequest } from '@/app/(publicRoute)/properties/_actions/rental-request.actions';
+import { checkWishlistAction, toggleWishlistAction } from '@/app/(dashboardRoute)/dashboard/tenant/_actions/wishlist.actions';
 import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import {
@@ -46,12 +47,42 @@ export function PropertyBookingSidebar({
   const router = useRouter();
 
   const [isWishlisted, setIsWishlisted] = useState(false);
+  const [isTogglingWishlist, setIsTogglingWishlist] = useState(false);
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [moveInDate, setMoveInDate] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isBookingSubmitted, setIsBookingSubmitted] = useState(false);
 
   const propertyId = (property as any)._id || property.id || '';
+
+  React.useEffect(() => {
+    async function checkWishlist() {
+      if (!propertyId) return;
+      const res = await checkWishlistAction(propertyId);
+      if (res.success && res.isWishlisted) {
+        setIsWishlisted(true);
+      }
+    }
+    checkWishlist();
+  }, [propertyId]);
+
+  const handleToggleWishlist = async () => {
+    if (!propertyId || isTogglingWishlist) return;
+    setIsTogglingWishlist(true);
+    try {
+      const res = await toggleWishlistAction(propertyId);
+      if (res.success) {
+        setIsWishlisted(res.isWishlisted);
+        toast.success(res.message || (res.isWishlisted ? 'Saved to your wishlist!' : 'Removed from wishlist.'));
+      } else {
+        toast.error(res.message || 'Please sign in as a tenant to save properties.');
+      }
+    } catch (err) {
+      toast.error('Failed to update wishlist.');
+    } finally {
+      setIsTogglingWishlist(false);
+    }
+  };
 
   const handleOpenBookingDialog = () => {
     if (!property.isAvailable) {
@@ -223,7 +254,8 @@ export function PropertyBookingSidebar({
           <Button
             variant="ghost"
             size="sm"
-            onClick={() => setIsWishlisted(!isWishlisted)}
+            disabled={isTogglingWishlist}
+            onClick={handleToggleWishlist}
             className={`text-xs font-bold gap-1.5 cursor-pointer ${
               isWishlisted ? 'text-rose-500' : 'text-slate-500 dark:text-slate-400'
             }`}

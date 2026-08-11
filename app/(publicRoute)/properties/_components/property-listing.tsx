@@ -149,7 +149,24 @@ export function PropertyListing({ properties = [] }: PropertyListingProps) {
   }, [filteredProperties, currentPage])
 
   return (
-    <main className="min-h-screen  py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <div className="w-full min-h-screen bg-background relative overflow-hidden">
+      {/* Background Decorative Ambient Glows */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden -z-10">
+        <div className="absolute top-10 left-1/4 w-[600px] h-[600px] bg-blue-500/10 dark:bg-blue-600/15 rounded-full blur-[140px]" />
+        <div className="absolute top-1/2 right-10 w-[550px] h-[550px] bg-teal-500/10 dark:bg-teal-500/15 rounded-full blur-[140px]" />
+        <div className="absolute bottom-20 left-10 w-[450px] h-[450px] bg-sky-400/10 dark:bg-sky-400/15 rounded-full blur-[120px]" />
+
+        {/* Subtle Grid Overlay */}
+        <div
+          className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]"
+          style={{
+            backgroundImage: `radial-gradient(circle, currentColor 1px, transparent 1px)`,
+            backgroundSize: '32px 32px',
+          }}
+        />
+      </div>
+
+      <main className="min-h-screen pt-28 sm:pt-32 pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10">
       <PropertyHeader
         totalProperties={filteredProperties.length}
         viewMode={viewMode}
@@ -210,5 +227,6 @@ export function PropertyListing({ properties = [] }: PropertyListingProps) {
         activeFiltersCount={activeFiltersCount}
       />
     </main>
+  </div>
   )
 }

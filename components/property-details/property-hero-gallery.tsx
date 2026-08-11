@@ -24,15 +24,50 @@ import {
   XCircleIcon,
 } from 'lucide-react';
 
+import { checkWishlistAction, toggleWishlistAction } from '@/app/(dashboardRoute)/dashboard/tenant/_actions/wishlist.actions';
+import { toast } from 'sonner';
+
 interface PropertyHeroGalleryProps {
   property: Property;
 }
 
 export function PropertyHeroGallery({ property }: PropertyHeroGalleryProps) {
   const [isWishlisted, setIsWishlisted] = useState(false);
+  const [isToggling, setIsToggling] = useState(false);
   const [copied, setCopied] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+
+  const propertyId = (property as any)._id || property.id || '';
+
+  React.useEffect(() => {
+    async function checkWishlist() {
+      if (!propertyId) return;
+      const res = await checkWishlistAction(propertyId);
+      if (res.success && res.isWishlisted) {
+        setIsWishlisted(true);
+      }
+    }
+    checkWishlist();
+  }, [propertyId]);
+
+  const handleToggleWishlist = async () => {
+    if (!propertyId || isToggling) return;
+    setIsToggling(true);
+    try {
+      const res = await toggleWishlistAction(propertyId);
+      if (res.success) {
+        setIsWishlisted(res.isWishlisted);
+        toast.success(res.message || (res.isWishlisted ? 'Saved to your wishlist!' : 'Removed from wishlist.'));
+      } else {
+        toast.error(res.message || 'Please sign in as a tenant to save properties.');
+      }
+    } catch (err) {
+      toast.error('Error updating wishlist.');
+    } finally {
+      setIsToggling(false);
+    }
+  };
 
   const handleShare = () => {
     if (typeof window !== 'undefined') {
@@ -126,7 +161,8 @@ export function PropertyHeroGallery({ property }: PropertyHeroGalleryProps) {
             <Button
               variant="outline"
               size="sm"
-              onClick={() => setIsWishlisted(!isWishlisted)}
+              disabled={isToggling}
+              onClick={handleToggleWishlist}
               className={`rounded-2xl h-10 px-4 gap-2 border-slate-200/80 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl text-xs font-bold transition-all cursor-pointer shadow-xs ${
                 isWishlisted
                   ? 'text-rose-500 border-rose-300 bg-rose-50/80 dark:bg-rose-950/30'

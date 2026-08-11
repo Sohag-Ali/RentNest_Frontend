@@ -21,6 +21,9 @@ import {
   XCircleIcon,
 } from 'lucide-react';
 
+import { toggleWishlistAction } from '@/app/(dashboardRoute)/dashboard/tenant/_actions/wishlist.actions';
+import { toast } from 'sonner';
+
 interface PropertyCardProps {
   property: Property;
   viewMode?: 'grid' | 'list';
@@ -31,6 +34,7 @@ export function PropertyCard({
   viewMode = 'grid',
 }: PropertyCardProps) {
   const [isWishlisted, setIsWishlisted] = useState(false);
+  const [isToggling, setIsToggling] = useState(false);
 
   const propertyId = (property as any)._id || property.id || '';
 
@@ -83,9 +87,25 @@ export function PropertyCard({
           <motion.button
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.9 }}
-            onClick={(e) => {
+            disabled={isToggling}
+            onClick={async (e) => {
               e.preventDefault();
-              setIsWishlisted(!isWishlisted);
+              e.stopPropagation();
+              if (!propertyId || isToggling) return;
+              setIsToggling(true);
+              try {
+                const res = await toggleWishlistAction(propertyId);
+                if (res.success) {
+                  setIsWishlisted(res.isWishlisted);
+                  toast.success(res.message || (res.isWishlisted ? "Saved to wishlist!" : "Removed from wishlist."));
+                } else {
+                  toast.error(res.message || "Please sign in to save properties.");
+                }
+              } catch (err) {
+                toast.error("Failed to update wishlist.");
+              } finally {
+                setIsToggling(false);
+              }
             }}
             className="absolute top-3 right-3 h-9 w-9 rounded-full bg-slate-950/50 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-white hover:text-rose-500 transition-all z-10 cursor-pointer"
             aria-label="Save to Wishlist"
@@ -260,9 +280,25 @@ export function PropertyCard({
         <motion.button
           whileHover={{ scale: 1.15 }}
           whileTap={{ scale: 0.9 }}
-          onClick={(e) => {
+          disabled={isToggling}
+          onClick={async (e) => {
             e.preventDefault();
-            setIsWishlisted(!isWishlisted);
+            e.stopPropagation();
+            if (!propertyId || isToggling) return;
+            setIsToggling(true);
+            try {
+              const res = await toggleWishlistAction(propertyId);
+              if (res.success) {
+                setIsWishlisted(res.isWishlisted);
+                toast.success(res.message || (res.isWishlisted ? "Saved to wishlist!" : "Removed from wishlist."));
+              } else {
+                toast.error(res.message || "Please sign in to save properties.");
+              }
+            } catch (err) {
+              toast.error("Failed to update wishlist.");
+            } finally {
+              setIsToggling(false);
+            }
           }}
           className="absolute top-3 right-3 h-9 w-9 rounded-full bg-slate-950/50 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-white hover:text-rose-500 transition-all z-10 cursor-pointer"
           aria-label="Save to Wishlist"
