@@ -16,6 +16,7 @@ import {
   Users,
   LogOut,
   FolderTree,
+  BarChart3,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { logoutAction } from '@/app/(authRoute)/_actions/authActions';
@@ -44,6 +45,7 @@ const landlordNavItems = [
 // Admin navigation links
 const adminNavItems = [
   { href: '/dashboard/admin', label: 'Dashboard', icon: LayoutDashboard },
+  { href: '/dashboard/admin/analytics', label: 'Analytics', icon: BarChart3 },
   { href: '/dashboard/admin/users', label: 'Users', icon: Users },
   { href: '/dashboard/admin/properties', label: 'Properties', icon: Building2 },
   { href: '/dashboard/admin/categories', label: 'Categories', icon: FolderTree },
