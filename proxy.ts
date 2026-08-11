@@ -61,6 +61,7 @@ export async function proxy(request: NextRequest) {
 
     const isAuthRoute = AUTH_ROUTES.some((route) => pathname.startsWith(route));
     const isDashboardRoute = pathname.startsWith("/dashboard");
+    const isBlogRoute = pathname.startsWith("/blogs");
 
     // 1. Logged-in user trying to access Auth routes (/auth/login, /auth/register)
     if (accessToken && decodedAccessToken?.success && isAuthRoute) {
@@ -75,8 +76,8 @@ export async function proxy(request: NextRequest) {
         }
     }
 
-    // 2. Unauthenticated user trying to access Protected Dashboard routes
-    if (!decodedAccessToken?.success && isDashboardRoute) {
+    // 2. Unauthenticated user trying to access Protected Dashboard or Blog routes
+    if (!decodedAccessToken?.success && (isDashboardRoute || isBlogRoute)) {
         return NextResponse.redirect(new URL("/auth/login", request.url));
     }
 

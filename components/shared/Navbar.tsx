@@ -18,6 +18,7 @@ import {
   User as UserIcon,
   LayoutDashboard,
   Globe,
+  BookOpen,
 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -116,6 +117,9 @@ export function Navbar({
   const navLinks = [
     { href: '/', label: 'Home', icon: Home },
     { href: '/properties', label: 'Properties', icon: Building2 },
+    ...(isAuthenticated
+      ? [{ href: '/blogs', label: 'Blogs', icon: BookOpen }]
+      : []),
     { href: '/about', label: 'About', icon: Info },
     { href: '/contact', label: 'Contact', icon: Mail },
   ];
