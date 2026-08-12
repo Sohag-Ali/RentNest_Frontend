@@ -18,7 +18,7 @@ const nextConfig: NextConfig = {
       process.env.BACKEND_API_URL ||
       process.env.NEXT_PUBLIC_BACKEND_API_URL ||
       process.env.NEXT_PUBLIC_API_URL ||
-      "http://localhost:5000";
+      "https://rentnest-backend-ezd1.onrender.com";
 
     return [
       {

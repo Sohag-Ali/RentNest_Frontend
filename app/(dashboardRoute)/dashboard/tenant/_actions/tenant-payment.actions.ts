@@ -4,7 +4,7 @@
 import { cookies } from "next/headers"
 
 // Define backend API base URL from environment variables or fallback to localhost:5000
-const API_URL = process.env.BACKEND_API_URL || "http://localhost:5000"
+const API_URL = process.env.BACKEND_API_URL || "https://rentnest-backend-ezd1.onrender.com"
 
 /**
  * Interface defining the response structure when creating a payment session

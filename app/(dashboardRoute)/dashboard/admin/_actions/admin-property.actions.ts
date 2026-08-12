@@ -2,7 +2,7 @@
 
 import { cookies } from "next/headers"
 
-const API_URL = process.env.BACKEND_API_URL || "http://localhost:5000"
+const API_URL = process.env.BACKEND_API_URL || "https://rentnest-backend-ezd1.onrender.com"
 
 export interface AdminPropertyLandlord {
   id: string
@@ -79,8 +79,8 @@ export async function getAllAdminProperties() {
     const propertyList: AdminProperty[] = Array.isArray(result.data)
       ? result.data
       : Array.isArray(result)
-      ? result
-      : []
+        ? result
+        : []
 
     const metaData: AdminPropertyMeta | null = result.meta || null
 

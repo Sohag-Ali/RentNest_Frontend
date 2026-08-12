@@ -36,16 +36,16 @@ export async function loginAction(prevState: LoginState, data: LoginFormValues) 
                 // secure: process.env.NODE_ENV === "production",
                 sameSite: "lax",
                 maxAge: 60 * 60 * 24,
-                path:"/",
-               
+                path: "/",
+
             });
             await cookieStore.set("refreshToken", result.data.refreshToken, {
                 httpOnly: true,
                 // secure: process.env.NODE_ENV === "production",
                 sameSite: "lax",
                 maxAge: 60 * 60 * 24 * 7,
-                path:"/",
-                
+                path: "/",
+
             });
 
 
@@ -121,15 +121,15 @@ export async function registerAction(prevState: RegisterState, data: RegisterPay
                     httpOnly: true,
                     sameSite: "lax",
                     maxAge: 60 * 60 * 24,
-                    path:"/"
-                   
+                    path: "/"
+
                 });
                 if (tokenData?.refreshToken) {
                     await cookieStore.set("refreshToken", tokenData.refreshToken, {
                         httpOnly: true,
                         sameSite: "lax",
                         maxAge: 60 * 60 * 24 * 7,
-                        path:"/",
+                        path: "/",
                     });
                 }
             }
@@ -165,7 +165,7 @@ export type GoogleLoginState = {
 
 export async function googleLoginAction(credential: string): Promise<GoogleLoginState> {
     try {
-        const backendUrl = process.env.BACKEND_API_URL || process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+        const backendUrl = process.env.BACKEND_API_URL || process.env.NEXT_PUBLIC_API_URL || "https://rentnest-backend-ezd1.onrender.com";
         const res = await fetch(`${backendUrl}/api/auth/google`, {
             method: "POST",
             headers: {

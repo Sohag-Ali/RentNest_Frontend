@@ -55,7 +55,7 @@ export async function createReviewAction(payload: CreateReviewPayload): Promise<
       };
     }
 
-    const API_URL = process.env.BACKEND_API_URL || "http://localhost:5000";
+    const API_URL = process.env.BACKEND_API_URL || "https://rentnest-backend-ezd1.onrender.com";
 
     const headers = {
       "Content-Type": "application/json",
@@ -126,7 +126,7 @@ export interface MyReviewItem {
  */
 export async function getReviewsAction(propertyId?: string): Promise<{ success: boolean; data: ReviewItem[] }> {
   try {
-    const API_URL = process.env.BACKEND_API_URL || "http://localhost:5000";
+    const API_URL = process.env.BACKEND_API_URL || "https://rentnest-backend-ezd1.onrender.com";
     const url = propertyId ? `${API_URL}/api/reviews?propertyId=${propertyId}` : `${API_URL}/api/reviews`;
 
     const res = await fetch(url, { cache: "no-store" });
@@ -145,7 +145,7 @@ export async function getReviewsAction(propertyId?: string): Promise<{ success: 
 
 /**
  * Server Action: Fetch reviews submitted by the currently logged-in tenant
- * Target API: GET http://localhost:5000/api/reviews/me
+ * Target API: GET https://rentnest-backend-ezd1.onrender.com/api/reviews/me
  */
 export async function getMyReviewsAction(): Promise<{ success: boolean; data: MyReviewItem[] }> {
   try {
@@ -156,7 +156,7 @@ export async function getMyReviewsAction(): Promise<{ success: boolean; data: My
       return { success: false, data: [] };
     }
 
-    const API_URL = process.env.BACKEND_API_URL || "http://localhost:5000";
+    const API_URL = process.env.BACKEND_API_URL || "https://rentnest-backend-ezd1.onrender.com";
 
     const res = await fetch(`${API_URL}/api/reviews/me`, {
       headers: {
@@ -207,7 +207,7 @@ export async function updateReviewAction(
       };
     }
 
-    const API_URL = process.env.BACKEND_API_URL || "http://localhost:5000";
+    const API_URL = process.env.BACKEND_API_URL || "https://rentnest-backend-ezd1.onrender.com";
 
     // Strictly whitelist and sanitize ONLY allowed fields: rating (number) and comment (string)
     const payload: Record<string, any> = {};
@@ -277,7 +277,7 @@ export async function deleteReviewAction(reviewId: string): Promise<ReviewRespon
       };
     }
 
-    const API_URL = process.env.BACKEND_API_URL || "http://localhost:5000";
+    const API_URL = process.env.BACKEND_API_URL || "https://rentnest-backend-ezd1.onrender.com";
 
     const res = await fetch(`${API_URL}/api/reviews/${reviewId}`, {
       method: "DELETE",

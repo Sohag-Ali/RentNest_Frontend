@@ -8,7 +8,7 @@ const API_URL =
   process.env.BACKEND_API_URL ||
   process.env.NEXT_PUBLIC_API_URL ||
   process.env.NEXT_PUBLIC_BACKEND_API_URL ||
-  "http://localhost:5000"
+  "https://rentnest-backend-ezd1.onrender.com"
 
 /**
  * Server Action: Fetch all categories for Admin Category Management
@@ -50,10 +50,10 @@ export async function getAdminCategories(): Promise<CategoryActionResult<Categor
     const categoryList: Category[] = Array.isArray(result.data)
       ? result.data
       : Array.isArray(result)
-      ? result
-      : result?.data?.data && Array.isArray(result.data.data)
-      ? result.data.data
-      : []
+        ? result
+        : result?.data?.data && Array.isArray(result.data.data)
+          ? result.data.data
+          : []
 
     return {
       success: result.success ?? true,

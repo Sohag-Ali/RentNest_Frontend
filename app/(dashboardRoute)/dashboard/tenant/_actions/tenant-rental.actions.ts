@@ -4,7 +4,7 @@ import { cookies } from "next/headers"
 import { revalidatePath } from "next/cache"
 
 // Define backend API base URL from environment variable or fallback to localhost
-const API_URL = process.env.BACKEND_API_URL || "http://localhost:5000"
+const API_URL = process.env.BACKEND_API_URL || "https://rentnest-backend-ezd1.onrender.com"
 
 // Interface defining the structure of a tenant's rental request
 export interface TenantRentalItem {
@@ -40,7 +40,7 @@ export interface TenantRentalItem {
 
 /**
  * Server Action: Fetch all rental requests for the currently logged-in tenant
- * Target Endpoint: GET http://localhost:5000/api/rentals
+ * Target Endpoint: GET https://rentnest-backend-ezd1.onrender.com/api/rentals
  */
 export const getMyRentals = async () => {
   try {

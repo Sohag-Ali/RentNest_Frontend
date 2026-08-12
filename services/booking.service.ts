@@ -4,7 +4,7 @@ import { LandlordBookingsResponse, LandlordBookingsParams } from "@/types/bookin
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL ||
   process.env.NEXT_PUBLIC_BACKEND_API_URL ||
-  "http://localhost:5000";
+  "https://rentnest-backend-ezd1.onrender.com";
 
 export const bookingApiClient = axios.create({
   baseURL: API_BASE_URL,
@@ -37,7 +37,7 @@ bookingApiClient.interceptors.request.use((config) => {
 export const bookingService = {
   /**
    * Fetches landlord rented properties & bookings summary from backend.
-   * GET http://localhost:5000/api/landlord/rented-properties
+   * GET https://rentnest-backend-ezd1.onrender.com/api/landlord/rented-properties
    */
   getLandlordBookings: async (params?: LandlordBookingsParams): Promise<LandlordBookingsResponse> => {
     // Build clean query params object with non-empty values

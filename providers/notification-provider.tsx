@@ -15,7 +15,7 @@ import { getCurrentUser } from '@/service/getCurrentUser';
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL ||
   process.env.NEXT_PUBLIC_BACKEND_API_URL ||
-  'http://localhost:5000';
+  'https://rentnest-backend-ezd1.onrender.com';
 
 interface NotificationContextType {
   notifications: NotificationItem[];

@@ -3,7 +3,7 @@
 import { cookies } from "next/headers"
 
 // Define backend API base URL from environment variable or fallback to localhost
-const API_URL = process.env.BACKEND_API_URL || "http://localhost:5000"
+const API_URL = process.env.BACKEND_API_URL || "https://rentnest-backend-ezd1.onrender.com"
 
 // TypeScript interface defining payload received by the server action
 interface CreateRentalRequestPayload {
@@ -17,7 +17,7 @@ interface CreateRentalRequestPayload {
  * Why this function exists:
  * Handles sending rental application data securely from the server to the backend API.
  * 
- * Target Endpoint: POST http://localhost:5000/api/rentals
+ * Target Endpoint: POST https://rentnest-backend-ezd1.onrender.com/api/rentals
  */
 export const createRentalRequest = async (payload: CreateRentalRequestPayload) => {
   try {

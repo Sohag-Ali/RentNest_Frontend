@@ -58,7 +58,7 @@ export async function updateUserProfile(data: UpdateProfilePayload) {
       };
     }
 
-    const API_URL = process.env.BACKEND_API_URL || "http://localhost:5000";
+    const API_URL = process.env.BACKEND_API_URL || "https://rentnest-backend-ezd1.onrender.com";
 
     // Build clean body payload: ONLY include allowed fields and omit empty/null/undefined values
     const bodyPayload: Record<string, any> = {};

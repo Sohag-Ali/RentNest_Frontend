@@ -27,7 +27,7 @@
 | Resource | URL |
 |---|---|
 | Frontend | _Deploy URL here_ |
-| Backend API | `http://localhost:5000` |
+| Backend API | `https://rentnest-backend-ezd1.onrender.com` |
 
 ---
 
@@ -142,10 +142,10 @@ Create a `.env.local` file in the project root:
 
 ```env
 # Backend API base URL (server-side — used in Server Actions)
-BACKEND_API_URL=http://localhost:5000
+BACKEND_API_URL=https://rentnest-backend-ezd1.onrender.com
 
 # Backend API base URL (client-side — used in React components)
-NEXT_PUBLIC_BACKEND_API_URL=http://localhost:5000
+NEXT_PUBLIC_BACKEND_API_URL=https://rentnest-backend-ezd1.onrender.com
 
 # JWT secrets (must match the backend)
 JWT_ACCESS_SECRET=your_access_secret_key
@@ -299,7 +299,7 @@ rentnest-frontend/
 
 ## 🔌 API Overview
 
-All API calls target `http://localhost:5000`.
+All API calls target `https://rentnest-backend-ezd1.onrender.com`.
 
 ### Auth
 | Method | Endpoint | Description |

@@ -3,7 +3,7 @@
 import { cookies } from "next/headers"
 import { revalidatePath } from "next/cache"
 
-const API_URL = process.env.BACKEND_API_URL || process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"
+const API_URL = process.env.BACKEND_API_URL || process.env.NEXT_PUBLIC_API_URL || "https://rentnest-backend-ezd1.onrender.com"
 
 export interface WishlistItem {
   id: string
@@ -45,7 +45,7 @@ export interface WishlistItem {
 
 /**
  * Server Action: Get tenant's saved properties in wishlist
- * Target Endpoint: GET http://localhost:5000/api/wishlist
+ * Target Endpoint: GET https://rentnest-backend-ezd1.onrender.com/api/wishlist
  */
 export const getWishlistAction = async () => {
   try {
@@ -86,8 +86,8 @@ export const getWishlistAction = async () => {
     const items: WishlistItem[] = Array.isArray(result.data)
       ? result.data
       : Array.isArray(result)
-      ? result
-      : result?.data?.wishlist || []
+        ? result
+        : result?.data?.wishlist || []
 
     return {
       success: result.success ?? true,
@@ -108,7 +108,7 @@ export const getWishlistAction = async () => {
 
 /**
  * Server Action: Check if a property is saved in tenant's wishlist
- * Target Endpoint: GET http://localhost:5000/api/wishlist/check/:propertyId
+ * Target Endpoint: GET https://rentnest-backend-ezd1.onrender.com/api/wishlist/check/:propertyId
  */
 export const checkWishlistAction = async (propertyId: string) => {
   try {
@@ -159,7 +159,7 @@ export const checkWishlistAction = async (propertyId: string) => {
 
 /**
  * Server Action: Save a property to tenant wishlist
- * Target Endpoint: POST http://localhost:5000/api/wishlist
+ * Target Endpoint: POST https://rentnest-backend-ezd1.onrender.com/api/wishlist
  */
 export const addToWishlistAction = async (propertyId: string) => {
   try {
@@ -210,7 +210,7 @@ export const addToWishlistAction = async (propertyId: string) => {
 
 /**
  * Server Action: Remove a property from tenant wishlist
- * Target Endpoint: DELETE http://localhost:5000/api/wishlist/:propertyId
+ * Target Endpoint: DELETE https://rentnest-backend-ezd1.onrender.com/api/wishlist/:propertyId
  */
 export const removeFromWishlistAction = async (propertyId: string) => {
   try {
@@ -260,7 +260,7 @@ export const removeFromWishlistAction = async (propertyId: string) => {
 
 /**
  * Server Action: Toggle property in tenant wishlist (add if not saved, remove if saved)
- * Target Endpoint: POST http://localhost:5000/api/wishlist/toggle
+ * Target Endpoint: POST https://rentnest-backend-ezd1.onrender.com/api/wishlist/toggle
  */
 export const toggleWishlistAction = async (propertyId: string) => {
   try {

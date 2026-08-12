@@ -3,7 +3,7 @@
 import { cookies } from "next/headers"
 import { revalidatePath } from "next/cache"
 
-const API_URL = process.env.BACKEND_API_URL || "http://localhost:5000"
+const API_URL = process.env.BACKEND_API_URL || "https://rentnest-backend-ezd1.onrender.com"
 
 export interface AdminUserMeta {
   page?: number
@@ -66,8 +66,8 @@ export async function getAdminUsers() {
     const userList: AdminUser[] = Array.isArray(result.data)
       ? result.data
       : Array.isArray(result)
-      ? result
-      : []
+        ? result
+        : []
 
     const metaData: AdminUserMeta | null = result.meta || null
 

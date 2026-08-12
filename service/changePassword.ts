@@ -20,7 +20,7 @@ export async function changePasswordAction(payload: ChangePasswordPayload) {
       };
     }
 
-    const API_URL = process.env.BACKEND_API_URL || "http://localhost:5000";
+    const API_URL = process.env.BACKEND_API_URL || "https://rentnest-backend-ezd1.onrender.com";
 
     const headers = {
       "Content-Type": "application/json",

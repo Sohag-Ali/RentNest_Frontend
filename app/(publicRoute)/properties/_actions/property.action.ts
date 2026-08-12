@@ -3,11 +3,11 @@
 import { cookies } from "next/headers"
 
 // Define the base backend API URL from environment variables or fallback to localhost
-const API_URL = process.env.BACKEND_API_URL || "http://localhost:5000"
+const API_URL = process.env.BACKEND_API_URL || "https://rentnest-backend-ezd1.onrender.com"
 
 /**
  * Server Action: Fetch all properties from the backend API
- * Endpoint: GET http://localhost:5000/api/properties
+ * Endpoint: GET https://rentnest-backend-ezd1.onrender.com/api/properties
  */
 export const getProperties = async () => {
   try {
@@ -46,8 +46,8 @@ export const getProperties = async () => {
         result && result.data && Array.isArray(result.data)
           ? result.data
           : Array.isArray(result)
-          ? result
-          : []
+            ? result
+            : []
 
       if (data.length === 0) {
         break
@@ -67,7 +67,7 @@ export const getProperties = async () => {
 
 /**
  * Server Action: Fetch a single property by its ID from backend API
- * Endpoint: GET http://localhost:5000/api/properties/:id
+ * Endpoint: GET https://rentnest-backend-ezd1.onrender.com/api/properties/:id
  */
 export const getProperty = async (id: string) => {
   try {
