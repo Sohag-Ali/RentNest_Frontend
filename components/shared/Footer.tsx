@@ -46,7 +46,7 @@ export function Footer({
       title: 'Company',
       links: [
         { label: 'About Us', href: '/about' },
-        { label: 'Blog', href: '/blog' },
+        { label: 'Blog', href: '/blogs' },
         { label: 'Careers', href: '/careers' },
         { label: 'Press', href: '/press' },
       ],
@@ -65,7 +65,7 @@ export function Footer({
       links: [
         { label: 'List Property', href: '/list-property' },
         { label: 'Landlord Guide', href: '/landlord-guide' },
-        { label: 'Tenant Screening', href: '/screening' },
+        { label: 'Tenant Screening', href: '/tenant-screening' },
         { label: 'Resources', href: '/resources' },
       ],
     },
@@ -75,7 +75,7 @@ export function Footer({
         { label: 'Contact Us', href: '/contact' },
         { label: 'FAQ', href: '/faq' },
         { label: 'Help Center', href: '/help' },
-        { label: 'Status Page', href: 'https://status.thikana.com' },
+        { label: 'Status Page', href: '/status' },
       ],
     },
   ];
