@@ -1,7 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Home, Sparkles } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
+import { ThikanaLogo } from '@/components/shared/ThikanaLogo';
 
 export default function GlobalLoading() {
   return (
@@ -48,17 +49,18 @@ export default function GlobalLoading() {
               repeat: Infinity,
               ease: 'easeInOut',
             }}
-            className="absolute flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-600 via-sky-500 to-teal-500 shadow-lg shadow-blue-500/30 text-white"
+            className="absolute flex items-center justify-center"
           >
-            <Home className="h-7 w-7 text-white" />
+            <ThikanaLogo iconOnly size="lg" href="" />
           </motion.div>
         </div>
 
         {/* Brand Text Header */}
         <div className="space-y-2">
           <div className="flex items-center justify-center gap-2">
-            <h1 className="text-2xl font-extrabold tracking-tight text-foreground font-heading">
-              Rent<span className="bg-gradient-to-r from-blue-600 via-sky-500 to-teal-500 bg-clip-text text-transparent">Nest</span>
+            <h1 className="text-2xl font-extrabold tracking-tight text-foreground font-heading flex items-center">
+              Thikana
+              <span className="inline-block ml-1 h-2.5 w-2.5 rounded-full bg-gradient-to-r from-sky-400 to-teal-400" />
             </h1>
             <Sparkles className="h-4 w-4 text-amber-400 fill-amber-400 animate-bounce" />
           </div>
