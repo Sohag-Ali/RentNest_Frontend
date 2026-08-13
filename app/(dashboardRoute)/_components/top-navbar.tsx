@@ -1,5 +1,6 @@
 'use client';
 
+import * as React from 'react';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import { Search, Settings, Sun, Moon, Menu } from 'lucide-react';
@@ -12,6 +13,11 @@ import { useSidebar } from '@/components/ui/sidebar';
 export function TopNavbar() {
   const { theme, setTheme } = useTheme();
   const { setOpenMobile } = useSidebar();
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <header className="sticky top-0 z-40 border-b border-border/80 bg-background/80 backdrop-blur-xl">
@@ -50,7 +56,11 @@ export function TopNavbar() {
             aria-label="Toggle theme"
             className="rounded-full text-foreground/80 hover:text-foreground hover:bg-muted border border-border/60 h-9 w-9 cursor-pointer transition-all duration-200"
           >
-            {theme === 'dark' ? <Sun size={18} className="text-amber-400" /> : <Moon size={18} className="text-slate-700" />}
+            {mounted && theme === 'dark' ? (
+              <Sun size={18} className="text-amber-400" />
+            ) : (
+              <Moon size={18} className="text-slate-700 dark:text-slate-200" />
+            )}
           </Button>
 
           <Link href="/dashboard/settings">
