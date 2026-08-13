@@ -184,9 +184,14 @@ export function BecomeLandlordCTA() {
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
 
               {/* Bottom Image Tag */}
-              <div className="absolute bottom-4 left-4 right-4 p-3 rounded-2xl bg-slate-950/70 backdrop-blur-md border border-white/10 text-white text-xs font-semibold flex items-center justify-between">
-                <span>Penthouse Villa in Gulshan</span>
-                <span className="text-emerald-400 font-bold">৳35,000/mo</span>
+              <div className="absolute bottom-4 left-4 right-4 p-3.5 rounded-2xl bg-slate-950/85 backdrop-blur-xl border border-white/15 text-white flex items-center justify-between gap-3 shadow-2xl">
+                <div className="min-w-0 flex-1">
+                  <p className="text-xs font-bold text-white truncate">Penthouse Villa in Gulshan</p>
+                  <p className="text-[10px] text-slate-300 font-medium truncate">Dhaka, Bangladesh</p>
+                </div>
+                <div className="shrink-0 px-3 py-1.5 rounded-xl bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 font-black text-xs font-mono shadow-sm">
+                  ৳35,000<span className="text-[10px] font-normal text-emerald-300">/mo</span>
+                </div>
               </div>
             </div>
 
