@@ -53,7 +53,12 @@ const adminNavItems = [
   { href: '/dashboard/admin/payments', label: 'Payments', icon: CreditCard },
 ];
 
-export function SidebarNav() {
+interface SidebarNavProps {
+  onNavItemClick?: () => void;
+  layoutIdPrefix?: string;
+}
+
+export function SidebarNav({ onNavItemClick, layoutIdPrefix = 'desktop' }: SidebarNavProps = {}) {
   const pathname = usePathname();
 
   // Determine active portal route
@@ -66,6 +71,7 @@ export function SidebarNav() {
     : tenantNavItems;
 
   const handleLogout = async () => {
+    onNavItemClick?.();
     toast.success('Logged Out Successfully 👋', {
       description: 'You have been logged out of your account.',
     });
@@ -90,6 +96,7 @@ export function SidebarNav() {
               <Link
                 key={href}
                 href={href}
+                onClick={onNavItemClick}
                 className="relative block"
               >
                 <div
@@ -102,7 +109,7 @@ export function SidebarNav() {
                 >
                   {isActive && (
                     <motion.div
-                      layoutId="activeSidebarItem"
+                      layoutId={`${layoutIdPrefix}-activeSidebarItem`}
                       className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-600 via-sky-500 to-teal-500 shadow-md shadow-blue-500/25 z-0"
                       transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                     />
