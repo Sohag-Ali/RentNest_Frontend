@@ -75,10 +75,10 @@ export function PropertySearch({
             className="h-12 rounded-2xl bg-slate-50/80 dark:bg-slate-800/80 border-slate-200/80 dark:border-slate-700 text-slate-900 dark:text-white focus-visible:ring-2 focus-visible:ring-[#2563EB] text-sm shadow-inner"
           >
             <option value="">Any Price</option>
-            <option value="3000">Up to $3,000 / mo</option>
-            <option value="5000">Up to $5,000 / mo</option>
-            <option value="8000">Up to $8,000 / mo</option>
-            <option value="12000">Up to $12,000+ / mo</option>
+            <option value="15000">Up to ৳15,000 / mo</option>
+            <option value="30000">Up to ৳30,000 / mo</option>
+            <option value="50000">Up to ৳50,000 / mo</option>
+            <option value="100000">Up to ৳100,000+ / mo</option>
           </Select>
         </div>
 

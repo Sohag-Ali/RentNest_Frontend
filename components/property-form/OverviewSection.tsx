@@ -61,12 +61,12 @@ export function OverviewSection({ form }: OverviewSectionProps) {
               <FormItem>
                 <FormLabel className="text-sm font-semibold flex items-center gap-1.5">
                   <DollarSignIcon className="h-4 w-4 text-emerald-600" />
-                  <span>Deposit Amount ($) <span className="text-destructive">*</span></span>
+                  <span>Deposit Amount (৳) <span className="text-destructive">*</span></span>
                 </FormLabel>
                 <FormControl>
                   <div className="relative">
                     <span className="absolute left-3 top-2.5 text-muted-foreground font-semibold text-sm">
-                      $
+                      ৳
                     </span>
                     <Input
                       {...field}

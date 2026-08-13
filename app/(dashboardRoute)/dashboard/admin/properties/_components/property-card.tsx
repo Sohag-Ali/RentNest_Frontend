@@ -27,9 +27,9 @@ interface PropertyCardProps {
  * Mobile and Tablet responsive card representation of a property listing.
  */
 export function PropertyCard({ property, onViewDetails }: PropertyCardProps) {
-  const formattedPrice = new Intl.NumberFormat("en-US", {
+  const formattedPrice = new Intl.NumberFormat("en-BD", {
     style: "currency",
-    currency: "USD",
+    currency: "BDT",
     maximumFractionDigits: 0,
   }).format(property.price || 0)
 

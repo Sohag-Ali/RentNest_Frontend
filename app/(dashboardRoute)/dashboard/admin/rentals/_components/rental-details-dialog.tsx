@@ -58,18 +58,22 @@ export function RentalDetailsDialog({
     : "N/A"
 
   const createdFormatted = rental.createdAt
-    ? new Date(rental.createdAt).toLocaleDateString("en-US", {
+    ? new Date(rental.createdAt).toLocaleDateString("en-BD", {
         month: "long",
         day: "numeric",
         year: "numeric",
       })
     : "N/A"
 
-  const propertyPriceFormatted = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 0,
-  }).format(rental.property?.price || 0)
+  const formatCurrency = (val: number) => {
+    return new Intl.NumberFormat("en-BD", {
+      style: "currency",
+      currency: "BDT",
+      maximumFractionDigits: 0,
+    }).format(val);
+  };
+
+  const propertyPriceFormatted = formatCurrency(rental.property?.price || 0);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>

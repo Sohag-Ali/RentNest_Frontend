@@ -120,7 +120,7 @@ export function PropertyCard({
           {/* Price Tag on Mobile Overlay */}
           <div className="absolute bottom-3 left-3 md:hidden z-10">
             <span className="text-xl font-extrabold text-white font-mono drop-shadow-md">
-              ${property.price ? property.price.toLocaleString() : 0}
+              ৳{property.price ? property.price.toLocaleString() : 0}
             </span>
             <span className="text-xs text-white/80 font-normal"> / mo</span>
           </div>
@@ -216,7 +216,7 @@ export function PropertyCard({
             <div className="flex items-center gap-4">
               <div className="hidden md:block text-right">
                 <span className="text-2xl font-black text-slate-900 dark:text-white font-mono">
-                  ${property.price ? property.price.toLocaleString() : 0}
+                  ৳{property.price ? property.price.toLocaleString() : 0}
                 </span>
                 <span className="text-xs text-slate-500 dark:text-slate-400"> / mo</span>
               </div>
@@ -415,7 +415,7 @@ export function PropertyCard({
           <div className="text-right">
             <div className="flex items-baseline gap-0.5 justify-end">
               <span className="text-lg font-black text-slate-900 dark:text-white font-mono">
-                ${property.price ? property.price.toLocaleString() : 0}
+                ৳{property.price ? property.price.toLocaleString() : 0}
               </span>
               <span className="text-xs text-slate-500 dark:text-slate-400">/mo</span>
             </div>

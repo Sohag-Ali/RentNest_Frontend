@@ -145,7 +145,7 @@ export function PropertyBookingSidebar({
 
   const depositFormatted =
     property.overview?.depositAmount != null
-      ? `$${property.overview.depositAmount.toLocaleString()}`
+      ? `৳${property.overview.depositAmount.toLocaleString()}`
       : 'N/A';
 
   return (
@@ -156,7 +156,7 @@ export function PropertyBookingSidebar({
           <div className="flex items-baseline justify-between">
             <div>
               <span className="text-3xl font-black text-slate-900 dark:text-white font-mono">
-                ${property.price ? property.price.toLocaleString() : 0}
+                ৳{property.price ? property.price.toLocaleString() : 0}
               </span>
               <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
                 {' '}
@@ -193,7 +193,7 @@ export function PropertyBookingSidebar({
             <div className="flex justify-between text-slate-600 dark:text-slate-400">
               <span>Monthly Base Rent</span>
               <span className="font-mono text-slate-900 dark:text-white font-extrabold">
-                ${property.price ? property.price.toLocaleString() : 0}
+                ৳{property.price ? property.price.toLocaleString() : 0}
               </span>
             </div>
             <div className="flex justify-between text-slate-600 dark:text-slate-400">
@@ -362,7 +362,7 @@ export function PropertyBookingSidebar({
                     {property.location}
                   </p>
                   <div className="text-xs font-extrabold text-white font-mono mt-1">
-                    ${property.price ? property.price.toLocaleString() : 0}{' '}
+                    ৳{property.price ? property.price.toLocaleString() : 0}{' '}
                     <span className="text-[10px] font-normal text-slate-400">
                       / month
                     </span>
@@ -390,7 +390,7 @@ export function PropertyBookingSidebar({
                   <div className="flex justify-between text-slate-400">
                     <span>Monthly Rent</span>
                     <span className="font-semibold text-white">
-                      ${property.price ? property.price.toLocaleString() : 0}
+                      ৳{property.price ? property.price.toLocaleString() : 0}
                     </span>
                   </div>
                   <div className="flex justify-between text-slate-400">

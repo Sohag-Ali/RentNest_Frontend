@@ -209,9 +209,9 @@ export function PropertiesTable({
         accessorKey: "price",
         header: "Price",
         cell: ({ row }) => {
-          const formattedPrice = new Intl.NumberFormat("en-US", {
+          const formattedPrice = new Intl.NumberFormat("en-BD", {
             style: "currency",
-            currency: "USD",
+            currency: "BDT",
             maximumFractionDigits: 0,
           }).format(row.original.price || 0)
 

@@ -47,7 +47,7 @@ export function PaymentRow({
     <TableRow>
       <TableCell className="font-medium">{invoiceId}</TableCell>
       <TableCell>{property}</TableCell>
-      <TableCell>${amount.toFixed(2)}</TableCell>
+      <TableCell>৳{amount.toLocaleString()}</TableCell>
       <TableCell>{date}</TableCell>
       <TableCell>
         <Badge className={config.color}>

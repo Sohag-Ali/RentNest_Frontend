@@ -29,9 +29,9 @@ export function TenantOverviewCards({
   wishlistCount,
 }: TenantOverviewCardsProps) {
   const formatCurrency = (val: number) => {
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat('en-BD', {
       style: 'currency',
-      currency: 'USD',
+      currency: 'BDT',
       maximumFractionDigits: 0,
     }).format(val || 0);
   };

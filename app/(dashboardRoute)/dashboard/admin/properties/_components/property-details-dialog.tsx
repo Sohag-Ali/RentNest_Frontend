@@ -44,9 +44,9 @@ export function PropertyDetailsDialog({
 }: PropertyDetailsDialogProps) {
   if (!property) return null
 
-  const formattedPrice = new Intl.NumberFormat("en-US", {
+  const formattedPrice = new Intl.NumberFormat("en-BD", {
     style: "currency",
-    currency: "USD",
+    currency: "BDT",
     maximumFractionDigits: 0,
   }).format(property.price || 0)
 

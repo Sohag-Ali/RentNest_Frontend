@@ -55,7 +55,7 @@ export function FloatingIncomeCard() {
             💰 Monthly Income
           </p>
           <p className="text-[11px] text-emerald-600 dark:text-emerald-400 font-bold">
-            +$2,850/mo Avg.
+            +৳35,000/mo Avg.
           </p>
         </div>
       </motion.div>

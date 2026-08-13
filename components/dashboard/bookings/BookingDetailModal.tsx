@@ -102,7 +102,7 @@ export function BookingDetailModal({
                 </Badge>
               </div>
               <div className="absolute bottom-3 right-3 bg-background/90 backdrop-blur-md px-3 py-1.5 rounded-2xl text-xs font-bold text-foreground shadow-md flex items-center gap-1 font-mono">
-                <span>${propertyPrice.toLocaleString()}</span>
+                <span>৳{propertyPrice.toLocaleString()}</span>
                 <span className="text-[10px] text-muted-foreground font-normal">/ month</span>
               </div>
             </div>

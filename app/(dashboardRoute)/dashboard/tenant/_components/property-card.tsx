@@ -116,7 +116,7 @@ export function PropertyCard({
             <span className="text-[10px] text-muted-foreground">({reviews})</span>
           </div>
           <div className="text-right">
-            <span className="text-base font-extrabold text-foreground">${price?.toLocaleString() || 0}</span>
+            <span className="text-base font-extrabold text-foreground">৳{price?.toLocaleString() || 0}</span>
             <span className="text-[10px] text-muted-foreground font-medium"> / mo</span>
           </div>
         </div>

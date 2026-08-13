@@ -26,14 +26,14 @@ export function PaymentInfoCard({ payment }: PaymentInfoCardProps) {
     )
   }
 
-  const formattedAmount = new Intl.NumberFormat("en-US", {
+  const formattedAmount = new Intl.NumberFormat("en-BD", {
     style: "currency",
-    currency: "USD",
+    currency: "BDT",
     maximumFractionDigits: 0,
   }).format(payment.amount || 0)
 
   const paidAtFormatted = payment.paidAt
-    ? new Date(payment.paidAt).toLocaleDateString("en-US", {
+    ? new Date(payment.paidAt).toLocaleDateString("en-BD", {
         month: "short",
         day: "numeric",
         year: "numeric",

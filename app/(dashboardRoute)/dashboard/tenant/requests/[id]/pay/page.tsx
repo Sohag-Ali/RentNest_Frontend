@@ -235,21 +235,21 @@ export default async function TenantPaymentPage({ params }: PaymentPageProps) {
               <div className="flex justify-between items-center text-muted-foreground">
                 <span className="font-medium">Monthly Base Rent</span>
                 <span className="font-mono font-bold text-foreground">
-                  ${rentAmount.toLocaleString()}
+                  ৳{rentAmount.toLocaleString()}
                 </span>
               </div>
 
               <div className="flex justify-between items-center text-muted-foreground">
                 <span className="font-medium">Service & Processing Fee</span>
                 <span className="font-mono font-bold text-foreground">
-                  ${serviceFee}
+                  ৳{serviceFee}
                 </span>
               </div>
 
               <div className="pt-3 border-t border-border/50 flex justify-between items-center text-sm font-bold text-foreground">
                 <span>Total Amount Due</span>
                 <span className="text-primary font-mono font-extrabold text-base">
-                  ${totalAmount.toLocaleString()}
+                  ৳{totalAmount.toLocaleString()}
                 </span>
               </div>
             </div>

@@ -140,7 +140,7 @@ export function FeaturedPropertyCard({ property }: FeaturedPropertyCardProps) {
         <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between z-10">
           <div>
             <span className="text-2xl font-black text-white tracking-tight drop-shadow-md">
-              ${property.price ? property.price.toLocaleString() : "0"}
+              ৳{property.price ? property.price.toLocaleString() : "0"}
             </span>
             <span className="text-xs font-semibold text-slate-200 ml-1">/month</span>
           </div>

@@ -35,7 +35,7 @@ export function PropertyOverviewTable({ overview }: PropertyOverviewTableProps) 
     {
       icon: <ShieldAlertIcon className="h-4 w-4 text-primary shrink-0" />,
       label: "Security Deposit",
-      value: overview.depositAmount != null ? `$${overview.depositAmount.toLocaleString()}` : "N/A",
+      value: overview.depositAmount != null ? `৳${overview.depositAmount.toLocaleString()}` : "N/A",
     },
     {
       icon: <DogIcon className="h-4 w-4 text-primary shrink-0" />,

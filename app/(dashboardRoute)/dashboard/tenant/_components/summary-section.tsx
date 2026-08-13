@@ -41,7 +41,7 @@ export function SummarySection({
     {
       icon: CreditCard,
       label: 'Total Rent Paid',
-      value: `$${totalPaymentsSum.toLocaleString()}`,
+      value: `৳${totalPaymentsSum.toLocaleString()}`,
       trend: { value: 15, isPositive: true },
       color: 'orange' as const,
     },

@@ -129,7 +129,7 @@ export function CityCard({ city }: CityCardProps) {
               Starting from
             </span>
             <div className="text-base sm:text-lg font-black text-white tracking-tight truncate">
-              ${city.startingPrice ? city.startingPrice.toLocaleString() : "0"}
+              ৳{city.startingPrice ? city.startingPrice.toLocaleString() : "0"}
               <span className="text-[11px] font-normal text-slate-300 ml-0.5">/mo</span>
             </div>
           </div>

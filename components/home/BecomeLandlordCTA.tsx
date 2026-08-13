@@ -186,7 +186,7 @@ export function BecomeLandlordCTA() {
               {/* Bottom Image Tag */}
               <div className="absolute bottom-4 left-4 right-4 p-3 rounded-2xl bg-slate-950/70 backdrop-blur-md border border-white/10 text-white text-xs font-semibold flex items-center justify-between">
                 <span>Penthouse Villa in Gulshan</span>
-                <span className="text-emerald-400 font-bold">$3,500/mo</span>
+                <span className="text-emerald-400 font-bold">৳35,000/mo</span>
               </div>
             </div>
 

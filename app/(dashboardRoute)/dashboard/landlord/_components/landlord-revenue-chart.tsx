@@ -78,9 +78,9 @@ export function LandlordRevenueChart({ requests }: LandlordRevenueChartProps) {
   const hasData = filteredData.length > 0;
 
   const formatCurrency = (val: number) => {
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat('en-BD', {
       style: 'currency',
-      currency: 'USD',
+      currency: 'BDT',
       maximumFractionDigits: 0,
     }).format(val || 0);
   };
@@ -170,7 +170,7 @@ export function LandlordRevenueChart({ requests }: LandlordRevenueChartProps) {
                   axisLine={false}
                 />
                 <YAxis
-                  tickFormatter={(val) => `$${val >= 1000 ? `${(val / 1000).toFixed(0)}k` : val}`}
+                  tickFormatter={(val) => `৳${val >= 1000 ? `${(val / 1000).toFixed(0)}k` : val}`}
                   stroke="currentColor"
                   className="text-muted-foreground text-xs"
                   tickLine={false}

@@ -129,11 +129,11 @@ export function HeroSearch() {
         {/* Price Range (Min - Max) */}
         <div className="space-y-1">
           <label className="text-[10px] font-extrabold uppercase text-muted-foreground tracking-wider flex items-center gap-1 pl-1">
-            <DollarSign className="h-3.5 w-3.5 text-teal-500" /> Max Budget
+            <span className="text-teal-500 font-bold text-xs">৳</span> Max Budget
           </label>
           <input
             type="number"
-            placeholder="Max $"
+            placeholder="Max ৳"
             value={maxPrice}
             onChange={(e) => setMaxPrice(e.target.value)}
             className="w-full h-11 px-3 rounded-xl bg-card dark:bg-slate-900/80 border border-border text-xs font-semibold text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all shadow-xs"

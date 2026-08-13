@@ -124,9 +124,9 @@ export function RentalsTable({
     }, 0)
   }, [rentals])
 
-  const formattedTotalRevenue = new Intl.NumberFormat("en-US", {
+  const formattedTotalRevenue = new Intl.NumberFormat("en-BD", {
     style: "currency",
-    currency: "USD",
+    currency: "BDT",
     maximumFractionDigits: 0,
   }).format(totalRevenue)
 
@@ -263,9 +263,9 @@ export function RentalsTable({
         header: "Amount",
         cell: ({ row }) => {
           const amt = row.original.payment?.amount || row.original.property?.price || 0
-          const formattedAmount = new Intl.NumberFormat("en-US", {
+          const formattedAmount = new Intl.NumberFormat("en-BD", {
             style: "currency",
-            currency: "USD",
+            currency: "BDT",
             maximumFractionDigits: 0,
           }).format(amt)
 
@@ -575,9 +575,9 @@ export function RentalsTable({
             {table.getRowModel().rows.map((row) => {
               const rental = row.original
               const amt = rental.payment?.amount || rental.property?.price || 0
-              const formattedAmt = new Intl.NumberFormat("en-US", {
+              const formattedAmt = new Intl.NumberFormat("en-BD", {
                 style: "currency",
-                currency: "USD",
+                currency: "BDT",
                 maximumFractionDigits: 0,
               }).format(amt)
 

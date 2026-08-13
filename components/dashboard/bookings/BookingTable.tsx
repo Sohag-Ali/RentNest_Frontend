@@ -118,7 +118,7 @@ export function BookingTable({
                     <h4 className="text-sm font-bold text-foreground truncate">{propTitle}</h4>
                     <div className="flex items-center justify-between text-xs text-muted-foreground">
                       <span className="font-semibold text-primary">{booking.property?.category ? (typeof booking.property.category === "object" ? booking.property.category.name : booking.property.category) : "Property"}</span>
-                      <span className="font-bold text-foreground font-mono">${amount.toLocaleString()}</span>
+                      <span className="font-bold text-foreground font-mono">৳{amount.toLocaleString()}</span>
                     </div>
                   </div>
                 </div>

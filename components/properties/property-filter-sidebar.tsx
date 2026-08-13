@@ -140,7 +140,7 @@ export function PropertyFilterSidebar({
               <DollarSignIcon className="h-3.5 w-3.5 text-[#14B8A6]" /> Max Price
             </Label>
             <span className="text-sm font-extrabold text-[#2563EB] dark:text-sky-400 font-mono">
-              ${filters.maxPrice.toLocaleString()} / mo
+              ৳{filters.maxPrice.toLocaleString()} / mo
             </span>
           </div>
           <Slider
@@ -151,9 +151,9 @@ export function PropertyFilterSidebar({
             onValueChange={(val) => onFilterChange('maxPrice', val)}
           />
           <div className="flex justify-between text-[10px] text-slate-400 font-mono">
-            <span>$2,000</span>
-            <span>$250,000</span>
-            <span>$500k+</span>
+            <span>৳2,000</span>
+            <span>৳250,000</span>
+            <span>৳500k+</span>
           </div>
         </div>
 
