@@ -2,7 +2,7 @@ import React from "react";
 import { SettingsView } from "@/components/settings/SettingsView";
 
 export const metadata = {
-  title: "Admin System Settings | RentNest Dashboard",
+  title: "Admin System Settings | Thikana Dashboard",
   description: "Configure system security, admin notifications, and platform preferences.",
 };
 

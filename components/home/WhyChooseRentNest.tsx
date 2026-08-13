@@ -148,7 +148,7 @@ export function WhyChooseRentNest() {
           {/* Subtle Tagline Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 dark:bg-blue-500/20 text-[#2563EB] dark:text-sky-400 text-xs sm:text-sm font-semibold tracking-wide border border-blue-500/20 shadow-xs backdrop-blur-sm">
             <Sparkles className="w-4 h-4 text-[#2563EB] dark:text-sky-400" />
-            <span>THE RENTNEST ADVANTAGE</span>
+            <span>THE THIKANA ADVANTAGE</span>
           </div>
 
           {/* Main Title */}
@@ -156,7 +156,7 @@ export function WhyChooseRentNest() {
             id="why-choose-rentnest-heading"
             className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-blue-950 to-slate-800 dark:from-white dark:via-slate-100 dark:to-slate-300"
           >
-            Why Choose RentNest
+            Why Choose Thikana
           </h2>
 
           {/* Subtitle */}

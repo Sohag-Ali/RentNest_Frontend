@@ -31,7 +31,7 @@ export default function ContactPage() {
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-foreground tracking-tight leading-tight">
               Get in Touch with{' '}
               <span className="bg-gradient-to-r from-blue-600 via-sky-500 to-teal-500 bg-clip-text text-transparent">
-                RentNest
+                Thikana
               </span>
             </h2>
 

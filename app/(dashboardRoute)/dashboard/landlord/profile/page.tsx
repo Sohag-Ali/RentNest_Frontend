@@ -6,7 +6,7 @@ import Link from "next/link";
 import { UserX } from "lucide-react";
 
 export const metadata = {
-  title: "Landlord Profile | RentNest Dashboard",
+  title: "Landlord Profile | Thikana Dashboard",
   description: "Manage your landlord host profile, contact information, and verification status.",
 };
 

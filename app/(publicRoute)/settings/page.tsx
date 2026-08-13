@@ -6,8 +6,8 @@ import Link from "next/link";
 import { UserX } from "lucide-react";
 
 export const metadata = {
-  title: "Account Settings | RentNest",
-  description: "Manage your RentNest account security, notification alerts, and app preferences.",
+  title: "Account Settings | Thikana",
+  description: "Manage your Thikana account security, notification alerts, and app preferences.",
 };
 
 export default async function PublicSettingsPage() {

@@ -5,8 +5,8 @@ import Link from "next/link";
 import { UserX } from "lucide-react";
 
 export const metadata = {
-  title: "My Profile | RentNest",
-  description: "View and manage your RentNest user profile, contact details, and account settings.",
+  title: "My Profile | Thikana",
+  description: "View and manage your Thikana user profile, contact details, and account settings.",
 };
 
 export default async function ProfilePage() {
@@ -22,7 +22,7 @@ export default async function ProfilePage() {
           Not Logged In
         </h1>
         <p className="text-muted-foreground max-w-md mb-6 text-sm">
-          Please log in to your RentNest account to view and manage your profile details.
+          Please log in to your Thikana account to view and manage your profile details.
         </p>
         <Link href="/auth/login">
           <Button variant="gradient" className="rounded-xl px-7 h-11 font-bold shadow-md shadow-blue-500/20">

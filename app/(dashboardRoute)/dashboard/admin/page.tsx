@@ -25,7 +25,7 @@ export default async function AdminDashboardPage() {
           Admin Dashboard Overview 👋
         </h1>
         <p className="text-sm text-muted-foreground mt-1">
-          Monitor RentNest system metrics, user registrations, and platform account activity.
+          Monitor Thikana system metrics, user registrations, and platform account activity.
         </p>
       </div>
 

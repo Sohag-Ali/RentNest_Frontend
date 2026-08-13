@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 
 export const metadata = {
-  title: "My Submitted Reviews | RentNest Tenant",
+  title: "My Submitted Reviews | Thikana Tenant",
   description: "View, edit, or delete property ratings and feedback you have submitted as a tenant.",
 };
 

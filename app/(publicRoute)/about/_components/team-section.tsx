@@ -82,7 +82,7 @@ export function TeamSection() {
             </Badge>
 
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-foreground tracking-tight leading-tight">
-              Meet the Innovators Behind RentNest
+              Meet the Innovators Behind Thikana
             </h2>
             <p className="text-base sm:text-lg text-muted-foreground max-w-2xl text-balance leading-relaxed">
               Our diverse team of real estate experts, engineers, and designers is committed to transforming how people rent homes worldwide.

@@ -57,7 +57,7 @@ export function AdminRecentUsers({ users }: AdminRecentUsersProps) {
         <div>
           <h3 className="text-lg font-bold text-foreground font-heading">Recent Users</h3>
           <p className="text-xs text-muted-foreground mt-0.5">
-            Latest 5 user accounts registered on RentNest
+            Latest 5 user accounts registered on Thikana
           </p>
         </div>
 

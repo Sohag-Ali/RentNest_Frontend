@@ -483,8 +483,8 @@ export function PaymentReceiptView({ payment }: PaymentReceiptViewProps) {
 
       {/* Print Footer Notice */}
       <div className="print:block hidden text-center text-[10px] text-muted-foreground pt-6 border-t border-border">
-        <p>RentNest Verified Receipt • Payment Ref: {payment.id}</p>
-        <p>Thank you for choosing RentNest Property Rentals.</p>
+        <p>Thikana Verified Receipt • Payment Ref: {payment.id}</p>
+        <p>Thank you for choosing Thikana Property Rentals.</p>
       </div>
     </div>
   )

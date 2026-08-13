@@ -7,12 +7,24 @@ import { NotificationProvider } from "@/providers/notification-provider"
 import { cn } from "@/lib/utils";
 import { Toaster } from "sonner"
 
+import type { Metadata } from "next";
+
 const geist = Geist({subsets:['latin'],variable:'--font-sans'})
 
 const fontMono = Geist_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
 })
+
+export const metadata: Metadata = {
+  title: "Thikana | Find Your Dream Home & Rental Properties in Bangladesh",
+  description: "Discover, inspect, and book verified house rentals in Bangladesh with Thikana. Connecting tenants and landlords with digital transparency.",
+  icons: {
+    icon: "/icon.svg",
+    shortcut: "/icon.svg",
+    apple: "/icon.svg",
+  },
+}
 
 export default function RootLayout({
   children,

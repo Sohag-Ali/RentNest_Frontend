@@ -54,7 +54,7 @@ export function CoreValues() {
               Our Core Values
             </h2>
             <p className="text-base sm:text-lg text-muted-foreground max-w-2xl text-balance leading-relaxed">
-              Principles that guide everything we design, engineer, and operate at RentNest.
+              Principles that guide everything we design, engineer, and operate at Thikana.
             </p>
           </motion.div>
 

@@ -26,7 +26,7 @@ export function AboutCTA() {
               Find Your Next Rental Home Today
             </h2>
             <p className="text-base sm:text-lg text-muted-foreground text-balance leading-relaxed">
-              Join thousands of satisfied renters and landlords who have unlocked seamless real estate experiences on RentNest.
+              Join thousands of satisfied renters and landlords who have unlocked seamless real estate experiences on Thikana.
             </p>
           </div>
 

@@ -41,7 +41,7 @@ const TESTIMONIALS: Testimonial[] = [
       "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80",
     rating: 5,
     quote:
-      "RentNest completely eliminated the hassle of middleman broker fees. We booked a virtual walkthrough for a luxury duplex in Gulshan, signed the lease digitally, and moved in within 48 hours. Best rental experience in Bangladesh!",
+      "Thikana completely eliminated the hassle of middleman broker fees. We booked a virtual walkthrough for a luxury duplex in Gulshan, signed the lease digitally, and moved in within 48 hours. Best rental experience in Bangladesh!",
     propertyInfo: "Rented 3-Bed Duplex",
     verifiedDate: "Verified Move-In • Aug 2026",
   },
@@ -54,7 +54,7 @@ const TESTIMONIALS: Testimonial[] = [
       "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80",
     rating: 5,
     quote:
-      "As a landlord with multiple apartments in Banani and Dhanmondi, RentNest's verified tenant background checks gave me complete confidence. Rent payments arrive automatically on time every single month.",
+      "As a landlord with multiple apartments in Banani and Dhanmondi, Thikana's verified tenant background checks gave me complete confidence. Rent payments arrive automatically on time every single month.",
     propertyInfo: "Landlord (4 Units Listed)",
     verifiedDate: "Verified Host • 2 Years",
   },
@@ -80,7 +80,7 @@ const TESTIMONIALS: Testimonial[] = [
       "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80",
     rating: 5,
     quote:
-      "RentNest's landlord dashboard makes managing rental applications, lease renewals, and security deposit tracking effortless. Vacancy turnaround for my properties dropped from months to just 3 days!",
+      "Thikana's landlord dashboard makes managing rental applications, lease renewals, and security deposit tracking effortless. Vacancy turnaround for my properties dropped from months to just 3 days!",
     propertyInfo: "Landlord (2 Luxury Villas)",
     verifiedDate: "Verified Host • 1 Year",
   },
@@ -345,7 +345,7 @@ export function TestimonialsSection() {
           <div className="space-y-1.5 text-center sm:text-left">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 text-white text-xs font-extrabold backdrop-blur-md">
               <BookOpen className="w-3.5 h-3.5" />
-              <span>RENTNEST BLOGS & INSIGHTS</span>
+              <span>THIKANA BLOGS & INSIGHTS</span>
             </div>
             <h3 className="text-xl sm:text-2xl font-extrabold">
               Want Expert Tenant & Landlord Advice?

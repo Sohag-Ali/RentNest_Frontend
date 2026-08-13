@@ -102,7 +102,7 @@ export function FeatureCard({ feature }: FeatureCardProps) {
       {/* Decorative Accent Bottom Bar */}
       <div className="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800/60 flex items-center justify-between z-10">
         <span className="text-xs font-semibold text-slate-400 dark:text-slate-500 group-hover:text-blue-500 dark:group-hover:text-sky-400 transition-colors">
-          RentNest Certified
+          Thikana Certified
         </span>
         <div className="w-2 h-2 rounded-full bg-blue-500/40 group-hover:bg-blue-500 group-hover:scale-125 transition-all duration-300" />
       </div>

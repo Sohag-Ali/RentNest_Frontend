@@ -212,7 +212,7 @@ export function PropertyBookingSidebar({
 
           <div className="flex items-center gap-2 text-xs text-emerald-600 dark:text-emerald-400 font-bold bg-emerald-500/10 p-3 rounded-2xl border border-emerald-500/20">
             <ShieldCheckIcon className="h-4 w-4 shrink-0 text-emerald-500" />
-            <span>RentNest Verified Guarantee Included</span>
+            <span>Thikana Verified Guarantee Included</span>
           </div>
 
           {/* Action Button */}
@@ -286,7 +286,7 @@ export function PropertyBookingSidebar({
                   You Are Not Logged In
                 </h3>
                 <p className="text-xs text-slate-400 max-w-xs mx-auto leading-relaxed">
-                  You must be logged in to your RentNest account to submit a rental request for this property.
+                  You must be logged in to your Thikana account to submit a rental request for this property.
                 </p>
               </div>
 

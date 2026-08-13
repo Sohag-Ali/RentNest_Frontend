@@ -18,7 +18,7 @@ export function AboutHero() {
           <div className="flex flex-col gap-6 lg:gap-8">
             <Badge variant="secondary" className="w-fit gap-1.5 px-3.5 py-1 text-xs">
               <Sparkles className="w-3.5 h-3.5 text-primary" />
-              <span>About RentNest</span>
+              <span>About Thikana</span>
             </Badge>
             
             <div className="flex flex-col gap-4">
@@ -26,7 +26,7 @@ export function AboutHero() {
                 Your Trusted Partner in Finding Home
               </h1>
               <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-                We believe everyone deserves to find their perfect rental. With RentNest, discovering your next home is simple, secure, transparent, and completely digital.
+                We believe everyone deserves to find their perfect rental. With Thikana, discovering your next home is simple, secure, transparent, and completely digital.
               </p>
             </div>
 

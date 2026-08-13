@@ -462,7 +462,7 @@ export function SettingsView({ role: initialRole }: SettingsViewProps) {
                 <div>
                   <h2 className="text-lg font-bold text-foreground font-heading">Appearance & Theme</h2>
                   <p className="text-xs text-muted-foreground">
-                    Customize how RentNest looks on your browser.
+                    Customize how Thikana looks on your browser.
                   </p>
                 </div>
               </div>

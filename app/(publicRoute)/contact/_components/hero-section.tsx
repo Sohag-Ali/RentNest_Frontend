@@ -39,7 +39,7 @@ export function HeroSection() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-base sm:text-lg text-muted-foreground text-balance leading-relaxed max-w-2xl mx-auto"
         >
-          Have questions about RentNest, property listings, or digital leases? We&apos;re here to help! Reach out to our team and we&apos;ll get back to you promptly.
+          Have questions about Thikana, property listings, or digital leases? We&apos;re here to help! Reach out to our team and we&apos;ll get back to you promptly.
         </motion.p>
 
         {/* CTA Button */}

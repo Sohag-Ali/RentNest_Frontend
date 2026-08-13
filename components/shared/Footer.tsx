@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { ThikanaLogo } from './ThikanaLogo';
 
 interface FooterProps {
   variant?: 'default' | 'compact';
@@ -74,15 +75,15 @@ export function Footer({
         { label: 'Contact Us', href: '/contact' },
         { label: 'FAQ', href: '/faq' },
         { label: 'Help Center', href: '/help' },
-        { label: 'Status Page', href: 'https://status.rentnest.com' },
+        { label: 'Status Page', href: 'https://status.thikana.com' },
       ],
     },
   ];
 
   const socialLinks = [
     { icon: Share2, href: 'https://github.com', label: 'GitHub' },
-    { icon: Mail, href: 'mailto:support@rentnest.com', label: 'Email' },
-    { icon: Phone, href: 'tel:+1-800-RENTNEST', label: 'Phone' },
+    { icon: Mail, href: 'mailto:support@thikana.com', label: 'Email' },
+    { icon: Phone, href: 'tel:+1-800-THIKANA', label: 'Phone' },
   ];
 
   const legalLinks = [
@@ -121,7 +122,7 @@ export function Footer({
           <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
             <div className="text-center sm:text-left">
               <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
-                © {currentYear} RentNest. All rights reserved.
+                © {currentYear} Thikana. All rights reserved.
               </p>
             </div>
             <div className="flex flex-wrap items-center justify-center gap-6">
@@ -172,7 +173,7 @@ export function Footer({
                   <span>Stay Informed</span>
                 </div>
                 <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-                  Stay Updated with RentNest
+                  Stay Updated with Thikana
                 </h3>
                 <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed">
                   Subscribe to our newsletter for curated luxury properties, exclusive market insights, and tenant tips delivered directly to your inbox.
@@ -183,7 +184,7 @@ export function Footer({
                 <form
                   onSubmit={handleNewsletterSubmit}
                   className="flex flex-col sm:flex-row gap-3"
-                  aria-label="Subscribe to RentNest newsletter"
+                  aria-label="Subscribe to Thikana newsletter"
                 >
                   <div className="relative flex-1">
                     <Input
@@ -230,22 +231,10 @@ export function Footer({
         >
           {/* Brand & Social Section */}
           <motion.div variants={itemVariants} className="md:col-span-1 space-y-6">
-            <Link
-              href="/"
-              className="inline-block group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] rounded-xl"
-            >
-              <div className="flex items-center gap-2.5">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#2563EB] via-[#0EA5E9] to-[#14B8A6] text-white font-bold shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform duration-300">
-                  <span className="text-lg">🏠</span>
-                </div>
-                <span className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white group-hover:text-[#2563EB] transition-colors duration-200">
-                  RentNest
-                </span>
-              </div>
-            </Link>
+            <ThikanaLogo size="lg" />
 
             <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
-              Find your perfect rental home with RentNest, the modern luxury marketplace for verified property rentals.
+              Find your perfect rental home with Thikana, the modern luxury marketplace for verified property rentals in Bangladesh.
             </p>
 
             {/* Contact Info */}
@@ -255,10 +244,10 @@ export function Footer({
                   <Mail className="h-4 w-4" />
                 </div>
                 <a
-                  href="mailto:support@rentnest.com"
+                  href="mailto:support@thikana.com"
                   className="transition-colors duration-200 hover:text-[#2563EB] dark:hover:text-sky-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] rounded"
                 >
-                  support@rentnest.com
+                  support@thikana.com
                 </a>
               </div>
               <div className="flex items-center gap-3 text-slate-600 dark:text-slate-400 group">
@@ -266,10 +255,10 @@ export function Footer({
                   <Phone className="h-4 w-4" />
                 </div>
                 <a
-                  href="tel:+1-800-RENTNEST"
+                  href="tel:+1-800-THIKANA"
                   className="transition-colors duration-200 hover:text-[#2563EB] dark:hover:text-sky-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] rounded"
                 >
-                  +1-800-RENTNEST
+                  +1-800-THIKANA
                 </a>
               </div>
               <div className="flex items-center gap-3 text-slate-600 dark:text-slate-400 group">
@@ -332,7 +321,7 @@ export function Footer({
         {/* Bottom Legal & Signature Bar */}
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between text-sm text-slate-500 dark:text-slate-400">
           <p className="font-medium">
-            © {currentYear} RentNest. All rights reserved.
+            © {currentYear} Thikana. All rights reserved.
           </p>
 
           {/* Legal Links */}

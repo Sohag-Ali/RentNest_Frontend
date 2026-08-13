@@ -19,7 +19,7 @@ const stats = [
   {
     number: '25K+',
     label: 'Verified Landlords',
-    description: 'Trusted property owners on RentNest',
+    description: 'Trusted property owners on Thikana',
   },
   {
     number: '120+',

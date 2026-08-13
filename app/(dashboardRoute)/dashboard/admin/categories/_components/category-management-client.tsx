@@ -152,7 +152,7 @@ export function CategoryManagementClient({
             Category Management
           </h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Create and manage property categories for RentNest.
+            Create and manage property categories for Thikana.
           </p>
         </div>
 
@@ -376,7 +376,7 @@ export function CategoryManagementClient({
               Create New Category
             </DialogTitle>
             <DialogDescription className="text-xs text-muted-foreground">
-              Add a new property category to RentNest.
+              Add a new property category to Thikana.
             </DialogDescription>
           </DialogHeader>
 

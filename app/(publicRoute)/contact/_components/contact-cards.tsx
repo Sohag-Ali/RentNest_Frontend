@@ -54,7 +54,7 @@ export function ContactCards() {
       icon: <Mail className="w-full h-full" />,
       title: 'Email Address',
       description: 'Get in touch via email',
-      details: 'support@rentnest.com',
+      details: 'support@thikana.com',
       color: 'text-sky-500 bg-sky-500/10 border-sky-500/20',
     },
     {

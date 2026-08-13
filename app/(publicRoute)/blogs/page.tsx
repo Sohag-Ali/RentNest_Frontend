@@ -79,7 +79,7 @@ const BLOG_POSTS: BlogPost[] = [
       "Renting your first home in a fast-paced metropolis like Dhaka is an exciting milestone, but it comes with unique nuances. Whether you are looking at family flats in Mirpur, bachelor setups in Farmgate, or luxury duplexes in Gulshan, understanding local tenancy norms ensures a smooth experience.",
       "1. Location & Daily Commute Analysis: Before finalizing any neighborhood, measure peak-hour traffic to your workplace or educational institution. Areas like Dhanmondi and Uttara offer excellent school zones and amenities, while Mohakhali and Banani provide proximity to corporate hubs.",
       "2. Demystifying Utility Bills & Maintenance Charges: Rent in Bangladesh often excludes monthly service charges. Ensure your agreement clarifies generator fuel costs, security guard salaries, elevator maintenance, and waste collection fees.",
-      "3. Digital Verification on RentNest: Gone are the days of manual newspaper listings. RentNest verifies property ownership and landlord credentials, letting you book instant viewings and sign legally protective digital lease contracts without hassle.",
+      "3. Digital Verification on Thikana: Gone are the days of manual newspaper listings. Thikana verifies property ownership and landlord credentials, letting you book instant viewings and sign legally protective digital lease contracts without hassle.",
     ],
   },
   {
@@ -116,7 +116,7 @@ const BLOG_POSTS: BlogPost[] = [
     slug: "landlords-guide-maximizing-property-yield",
     title: "How Landlords Can Maximize Property Value & Attract Premium Tenants",
     excerpt:
-      "Discover smart upgrades that increase rental yield by up to 25%, attract verified long-term tenants, and streamline property management using RentNest.",
+      "Discover smart upgrades that increase rental yield by up to 25%, attract verified long-term tenants, and streamline property management using Thikana.",
     category: "Landlord Advice",
     readTime: "5 min read",
     publishedAt: "Aug 05, 2026",
@@ -131,7 +131,7 @@ const BLOG_POSTS: BlogPost[] = [
     takeaways: [
       "Modern kitchen fixtures and fresh neutral wall coats boost property perceived value instantly.",
       "High-speed fiber optic compatibility and smart door locks appeal heavily to corporate renters.",
-      "Listing properties with verified badges on RentNest reduces vacancy turnaround by 60%.",
+      "Listing properties with verified badges on Thikana reduces vacancy turnaround by 60%.",
     ],
     content: [
       "Maximizing rental income requires more than just listing a property. Premium corporate tenants and expat families prioritize security, modern amenities, and prompt communication.",
@@ -216,7 +216,7 @@ const BLOG_POSTS: BlogPost[] = [
     takeaways: [
       "Conduct a joint move-in walkthrough checklist to document existing wall conditions or scratches.",
       "Landlords must provide an itemized receipt for any security deposit deductions.",
-      "RentNest automated digital lease agreements include built-in deposit escrow rules.",
+      "Thikana automated digital lease agreements include built-in deposit escrow rules.",
     ],
     content: [
       "Security deposit disputes remain one of the most common friction points between renters and owners. Establishing clear expectations during lease inception eliminates post-lease disagreements.",
@@ -256,7 +256,7 @@ export default function BlogsPage() {
           setIsAuthenticated(false);
           setLoading(false);
           toast.error("Access Restricted 🔒", {
-            description: "Please sign in to access RentNest Blogs & Market Insights.",
+            description: "Please sign in to access Thikana Blogs & Market Insights.",
           });
           router.push("/auth/login");
         }
@@ -326,7 +326,7 @@ export default function BlogsPage() {
           </div>
           <h2 className="text-2xl font-extrabold text-foreground">Sign In Required</h2>
           <p className="text-sm text-muted-foreground">
-            RentNest Blogs are exclusive for registered members. Please sign in to read market insights.
+            Thikana Blogs are exclusive for registered members. Please sign in to read market insights.
           </p>
           <Link href="/auth/login" className="block w-full">
             <Button variant="gradient" className="w-full h-11 rounded-xl">
@@ -364,7 +364,7 @@ export default function BlogsPage() {
           className="gap-2 px-4 py-1.5 bg-blue-50/80 dark:bg-blue-950/60 border-blue-200/80 dark:border-blue-800/60 text-[#2563EB] dark:text-sky-400 font-semibold text-xs sm:text-sm rounded-full shadow-xs backdrop-blur-md"
         >
           <Sparkles className="w-4 h-4 text-[#2563EB] dark:text-sky-400" />
-          <span>RENTNEST INSIGHTS & GUIDES</span>
+          <span>THIKANA INSIGHTS & GUIDES</span>
         </Badge>
 
         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-foreground font-heading leading-tight">

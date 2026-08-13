@@ -26,7 +26,7 @@ export default async function AdminPropertiesPage() {
           All Properties
         </h1>
         <p className="text-sm text-muted-foreground mt-1">
-          Manage every property listed by landlords across the RentNest platform.
+          Manage every property listed by landlords across the Thikana platform.
         </p>
       </div>
 

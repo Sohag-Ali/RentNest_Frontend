@@ -21,6 +21,7 @@ import {
   BookOpen,
 } from 'lucide-react';
 
+import { ThikanaLogo } from './ThikanaLogo';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -160,21 +161,7 @@ export function Navbar({
       >
         <div className="flex items-center justify-between">
           {/* Logo Section */}
-          <Link
-            href="/"
-            className="flex items-center gap-2.5 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-full px-1"
-          >
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 via-sky-500 to-teal-500 text-white shadow-md shadow-blue-500/25 group-hover:shadow-glow transition-all duration-300"
-            >
-              <Home size={18} className="text-white" />
-            </motion.div>
-            <span className="font-extrabold text-lg sm:text-xl tracking-tight text-foreground group-hover:text-primary transition-colors duration-200">
-              RentNest
-            </span>
-          </Link>
+          <ThikanaLogo size="md" />
 
           {/* Desktop Navigation Links */}
           <div className="hidden md:flex items-center gap-1 bg-muted/60 dark:bg-slate-900/60 p-1 rounded-full border border-border/60">
@@ -348,14 +335,7 @@ export function Navbar({
                 <div className="flex h-full flex-col">
                   {/* Mobile Header */}
                   <div className="border-b border-border px-6 py-4 flex items-center justify-between">
-                    <div className="flex items-center gap-2.5">
-                      <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 via-sky-500 to-teal-500 text-white font-bold">
-                        <Home size={18} />
-                      </div>
-                      <span className="font-extrabold text-lg text-foreground">
-                        RentNest
-                      </span>
-                    </div>
+                    <ThikanaLogo size="sm" onClick={() => setIsOpen(false)} />
                   </div>
 
                   {/* Mobile Navigation Links */}

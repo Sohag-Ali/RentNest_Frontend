@@ -160,7 +160,7 @@ export function TenantBookingsList({ initialBookings }: TenantBookingsListProps)
           <span className="text-xs font-semibold text-muted-foreground uppercase">Lease Protection</span>
           <div className="text-base font-bold text-foreground mt-2 flex items-center gap-1.5">
             <ShieldCheckIcon className="h-5 w-5 text-emerald-500" />
-            RentNest Verified
+            Thikana Verified
           </div>
           <p className="text-[11px] text-muted-foreground mt-1">Full Tenant Protection</p>
         </Card>

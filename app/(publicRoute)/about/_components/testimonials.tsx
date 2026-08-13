@@ -9,7 +9,7 @@ const testimonials = [
     name: 'Lisa Johnson',
     role: 'First-time Renter',
     rating: 5,
-    feedback: 'RentNest made my apartment search so easy! The verified listings gave me confidence and the landlord was amazing. Best rental experience ever!'
+    feedback: 'Thikana made my apartment search so easy! The verified listings gave me confidence and the landlord was amazing. Best rental experience ever!'
   },
   {
     name: 'David Martinez',
@@ -21,7 +21,7 @@ const testimonials = [
     name: 'Sophie Chen',
     role: 'Relocating Professional',
     rating: 5,
-    feedback: 'Moving to a new city was stressful, but RentNest made finding housing seamless. The support team was incredibly helpful throughout!'
+    feedback: 'Moving to a new city was stressful, but Thikana made finding housing seamless. The support team was incredibly helpful throughout!'
   },
   {
     name: 'Robert Thompson',
@@ -42,7 +42,7 @@ export function Testimonials() {
               What Our Users Say
             </h2>
             <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto text-balance">
-              Real stories from renters and landlords who trust RentNest
+              Real stories from renters and landlords who trust Thikana
             </p>
           </div>
 

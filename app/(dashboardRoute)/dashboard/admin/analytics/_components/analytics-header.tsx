@@ -32,7 +32,7 @@ export function AnalyticsHeader({
           Analytics & Insights 📈
         </h1>
         <p className="text-sm text-muted-foreground mt-1">
-          Monitor RentNest's properties, users, rentals and revenue performance.
+          Monitor Thikana's properties, users, rentals and revenue performance.
         </p>
       </div>
 

@@ -1,10 +1,14 @@
-import { Home } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
-
 import { Separator } from '@/components/ui/separator';
 import Link from 'next/link';
 import LoginForm from '../../_components/LoginForm';
 import GoogleLoginButton from '../../_components/GoogleLoginButton';
+import { ThikanaLogo } from '@/components/shared/ThikanaLogo';
+
+export const metadata = {
+  title: 'Sign In | Thikana',
+  description: 'Sign in to your Thikana account to manage property rentals, applications, and saved homes.',
+};
 
 export default function LoginPage() {
   return (
@@ -20,12 +24,7 @@ export default function LoginPage() {
         {/* Left side - Branding & Illustration (Desktop only) */}
         <div className="hidden lg:flex lg:col-span-7 flex-col justify-center space-y-8 pr-6">
           <div className="space-y-6">
-            <Link href="/" className="inline-flex items-center gap-3 group">
-              <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-blue-600 via-sky-500 to-teal-500 flex items-center justify-center text-white shadow-lg shadow-blue-500/25 group-hover:scale-105 transition-transform duration-300">
-                <Home className="w-6 h-6 text-white" />
-              </div>
-              <span className="text-2xl font-extrabold text-foreground tracking-tight">RentNest</span>
-            </Link>
+            <ThikanaLogo size="xl" />
             
             <div className="space-y-4">
               <h1 className="text-5xl font-black text-foreground tracking-tight leading-[1.12]">
@@ -60,10 +59,7 @@ export default function LoginPage() {
         <div className="w-full lg:col-span-5 max-w-md mx-auto lg:mx-0">
           {/* Mobile logo */}
           <div className="lg:hidden flex items-center gap-3 mb-8">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 via-sky-500 to-teal-500 flex items-center justify-center text-white shadow-md">
-              <Home className="w-5 h-5 text-white" />
-            </div>
-            <span className="text-2xl font-extrabold text-foreground">RentNest</span>
+            <ThikanaLogo size="lg" />
           </div>
 
           <Card variant="glass" className="rounded-3xl shadow-luxury">
@@ -71,7 +67,7 @@ export default function LoginPage() {
               <div className="space-y-1.5">
                 <h2 className="text-2xl font-bold text-foreground tracking-tight">Sign In</h2>
                 <p className="text-xs text-muted-foreground">
-                  Enter your credentials to access your RentNest account
+                  Enter your credentials to access your Thikana account
                 </p>
               </div>
 

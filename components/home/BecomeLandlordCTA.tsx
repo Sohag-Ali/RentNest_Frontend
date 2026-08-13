@@ -157,7 +157,7 @@ export function BecomeLandlordCTA() {
 
             {/* Subtitle */}
             <p className="text-base sm:text-lg text-slate-300 leading-relaxed font-normal">
-              Join thousands of landlords using RentNest to list properties, connect with trusted tenants, and manage rentals effortlessly.
+              Join thousands of landlords using Thikana to list properties, connect with trusted tenants, and manage rentals effortlessly.
             </p>
 
             {/* Action Buttons */}

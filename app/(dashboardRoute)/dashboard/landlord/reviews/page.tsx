@@ -6,7 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Star, MessageSquareQuote, Calendar, Building2, MapPin } from "lucide-react";
 
 export const metadata = {
-  title: "Property Reviews & Ratings | RentNest Landlord",
+  title: "Property Reviews & Ratings | Thikana Landlord",
   description: "View ratings and feedback submitted by tenants for your properties.",
 };
 

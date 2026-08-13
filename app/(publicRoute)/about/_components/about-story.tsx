@@ -47,7 +47,7 @@ export function AboutStory() {
 
             <div className="flex flex-col gap-4 text-muted-foreground">
               <p className="text-base sm:text-lg leading-relaxed">
-                RentNest was founded with a simple mission: to transform the rental market by making it transparent, secure, and completely hassle-free. Our founders experienced the frustration of finding verified rental properties and decided to build a modern platform tailored for renters and landlords alike.
+                Thikana was founded with a simple mission: to transform the rental market by making it transparent, secure, and completely hassle-free. Our founders experienced the frustration of finding verified rental properties and decided to build a modern platform tailored for renters and landlords alike.
               </p>
               <p className="text-base sm:text-lg leading-relaxed">
                 Since our launch, we&apos;ve grown to serve thousands of happy tenants and landlords across 100+ cities, creating a marketplace built on trust, verified properties, and digital lease agreements.

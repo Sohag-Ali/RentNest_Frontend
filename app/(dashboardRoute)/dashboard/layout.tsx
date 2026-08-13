@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/sidebar';
 import { SidebarNav } from '../_components/sidebar-nav';
 import { TopNavbar } from '../_components/top-navbar';
-import Link from 'next/link';
+import { ThikanaLogo } from '@/components/shared/ThikanaLogo';
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -21,10 +21,8 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       <div className="flex h-screen overflow-hidden bg-background w-full">
         {/* Sidebar */}
         <Sidebar className="hidden md:flex border-r border-border">
-          <SidebarHeader className="p-6">
-            <Link href="/" className="text-xl font-bold bg-gradient-to-r from-sidebar-primary to-sidebar-primary/70 bg-clip-text text-transparent">
-              RentNest
-            </Link>
+          <SidebarHeader className="p-4 border-b border-border/50">
+            <ThikanaLogo size="md" />
           </SidebarHeader>
           <SidebarContent className="px-3 py-4">
             <SidebarNav />

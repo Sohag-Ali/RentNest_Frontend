@@ -9,9 +9,9 @@ import { TestimonialsSection } from '@/components/home/TestimonialsSection';
 import { BecomeLandlordCTA } from '@/components/home/BecomeLandlordCTA';
 
 export const metadata = {
-  title: 'RentNest | Find Your Perfect Home Without the Stress',
+  title: 'Thikana | Find Your Perfect Home Without the Stress',
   description:
-    'Discover luxury apartments, villas, and studios verified by top landlords across Bangladesh and beyond with instant direct booking and lease protection.',
+    'Discover luxury apartments, villas, and studios verified by top landlords across Bangladesh with instant direct booking and lease protection.',
 };
 
 export default function HomePage() {

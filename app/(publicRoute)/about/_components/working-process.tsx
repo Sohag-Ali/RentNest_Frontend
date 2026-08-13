@@ -55,7 +55,7 @@ export function WorkingProcess() {
             </Badge>
 
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-foreground tracking-tight leading-tight">
-              How RentNest Works
+              How Thikana Works
             </h2>
             <p className="text-base sm:text-lg text-muted-foreground max-w-2xl text-balance leading-relaxed">
               Simple 4-step process to find, inspect, and secure your perfect rental property.

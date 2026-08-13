@@ -16,19 +16,19 @@ export function ContactInfo() {
     {
       icon: Mail,
       title: 'Email Address',
-      value: 'support@rentnest.com',
+      value: 'support@thikana.com',
       color: 'text-sky-500 bg-sky-500/10 border-sky-500/20',
     },
     {
       icon: Phone,
       title: 'Direct Phone',
-      value: '+1-800-RENTNEST (+1 800-736-8637)',
+      value: '+1-800-THIKANA (+1 800-736-8637)',
       color: 'text-teal-500 bg-teal-500/10 border-teal-500/20',
     },
     {
       icon: Globe,
       title: 'Website',
-      value: 'www.rentnest.com',
+      value: 'www.thikana.com',
       color: 'text-emerald-500 bg-emerald-500/10 border-emerald-500/20',
     },
     {
@@ -53,7 +53,7 @@ export function ContactInfo() {
             </div>
             <div>
               <h3 className="text-xl sm:text-2xl font-extrabold text-foreground tracking-tight">
-                RentNest Inc.
+                Thikana Inc.
               </h3>
               <p className="text-xs text-primary font-semibold">
                 Premium Rental Platform

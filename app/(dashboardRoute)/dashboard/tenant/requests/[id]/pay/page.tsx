@@ -219,7 +219,7 @@ export default async function TenantPaymentPage({ params }: PaymentPageProps) {
 
             <div className="flex items-center gap-2 text-xs text-emerald-600 dark:text-emerald-400 font-medium bg-emerald-500/10 p-3 rounded-2xl border border-emerald-500/20">
               <ShieldCheckIcon className="h-4 w-4 shrink-0" />
-              <span>RentNest Verified Lease Protection Included</span>
+              <span>Thikana Verified Lease Protection Included</span>
             </div>
           </Card>
         </div>
@@ -258,7 +258,7 @@ export default async function TenantPaymentPage({ params }: PaymentPageProps) {
             <PayCheckoutButton rentalRequestId={requestId} />
 
             <p className="text-[10px] text-muted-foreground text-center leading-relaxed">
-              By clicking Proceed to Payment, you agree to RentNest lease terms and conditions.
+              By clicking Proceed to Payment, you agree to Thikana lease terms and conditions.
             </p>
           </Card>
         </div>

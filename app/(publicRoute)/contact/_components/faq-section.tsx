@@ -12,9 +12,9 @@ import {
 
 const faqs = [
   {
-    question: 'How do I list my property on RentNest?',
+    question: 'How do I list my property on Thikana?',
     answer:
-      'Listing your property on RentNest is simple! Create an account, provide your property details, add high-resolution photos, set your rental terms, and verify your landlord profile. Our team will review and approve your listing within a few hours.',
+      'Listing your property on Thikana is simple! Create an account, provide your property details, add high-resolution photos, set your rental terms, and verify your landlord profile. Our team will review and approve your listing within a few hours.',
   },
   {
     question: 'What payment methods do you accept?',
@@ -34,7 +34,7 @@ const faqs = [
   {
     question: 'How do I contact customer support?',
     answer:
-      'You can reach our support team via email at support@rentnest.com, phone at +1-800-RENTNEST, or through the contact form above. Our average response time is under 2 hours.',
+      'You can reach our support team via email at support@thikana.com, phone at +1-800-THIKANA, or through the contact form above. Our average response time is under 2 hours.',
   },
 ];
 
@@ -59,7 +59,7 @@ export function FAQSection() {
             Frequently Asked Questions
           </h2>
           <p className="text-base sm:text-lg text-muted-foreground text-balance leading-relaxed">
-            Find instant answers to common questions about RentNest rentals, payments, and digital leases.
+            Find instant answers to common questions about Thikana rentals, payments, and digital leases.
           </p>
         </motion.div>
 
