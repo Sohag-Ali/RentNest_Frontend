@@ -18,6 +18,24 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ThikanaLogo } from './ThikanaLogo';
 
+function FacebookIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+    </svg>
+  );
+}
+
+function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+    </svg>
+  );
+}
+
 interface FooterProps {
   variant?: 'default' | 'compact';
   showNewsletter?: boolean;
@@ -81,9 +99,10 @@ export function Footer({
   ];
 
   const socialLinks = [
-    { icon: Share2, href: 'https://github.com', label: 'GitHub' },
-    { icon: Mail, href: 'mailto:support@thikana.com', label: 'Email' },
-    { icon: Phone, href: 'tel:+1-800-THIKANA', label: 'Phone' },
+    { icon: FacebookIcon, href: 'https://facebook.com', label: 'Facebook' },
+    { icon: InstagramIcon, href: 'https://instagram.com', label: 'Instagram' },
+    { icon: Mail, href: 'mailto:sohag2879@gmail.com', label: 'Email' },
+    { icon: Phone, href: 'tel:+8801728918054', label: 'Phone' },
   ];
 
   const legalLinks = [
@@ -244,10 +263,10 @@ export function Footer({
                   <Mail className="h-4 w-4" />
                 </div>
                 <a
-                  href="mailto:support@thikana.com"
+                  href="mailto:sohag2879@gmail.com"
                   className="transition-colors duration-200 hover:text-[#2563EB] dark:hover:text-sky-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] rounded"
                 >
-                  support@thikana.com
+                  sohag2879@gmail.com
                 </a>
               </div>
               <div className="flex items-center gap-3 text-slate-600 dark:text-slate-400 group">
@@ -255,17 +274,17 @@ export function Footer({
                   <Phone className="h-4 w-4" />
                 </div>
                 <a
-                  href="tel:+1-800-THIKANA"
+                  href="tel:+8801728918054"
                   className="transition-colors duration-200 hover:text-[#2563EB] dark:hover:text-sky-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] rounded"
                 >
-                  +1-800-THIKANA
+                  +880 1728918054
                 </a>
               </div>
               <div className="flex items-center gap-3 text-slate-600 dark:text-slate-400 group">
                 <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-50 dark:bg-blue-950/60 text-[#2563EB] dark:text-sky-400 group-hover:scale-110 transition-transform duration-200">
                   <MapPin className="h-4 w-4" />
                 </div>
-                <span>San Francisco, CA 94105</span>
+                <span>Uttara, Dhaka, Bangladesh</span>
               </div>
             </div>
 

@@ -10,19 +10,19 @@ export function ContactInfo() {
     {
       icon: MapPin,
       title: 'Head Office Address',
-      value: '123 Rental Street, Suite 400, San Francisco, CA 94105',
+      value: 'Uttara, Dhaka, Bangladesh',
       color: 'text-blue-500 bg-blue-500/10 border-blue-500/20',
     },
     {
       icon: Mail,
       title: 'Email Address',
-      value: 'support@thikana.com',
+      value: 'sohag2879@gmail.com',
       color: 'text-sky-500 bg-sky-500/10 border-sky-500/20',
     },
     {
       icon: Phone,
       title: 'Direct Phone',
-      value: '+1-800-THIKANA (+1 800-736-8637)',
+      value: '+880 1728918054',
       color: 'text-teal-500 bg-teal-500/10 border-teal-500/20',
     },
     {
