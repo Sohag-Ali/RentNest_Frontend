@@ -1,442 +1,341 @@
-# 🏠 RentNest — Frontend
+# 🏠 RentNest — Modern Property Rental & Management Platform
 
-> **Find Your Perfect Home Without the Stress**
->
-> RentNest is a modern, full-featured house rental platform built for Bangladesh. Tenants discover and book verified properties; landlords manage listings and track earnings; admins oversee the entire platform — all in one beautifully crafted web application.
+[![Next.js](https://img.shields.io/badge/Next.js-16.2.6-black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19.2-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4.0-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![Stripe](https://img.shields.io/badge/Stripe-Payments-635BFF?style=for-the-badge&logo=stripe&logoColor=white)](https://stripe.com/)
+[![Vercel](https://img.shields.io/badge/Vercel-Deployed-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://rent-nest-gules-two.vercel.app)
+
+> **Find, Rent, and Manage Properties Effortlessly.**  
+> RentNest is a full-stack, enterprise-grade rental property marketplace designed to streamline housing search, rental requests, landlord management, automated payment processing via Stripe, and administrative oversight.
 
 ---
 
-## 📋 Table of Contents
+## 🔗 Quick Links & Repositories
 
-- [Live Demo](#-live-demo)
-- [Features](#-features)
+| Portal / Codebase | Link / URL |
+| :--- | :--- |
+| 🌐 **Live Web Application** | [rent-nest-gules-two.vercel.app](https://rent-nest-gules-two.vercel.app) |
+| 🖥️ **Frontend Repository** | [github.com/Sohag-Ali/RentNest_Frontend](https://github.com/Sohag-Ali/RentNest_Frontend.git) |
+| ⚙️ **Backend Repository** | [github.com/Sohag-Ali/RentNest_Backend](https://github.com/Sohag-Ali/RentNest_Backend.git) |
+| 📡 **Production API Server** | `https://rentnest-backend-ezd1.onrender.com` |
+
+---
+
+## 🔑 Demo Accounts for Quick Review
+
+Recruiters and evaluators can instantly explore all features across different user roles using the built-in 1-click login buttons or credentials below:
+
+| Role | Email | Password | Access Capabilities |
+| :--- | :--- | :--- | :--- |
+| **👤 Tenant** | `tenant@gmail.com` | `Tenant@123` | Property browsing, request submission, Stripe checkout, payment history, review writing. |
+| **🏠 Landlord** | `landload1@gmail.com` | `Landlord@123` | Listing creation & editing, incoming booking approval/rejection, earnings & tenant review management. |
+| **🛡️ Admin** | `admin@gmail.com` | `Admin@123` | System analytics charts, user management (active/banned), property/category controls, global rental tracking. |
+
+---
+
+## 📖 Table of Contents
+
+- [Executive Summary](#-executive-summary)
+- [Key Features](#-key-features)
+  - [1. Tenant Portal](#1-tenant-portal)
+  - [2. Landlord / Host Portal](#2-landlord--host-portal)
+  - [3. Admin Control Panel](#3-admin-control-panel)
+  - [4. Authentication & Security](#4-authentication--security)
+- [System Architecture & Flow](#-system-architecture--flow)
 - [Tech Stack](#-tech-stack)
-- [Getting Started](#-getting-started)
-- [Environment Variables](#-environment-variables)
 - [Project Structure](#-project-structure)
-- [Pages & Routes](#-pages--routes)
-- [User Roles](#-user-roles)
-- [API Overview](#-api-overview)
-- [Authentication Flow](#-authentication-flow)
-- [Scripts](#-scripts)
+- [Getting Started & Local Setup](#-getting-started--local-setup)
+- [Environment Configuration](#-environment-configuration)
+- [API Endpoints Reference](#-api-endpoints-reference)
+- [Engineering Highlights](#-engineering-highlights)
+- [Author & Contact](#-author--contact)
 
 ---
 
-## 🌐 Live Demo
+## 💡 Executive Summary
 
-| Resource | URL |
-|---|---|
-| Frontend | _Deploy URL here_ |
-| Backend API | `https://rentnest-backend-ezd1.onrender.com` |
+Finding standard rental accommodations often involves fragmented communication, hidden costs, and insecure cash-based transactions. **RentNest** addresses these challenges by offering a unified marketplace for three primary stakeholders: **Tenants**, **Landlords**, and **Platform Administrators**.
+
+Built on **Next.js 16 (App Router)** and **React 19**, RentNest utilizes **Server Actions**, **TanStack Query v5**, **Stripe API**, and **JWT HTTP-only Cookie Authentication** to deliver a responsive, accessible, and secure user experience.
 
 ---
 
-## ✨ Features
+## ✨ Key Features
 
-### 🔍 Property Discovery
-- Browse all verified rental properties across Bangladesh
-- Keyword search — matches title, location, and description
-- Filter by category, city, price range, bedrooms, bathrooms, and availability
-- Grid / List view toggle
-- Client-side pagination (12 per page)
-- Featured property badges, availability status, ratings
+### 1. Tenant Portal
+- **Advanced Multi-Criteria Search & Filter:** Filter properties by title, category, city/location, price range, bedroom count, bathroom count, and real-time availability status.
+- **Interactive Image Galleries & Details:** Detailed property view with photo galleries, verified landlord badges, property specs (year built, lease terms, pet policy, parking), and location details.
+- **Rental Request Lifecycle:** Submit rental requests with custom move-in dates and message notes to property owners.
+- **Stripe Payments & Electronic Receipts:** Pay rent seamlessly for approved bookings using Stripe Checkout. Download or view detailed payment receipts.
+- **Verified Reviews & Star Ratings:** Leave structured reviews and star ratings for properties after a rental request is completed, with capabilities to edit or delete submitted feedback.
+- **Wishlist & Saved Properties:** Bookmark properties for quick retrieval.
 
-### 🏡 Property Details
-- Full image gallery
-- Detailed overview table (year built, lease term, pet policy, parking)
-- Landlord profile card with superhost & verified badges
-- Similar properties section
-- Instant rental request booking sidebar
+### 2. Landlord / Host Portal
+- **Property Listing Management (CRUD):** Add, update, or archive rental property listings with multi-image upload, category tagging, dynamic pricing, and feature highlights.
+- **Booking & Request Approval Workflow:** Manage pending rental requests with `Approve` or `Reject` actions, updating status in real-time.
+- **Earnings & Financial Overview:** Track total rental earnings, active bookings, and upcoming payments.
+- **Tenant Feedback Monitoring:** View all ratings and feedback left by tenants across owned property listings.
 
-### 📅 Booking & Rental Requests
-- Tenants submit rental requests with a preferred move-in date
-- Landlords review, approve, or reject incoming requests
-- Status lifecycle: `PENDING → APPROVED → COMPLETED / REJECTED`
+### 3. Admin Control Panel
+- **System Dashboard Analytics:** Visual data insights powered by Recharts (platform revenue trends, total active users, property distribution, rental statistics).
+- **User Management & Moderation:** View all registered accounts, switch roles, and toggle user account statuses (`Active`, `Inactive`, `Banned`).
+- **Category & Taxonomy Controls:** Create, edit, and categorize rental property types (e.g., Apartments, Luxury Villas, Studio Flats, Commercial Spaces).
+- **Global Property & Rental Auditing:** Monitor and manage platform-wide listings and rental transactions.
 
-### 💳 Stripe Payments
-- Tenants pay for approved rentals via Stripe Checkout
-- Payment receipt view with full transaction details
-- Complete payment history per tenant
+### 4. Authentication & Security
+- **JWT HTTP-Only Cookies:** Dual-token strategy (`accessToken` + `refreshToken`) stored securely in HTTP-only cookies to prevent XSS attacks.
+- **Google OAuth 2.0 Integration:** Quick sign-in using Google accounts alongside standard Email & Password registration.
+- **Role-Based Access Control (RBAC):** Middleware-backed route protection for `/dashboard/admin`, `/dashboard/landlord`, and `/dashboard/tenant`.
+- **System Theme Engine:** Adaptive Light/Dark mode implementation with system preference sync via `next-themes`.
 
-### ⭐ Reviews & Ratings
-- Tenants submit star ratings and comments post-rental
-- Edit and delete your own reviews
-- Landlords view all reviews left on their properties
-- Aggregated ratings shown on property cards and detail pages
+---
 
-### 🔐 Authentication
-- JWT-based cookie sessions (`accessToken` + `refreshToken`)
-- Role selection at registration — Tenant or Landlord
-- Auto-login immediately after registration
-- Secure `httpOnly` cookie storage
-- Password change from profile/settings
+## 🏗 System Architecture & Flow
 
-### 👤 Profile Management
-- Update avatar, phone, bio, gender, date of birth, occupation
-- Update address fields (city, state, country, zip)
-- Update social links (website, GitHub, LinkedIn, Facebook)
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Tenant as Tenant / Renter
+    participant NextJS as Next.js 16 (Frontend)
+    participant Express as Express.js (Backend API)
+    participant Stripe as Stripe Gateway
+    actor Landlord as Landlord / Host
 
-### 🌙 Dark / Light Mode
-- System-aware theme with manual toggle
-- Full dark mode support across all pages and dashboard
-
-### 🔔 Notifications
-- Notification dropdown in the top navbar
-- Notification widget in the tenant dashboard
+    Tenant->>NextJS: Submit Rental Request
+    NextJS->>Express: POST /api/rentals (Bearer Token)
+    Express-->>NextJS: Status: PENDING
+    Landlord->>NextJS: Approve Rental Request
+    NextJS->>Express: PATCH /api/rentals/:id (Status: APPROVED)
+    Express-->>NextJS: Request Approved
+    Tenant->>NextJS: Click "Pay Rent Now"
+    NextJS->>Express: POST /api/payments/create
+    Express->>Stripe: Create Checkout Session
+    Stripe-->>Express: Session URL & Payment ID
+    Express-->>NextJS: Redirect to Stripe Checkout
+    Tenant->>Stripe: Complete Payment
+    Stripe-->>Express: Webhook Event (payment_intent.succeeded)
+    Express-->>NextJS: Update Status to PAID / COMPLETED
+    NextJS-->>Tenant: Show Receipt & Confirmation
+```
 
 ---
 
 ## 🛠 Tech Stack
 
-| Category | Technology |
-|---|---|
-| **Framework** | [Next.js 16.2.6](https://nextjs.org/) (App Router) |
-| **Language** | TypeScript 5 |
-| **Runtime** | React 19 |
-| **Styling** | Tailwind CSS v4 |
-| **UI Components** | shadcn/ui, @base-ui/react |
-| **Animations** | Framer Motion |
-| **Icons** | Lucide React, React Icons |
-| **Forms** | React Hook Form + Zod |
-| **Data Fetching (client)** | TanStack React Query v5 |
-| **Data Fetching (server)** | Next.js Server Actions + native `fetch` |
-| **Tables** | TanStack React Table v8 |
-| **Auth** | JWT + httpOnly cookies |
-| **Toasts** | Sonner |
-| **Theme** | next-themes |
+### Frontend Architecture
+| Layer | Technology | Description |
+| :--- | :--- | :--- |
+| **Framework** | [Next.js 16.2](https://nextjs.org/) | App Router with Server Actions & Dynamic SSR |
+| **Library** | [React 19](https://react.dev/) | Modern UI component composition |
+| **Language** | [TypeScript 5](https://www.typescriptlang.org/) | End-to-end type safety |
+| **Styling** | [Tailwind CSS v4](https://tailwindcss.com/) | Atomic CSS design system |
+| **UI Components** | [shadcn/ui](https://ui.shadcn.com/) / `@base-ui/react` | Accessible headless components |
+| **State & Fetching**| [TanStack Query v5](https://tanstack.com/query) | Client-side cache management |
+| **Forms & Validation**| React Hook Form + Zod | Schema-driven form validation |
+| **Charts & Visuals** | [Recharts](https://recharts.org/) | Analytics visualization |
+| **Animations** | [Framer Motion](https://www.framer.com/motion/) | Smooth UI micro-interactions |
+| **Notifications** | [Sonner](https://sonner.emilkowal.ski/) | Toast notification system |
 
----
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- Node.js `>= 20`
-- npm or yarn or pnpm
-
-### Installation
-
-```bash
-# 1. Clone the repository
-git clone https://github.com/your-username/rentnest-frontend.git
-cd rentnest-frontend
-
-# 2. Install dependencies
-npm install
-
-# 3. Create environment file
-cp .env.example .env.local
-# Fill in the values (see Environment Variables section)
-
-# 4. Start the development server
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) in your browser.
-
----
-
-## 🔑 Environment Variables
-
-Create a `.env.local` file in the project root:
-
-```env
-# Backend API base URL (server-side — used in Server Actions)
-BACKEND_API_URL=https://rentnest-backend-ezd1.onrender.com
-
-# Backend API base URL (client-side — used in React components)
-NEXT_PUBLIC_BACKEND_API_URL=https://rentnest-backend-ezd1.onrender.com
-
-# JWT secrets (must match the backend)
-JWT_ACCESS_SECRET=your_access_secret_key
-JWT_REFRESH_SECRET=your_refresh_secret_key
-
-# JWT expiration
-JWT_ACCESS_EXPIRATION=1d
-JWT_REFRESH_EXPIRATION=7d
-```
-
-> ⚠️ Never commit real secrets to version control. The `.env` file is listed in `.gitignore`.
+### Backend Architecture
+| Layer | Technology | Description |
+| :--- | :--- | :--- |
+| **Runtime** | Node.js | JavaScript runtime engine |
+| **Framework** | Express.js | RESTful API backend server |
+| **Security** | JSON Web Tokens (JWT) | HTTP-Only cookie auth sessions |
+| **Payment Gateway** | Stripe SDK | PCI-compliant credit card processing |
+| **Database** | MongoDB / Prisma | Persistent data store |
+| **Hosting** | Render & Vercel | Production cloud deployment |
 
 ---
 
 ## 📁 Project Structure
 
 ```
-rentnest-frontend/
+RentNest_Frontend/
 ├── app/
-│   ├── (authRoute)/                   # Login & Register
-│   │   ├── auth/
-│   │   │   ├── login/page.tsx
-│   │   │   └── register/page.tsx
-│   │   ├── _actions/authActions.ts    # Login, Register, Logout server actions
-│   │   └── _components/              # LoginForm, RegistrationForm
+│   ├── (authRoute)/                   # Authentication pages (Login, Register)
+│   │   ├── auth/login/                # Sign-in page with 1-click demo buttons
+│   │   ├── auth/register/             # Role selection & sign-up page
+│   │   ├── _actions/authActions.ts    # Server actions for Auth
+│   │   └── _components/               # LoginForm, RegistrationForm, GoogleLogin
 │   │
-│   ├── (publicRoute)/                 # Public-facing pages
-│   │   ├── page.tsx                   # Home page
-│   │   ├── about/
-│   │   ├── contact/
-│   │   ├── profile/
-│   │   ├── settings/
-│   │   └── properties/
-│   │       ├── page.tsx               # Property listing
-│   │       ├── [id]/page.tsx          # Property detail
-│   │       ├── _actions/              # property.action.ts, rental-request.actions.ts
-│   │       └── _components/           # PropertyListing component
+│   ├── (publicRoute)/                 # Publicly accessible routes
+│   │   ├── page.tsx                   # Landing page (Hero, Featured, City Explorer)
+│   │   ├── properties/                # Property catalog & multi-filter search
+│   │   ├── properties/[id]/           # Property detail & booking request form
+│   │   ├── about/                     # About Us section
+│   │   └── contact/                   # Contact support form
 │   │
-│   └── (dashboardRoute)/
+│   └── (dashboardRoute)/              # Protected Role Dashboards
 │       └── dashboard/
-│           ├── admin/                 # Admin panel (users, properties, rentals, payments)
-│           ├── landlord/              # Landlord portal (listings, bookings, reviews, earnings)
-│           └── tenant/                # Tenant portal (requests, payments, reviews)
+│           ├── admin/                 # Platform Analytics, Users, Categories, Rentals
+│           ├── landlord/              # Property CRUD, Incoming Requests, Earnings
+│           ├── tenant/                # My Bookings, Stripe Payments, Receipts, Reviews
+│           └── settings/              # Account Profile & Password Management
 │
-├── components/
-│   ├── hero/                          # Hero section components
-│   ├── home/                          # Home page sections
-│   ├── properties/                    # Property listing components
-│   ├── property-details/              # Property detail components
-│   ├── property-form/                 # Landlord property create/edit form
-│   ├── reviews/                       # Review modals and display
-│   ├── dashboard/                     # Dashboard-specific components
-│   ├── shared/                        # Navbar, Footer
-│   ├── providers/                     # QueryProvider, ThemeProvider
-│   └── ui/                            # shadcn/ui primitives
+├── components/                        # Reusable React components
+│   ├── hero/                          # Hero banner components
+│   ├── home/                          # Home page dynamic sections
+│   ├── properties/                    # Property listing cards & filter toolbars
+│   ├── property-details/              # Image galleries, specs table, booking card
+│   ├── property-form/                 # Property creation/edit form wizard
+│   ├── reviews/                       # Star rating modals & review lists
+│   ├── dashboard/                     # Sidebar, top navigation, statistics widgets
+│   └── ui/                            # Primitive UI components (buttons, dialogs, inputs)
 │
-├── service/                           # Reusable server-side service functions
-│   ├── getCurrentUser.ts
-│   ├── updateProfile.ts
-│   ├── changePassword.ts
-│   ├── review.service.ts
-│   └── city.service.ts
-│
-├── lib/
-│   ├── types/                         # TypeScript interfaces (User, etc.)
-│   ├── validations/                   # Zod schemas (login, register)
-│   └── utils.ts                       # cn() utility
-│
-├── types/
-│   └── property.ts                    # Property, Landlord, SearchState, CATEGORIES, CITIES
-│
-├── hooks/                             # Custom React hooks (useCities, etc.)
-├── public/                            # Static assets
-├── app/globals.css                    # Global styles + design tokens
-├── tailwind.config.ts
-├── next.config.ts
-└── package.json
+├── services/                          # Data fetching & service abstractions
+├── hooks/                             # Custom React hooks (useCities, useAuth, etc.)
+├── schemas/                           # Zod validation schemas
+├── types/                             # TypeScript interfaces & types
+└── public/                            # Static images, icons, and assets
 ```
 
 ---
 
-## 📄 Pages & Routes
+## 🚀 Getting Started & Local Setup
 
-### Public Pages
+Follow these steps to run the application locally on your machine.
 
-| Route | Page |
-|---|---|
-| `/` | Home — Hero, Featured Properties, Browse by City, How It Works |
-| `/properties` | Property listing with search and pagination |
-| `/properties/:id` | Full property detail with booking sidebar |
-| `/about` | About RentNest |
-| `/contact` | Contact form |
-| `/profile` | User profile view |
-| `/settings` | Account settings |
+### Prerequisites
+- **Node.js**: `>= 20.x`
+- **npm** or **pnpm** or **yarn**
 
-### Auth Pages
-
-| Route | Page |
-|---|---|
-| `/auth/login` | Email + password login |
-| `/auth/register` | Name, email, password, phone, role selection |
-
-### Admin Dashboard
-
-| Route | Page |
-|---|---|
-| `/dashboard/admin` | Stats overview — total users, properties, rentals, payments |
-| `/dashboard/admin/users` | User table with status management (Active / Inactive / Banned) |
-| `/dashboard/admin/properties` | All platform property listings |
-| `/dashboard/admin/rentals` | All rental requests with tenant & property info |
-| `/dashboard/admin/payments` | Platform-wide payments |
-| `/dashboard/admin/settings` | Admin account settings |
-
-### Landlord Dashboard
-
-| Route | Page |
-|---|---|
-| `/dashboard/landlord` | Overview with earnings, booking counts |
-| `/dashboard/landlord/properties` | My property listings |
-| `/dashboard/landlord/properties/new` | Create a new property |
-| `/dashboard/landlord/properties/:id` | Edit an existing property |
-| `/dashboard/landlord/bookings` | Incoming booking requests |
-| `/dashboard/landlord/requests` | All rental requests |
-| `/dashboard/landlord/approved` | Approved rentals |
-| `/dashboard/landlord/payments` | Rental earnings |
-| `/dashboard/landlord/reviews` | Tenant reviews on my properties |
-
-### Tenant Dashboard
-
-| Route | Page |
-|---|---|
-| `/dashboard/tenant` | Overview — active booking, countdown, quick actions |
-| `/dashboard/tenant/bookings` | My booking history |
-| `/dashboard/tenant/requests` | My rental requests with status |
-| `/dashboard/tenant/requests/:id/pay` | Stripe payment page for approved request |
-| `/dashboard/tenant/payments` | Full payment history |
-| `/dashboard/tenant/payments/:id` | Payment receipt detail |
-| `/dashboard/tenant/reviews` | My submitted reviews (edit/delete) |
-
----
-
-## 👥 User Roles
-
-| Role | Access |
-|---|---|
-| **TENANT** | Browse properties, submit rental requests, make payments, write reviews, manage profile |
-| **LANDLORD** | Create and manage property listings, approve/reject booking requests, view earnings and reviews |
-| **ADMIN** | Full platform access — manage users, properties, rentals, and view all payments |
-
----
-
-## 🔌 API Overview
-
-All API calls target `https://rentnest-backend-ezd1.onrender.com`.
-
-### Auth
-| Method | Endpoint | Description |
-|---|---|---|
-| `POST` | `/api/auth/register` | Register new user |
-| `POST` | `/api/auth/login` | Login and receive JWT tokens |
-| `GET` | `/api/auth/me` | Get current logged-in user |
-| `PATCH` | `/api/auth/me` | Update user profile |
-| `POST` | `/api/auth/change-password` | Change password |
-| `POST` | `/api/auth/refresh-token` | Refresh access token |
-
-### Properties
-| Method | Endpoint | Description |
-|---|---|---|
-| `GET` | `/api/properties` | List all properties (paginated) |
-| `GET` | `/api/properties/:id` | Get a single property by ID |
-
-### Rentals
-| Method | Endpoint | Description |
-|---|---|---|
-| `POST` | `/api/rentals` | Create rental request (tenant) |
-| `GET` | `/api/rentals` | Get my rental requests (tenant) |
-
-### Payments
-| Method | Endpoint | Description |
-|---|---|---|
-| `POST` | `/api/payments/create` | Create Stripe Checkout session |
-| `GET` | `/api/payments` | Get my payment history |
-| `GET` | `/api/payments/:id` | Get payment details |
-
-### Reviews
-| Method | Endpoint | Description |
-|---|---|---|
-| `POST` | `/api/reviews` | Submit a review |
-| `GET` | `/api/reviews` | Get property reviews |
-| `GET` | `/api/reviews/me` | Get my submitted reviews |
-| `PATCH` | `/api/reviews/:id` | Edit a review |
-| `DELETE` | `/api/reviews/:id` | Delete a review |
-
-### Admin
-| Method | Endpoint | Description |
-|---|---|---|
-| `GET` | `/api/admin/users` | List all users |
-| `PATCH` | `/api/admin/users/:id` | Update user status |
-| `GET` | `/api/admin/properties` | List all properties |
-| `GET` | `/api/admin/rentals` | List all rental requests |
-
----
-
-## 🔐 Authentication Flow
-
-```
-Register ──► POST /api/auth/register
-                    │
-                    ▼
-         Set httpOnly cookies
-         accessToken  (expires: 1 day)
-         refreshToken (expires: 7 days)
-                    │
-                    ▼
-         Redirect to dashboard
-
-Login ──► POST /api/auth/login
-                    │
-                    ▼
-         Set httpOnly cookies (same as above)
-                    │
-                    ▼
-         Redirect to dashboard
-
-Every request ──► Server Action reads `accessToken`
-                  from cookies() via next/headers
-                  Sends as: Authorization: Bearer <token>
-                            Cookie: accessToken=<token>
-
-Logout ──► Delete both cookies ──► Redirect to /auth/login
-```
-
----
-
-## 📜 Scripts
+### 1. Clone the Repositories
 
 ```bash
-# Start development server with Turbopack
-npm run dev
-
-# Build for production
-npm run build
-
-# Start production server
-npm start
-
-# Run ESLint
-npm run lint
-
-# Format code with Prettier
-npm run format
-
-# Type check without emitting files
-npm run typecheck
+# Clone Frontend
+git clone https://github.com/Sohag-Ali/RentNest_Frontend.git
+cd RentNest_Frontend
 ```
 
+```bash
+# Clone Backend (in a separate terminal)
+git clone https://github.com/Sohag-Ali/RentNest_Backend.git
+cd RentNest_Backend
+```
+
+### 2. Install Dependencies
+
+**Frontend:**
+```bash
+npm install
+```
+
+**Backend:**
+```bash
+npm install
+```
+
+### 3. Configure Environment Variables
+
+Create a `.env.local` file in the root of `RentNest_Frontend` (see [Environment Configuration](#-environment-configuration)).
+
+### 4. Start Development Servers
+
+**Start Backend API:**
+```bash
+npm run dev
+# Server running at http://localhost:5000 (or specified port)
+```
+
+**Start Frontend Application:**
+```bash
+npm run dev
+# App running at http://localhost:3000
+```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
 ---
 
-## 🎨 Design System
+## 🔑 Environment Configuration
 
-The design system is defined in `app/globals.css` using CSS custom properties:
+Create a `.env.local` file in the `RentNest_Frontend` directory:
 
-| Token | Light | Dark |
-|---|---|---|
-| `--primary` | `#2563eb` (Blue 600) | `#2563eb` |
-| `--secondary` | `#0ea5e9` (Sky 500) | `#0ea5e9` |
-| `--background` | `#f8fafc` | `#020617` |
-| `--card` | `#ffffff` | `#111827` |
-| Brand accent | `#14b8a6` (Teal 500) | `#14b8a6` |
+```env
+# Backend API Base URLs
+BACKEND_API_URL=https://rentnest-backend-ezd1.onrender.com
+NEXT_PUBLIC_BACKEND_API_URL=https://rentnest-backend-ezd1.onrender.com
+NEXT_PUBLIC_API_URL=https://rentnest-backend-ezd1.onrender.com
 
-Utility classes: `.glass-card`, `.shadow-luxury`, `.shadow-glow`, `.gradient-brand`
+# Google OAuth Client ID
+NEXT_PUBLIC_GOOGLE_CLIENT_ID=your_google_client_id_here
+
+# JWT Secret Keys (Must match backend configuration)
+JWT_ACCESS_SECRET=your_access_token_secret
+JWT_REFRESH_SECRET=your_refresh_token_secret
+JWT_ACCESS_EXPIRATION=1d
+JWT_REFRESH_EXPIRATION=7d
+
+# Stripe Webhook Secret
+STRIPE_WEBHOOK_SECRET=your_stripe_webhook_secret
+```
+
+> [!WARNING]
+> Never commit confidential API keys or secret tokens to public git repositories.
 
 ---
 
-## 🤝 Contributing
+## 📡 API Endpoints Reference
 
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/your-feature`
-3. Commit your changes: `git commit -m "feat: add your feature"`
-4. Push to the branch: `git push origin feature/your-feature`
-5. Open a Pull Request
+The backend service handles RESTful HTTP requests under `/api`:
+
+### 🔐 Authentication
+- `POST /api/auth/register` — Register a new account (Tenant or Landlord).
+- `POST /api/auth/login` — Authenticate user and issue HTTP-only cookies.
+- `GET /api/auth/me` — Retrieve profile info of currently logged-in user.
+- `PATCH /api/auth/me` — Update user profile details.
+- `POST /api/auth/change-password` — Change account password.
+
+### 🏠 Properties
+- `GET /api/properties` — Fetch paginated list of properties with filter parameters.
+- `GET /api/properties/:id` — Retrieve property details by ID.
+- `POST /api/properties` — Create a new property listing (Landlord only).
+- `PATCH /api/properties/:id` — Update property listing details.
+- `DELETE /api/properties/:id` — Delete/archive property listing.
+
+### 📅 Rental Requests & Bookings
+- `POST /api/rentals` — Submit a rental request (Tenant).
+- `GET /api/rentals` — List rental requests for current user.
+- `PATCH /api/rentals/:id` — Approve or Reject rental request (Landlord/Admin).
+
+### 💳 Payments & Checkout
+- `POST /api/payments/create` — Initialize Stripe Checkout session for approved request.
+- `GET /api/payments` — Retrieve payment transaction history.
+- `GET /api/payments/:id` — Get detailed payment receipt.
+
+### ⭐ Reviews & Feedback
+- `POST /api/reviews` — Submit review & star rating for a completed rental.
+- `GET /api/reviews` — Get public reviews for a specific property.
+- `PATCH /api/reviews/:id` — Update an existing review.
+- `DELETE /api/reviews/:id` — Delete a review.
 
 ---
 
-## 📝 License
+## ⚡ Engineering Highlights
 
-This project is for academic/assignment purposes.
+1. **Next.js 16 Server Actions:** Form submissions and authentication requests use Next.js Server Actions for type-safe server mutations with low latency.
+2. **Robust Security Strategy:** Dual JWT access and refresh token pattern backed by secure, `SameSite=Lax`, `httpOnly` cookies.
+3. **Decoupled Architecture:** Separation of UI components, server action handlers, and REST service interfaces to ensure clean maintainability and scalability.
+4. **Optimistic UI & Cache Management:** Integrated TanStack Query v5 to enable seamless background refetching and cached queries across property lists and user dashboards.
+5. **Modern Design System:** Built using Tailwind CSS v4 custom variables, glassmorphism UI elements, dark mode support, and framer-motion page transitions.
+
+---
+
+## 👨‍💻 Author & Contact
+
+**Sohag Ali**  
+Full Stack Developer  
+
+- 🌐 **Live Website:** [rent-nest-gules-two.vercel.app](https://rent-nest-gules-two.vercel.app)
+- 🐙 **GitHub Profile:** [@Sohag-Ali](https://github.com/Sohag-Ali)
+- 📦 **Frontend Repo:** [RentNest_Frontend](https://github.com/Sohag-Ali/RentNest_Frontend.git)
+- ⚙️ **Backend Repo:** [RentNest_Backend](https://github.com/Sohag-Ali/RentNest_Backend.git)
 
 ---
 
 <div align="center">
-  <strong>Built with ❤️ for RentNest</strong><br/>
-  Next.js · TypeScript · Tailwind CSS · shadcn/ui · Framer Motion
+  <sub>Designed & Developed with ❤️ by <strong>Sohag Ali</strong></sub>
 </div>
