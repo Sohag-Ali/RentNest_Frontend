@@ -165,7 +165,7 @@ export function Navbar({
           <ThikanaLogo size="md" />
 
           {/* Desktop Navigation Links */}
-          <div className="hidden md:flex items-center gap-1 bg-slate-100/70 dark:bg-slate-800/50 p-1 rounded-full border border-slate-200/60 dark:border-slate-700/50">
+          <div className="hidden md:flex items-center gap-1 bg-slate-100/20 dark:bg-slate-800/50 p-1 rounded-full border border-slate-200/60 dark:border-slate-700/50">
             {navLinks.map((link) => {
               const Icon = link.icon;
               const active = isActive(link.href);
@@ -178,16 +178,16 @@ export function Navbar({
                   {active && (
                     <motion.span
                       layoutId="activeNavPill"
-                      className="absolute inset-0 rounded-full bg-gradient-to-r from-[#0EA5E9] to-[#2563EB] shadow-sm shadow-sky-500/20 -z-10"
+                      className="absolute inset-0 rounded-full bg-gradient-to-r from-[#38BDF8] to-[#2563EB] shadow-[0_4px_14px_rgba(37,99,235,0.22)] -z-10"
                       transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                     />
                   )}
 
                   <div
-                    className={`flex items-center gap-2 ${
+                    className={`flex items-center gap-2 transition-colors duration-200 ${
                       active
                         ? 'text-white font-bold'
-                        : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
+                        : 'text-slate-600 dark:text-slate-300 hover:text-[#0EA5E9] dark:hover:text-white'
                     }`}
                   >
                     <Icon size={16} />
@@ -227,61 +227,61 @@ export function Navbar({
                     </DropdownMenuTrigger>
                     <DropdownMenuContent
                       align="end"
-                      className="w-56 rounded-2xl bg-white border border-slate-200 text-slate-900 p-2 shadow-subtle-saas"
+                      className="w-56 rounded-2xl bg-white dark:bg-[#0d1422] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 p-2 shadow-subtle-saas"
                     >
                       <div className="px-3 py-2">
-                        <p className="text-sm font-semibold text-slate-900 truncate">
+                        <p className="text-sm font-semibold text-slate-900 dark:text-white truncate">
                           {userName}
                         </p>
-                        <p className="text-xs capitalize text-[#0EA5E9] font-medium">
+                        <p className="text-xs capitalize text-[#0EA5E9] dark:text-sky-400 font-medium">
                           {userRole} Account
                         </p>
                       </div>
-                      <DropdownMenuSeparator className="bg-slate-100 my-1" />
-                      <DropdownMenuItem className="cursor-pointer focus:bg-slate-50 rounded-xl">
+                      <DropdownMenuSeparator className="bg-slate-100 dark:bg-slate-800 my-1" />
+                      <DropdownMenuItem className="cursor-pointer focus:bg-slate-50 dark:focus:bg-slate-800/80 rounded-xl">
                         {pathname.startsWith('/dashboard') ? (
                           <Link
                             href="/"
-                            className="flex items-center gap-2 w-full text-slate-700"
+                            className="flex items-center gap-2 w-full text-slate-700 dark:text-slate-200"
                           >
-                            <Globe size={16} className="text-[#0EA5E9]" />
+                            <Globe size={16} className="text-[#0EA5E9] dark:text-sky-400" />
                             <span>Website</span>
                           </Link>
                         ) : (
                           <Link
                             href={getDashboardRoute()}
-                            className="flex items-center gap-2 w-full text-slate-700"
+                            className="flex items-center gap-2 w-full text-slate-700 dark:text-slate-200"
                           >
                             <LayoutDashboard
                               size={16}
-                              className="text-[#0EA5E9]"
+                              className="text-[#0EA5E9] dark:text-sky-400"
                             />
                             <span>Dashboard</span>
                           </Link>
                         )}
                       </DropdownMenuItem>
-                      <DropdownMenuItem className="cursor-pointer focus:bg-slate-50 rounded-xl">
+                      <DropdownMenuItem className="cursor-pointer focus:bg-slate-50 dark:focus:bg-slate-800/80 rounded-xl">
                         <Link
                           href="/profile"
-                          className="flex items-center gap-2 w-full text-slate-700"
+                          className="flex items-center gap-2 w-full text-slate-700 dark:text-slate-200"
                         >
-                          <UserIcon size={16} className="text-[#2563EB]" />
+                          <UserIcon size={16} className="text-[#2563EB] dark:text-blue-400" />
                           <span>Profile</span>
                         </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem className="cursor-pointer focus:bg-slate-50 rounded-xl">
+                      <DropdownMenuItem className="cursor-pointer focus:bg-slate-50 dark:focus:bg-slate-800/80 rounded-xl">
                         <Link
                           href="/settings"
-                          className="flex items-center gap-2 w-full text-slate-700"
+                          className="flex items-center gap-2 w-full text-slate-700 dark:text-slate-200"
                         >
-                          <Settings size={16} className="text-sky-500" />
+                          <Settings size={16} className="text-sky-500 dark:text-sky-400" />
                           <span>Settings</span>
                         </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuSeparator className="bg-slate-100 my-1" />
+                      <DropdownMenuSeparator className="bg-slate-100 dark:bg-slate-800 my-1" />
                       <DropdownMenuItem
                         onClick={handleLogout}
-                        className="cursor-pointer focus:bg-rose-50 focus:text-rose-600 text-rose-600 gap-2 rounded-xl"
+                        className="cursor-pointer focus:bg-rose-50 dark:focus:bg-rose-950/40 focus:text-rose-600 dark:focus:text-rose-400 text-rose-600 dark:text-rose-400 gap-2 rounded-xl"
                       >
                         <LogOut size={16} />
                         <span>Logout</span>

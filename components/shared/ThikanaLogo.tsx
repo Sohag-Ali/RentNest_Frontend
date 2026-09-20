@@ -57,7 +57,7 @@ export function ThikanaLogo({
 
       {/* Brand Text */}
       {!iconOnly && (
-        <span className={`font-extrabold tracking-tight text-slate-900 group-hover:text-[#0EA5E9] transition-colors duration-200 flex items-center ${currentSize.text}`}>
+        <span className={`font-extrabold tracking-tight text-slate-900 dark:text-white group-hover:text-[#0EA5E9] transition-colors duration-200 flex items-center ${currentSize.text}`}>
           Thikana
           <span className={`inline-block ml-0.5 rounded-full bg-[#0EA5E9] ${currentSize.dot}`} />
         </span>
