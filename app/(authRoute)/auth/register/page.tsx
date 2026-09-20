@@ -3,7 +3,6 @@ import { Separator } from '@/components/ui/separator';
 import Link from 'next/link';
 import RegistrationForm from '../../_components/RegistrationForm';
 import GoogleLoginButton from '../../_components/GoogleLoginButton';
-import { ThikanaLogo } from '@/components/shared/ThikanaLogo';
 
 export const metadata = {
   title: 'Create Account | Thikana',
@@ -12,85 +11,55 @@ export const metadata = {
 
 export default function RegisterPage() {
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center px-4 pt-24 sm:pt-28 pb-12 sm:px-6 lg:px-8 relative overflow-hidden">
-      {/* Background Decorative Gradients */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-blue-500/10 dark:bg-blue-500/15 rounded-full blur-[140px]" />
-        <div className="absolute bottom-1/4 right-1/4 w-[450px] h-[450px] bg-teal-500/10 dark:bg-teal-500/15 rounded-full blur-[140px]" />
-      </div>
-
-      <div className="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10">
-        
-        {/* Left side - Branding & Illustration (Desktop only) */}
-        <div className="hidden lg:flex lg:col-span-7 flex-col justify-center space-y-8 pr-6">
-          <div className="space-y-6">
-            <ThikanaLogo size="xl" />
-            
-            <div className="space-y-4">
-              <h1 className="text-5xl font-black text-foreground tracking-tight leading-[1.12]">
-                Start your rental journey with{' '}
-                <span className="bg-gradient-to-r from-blue-600 via-sky-500 to-teal-500 bg-clip-text text-transparent">
-                  Thikana
-                </span>
-              </h1>
-              <p className="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-xl">
-                Join thousands of verified renters and landlords managing properties seamlessly with zero hidden fees and 100% digital leases.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-3 gap-6 pt-4">
-              <div className="space-y-1 p-4 rounded-2xl bg-card border border-border/80 shadow-xs">
-                <div className="text-2xl font-extrabold text-primary">10k+</div>
-                <p className="text-xs text-muted-foreground font-medium">Verified Homes</p>
-              </div>
-              <div className="space-y-1 p-4 rounded-2xl bg-card border border-border/80 shadow-xs">
-                <div className="text-2xl font-extrabold text-sky-500">50k+</div>
-                <p className="text-xs text-muted-foreground font-medium">Active Renters</p>
-              </div>
-              <div className="space-y-1 p-4 rounded-2xl bg-card border border-border/80 shadow-xs">
-                <div className="text-2xl font-extrabold text-teal-500">100%</div>
-                <p className="text-xs text-muted-foreground font-medium">Digital Leases</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Right side - Registration Card */}
-        <div className="w-full lg:col-span-5 max-w-md mx-auto lg:mx-0">
-          {/* Mobile logo */}
-          <div className="lg:hidden flex items-center gap-3 mb-8">
-            <ThikanaLogo size="lg" />
+    <div className="w-full max-w-[460px] mx-auto my-auto">
+      <Card className="rounded-3xl bg-white dark:bg-[#0d1422] border border-slate-200/80 dark:border-slate-800/90 shadow-subtle-saas dark:shadow-[0_8px_30px_rgb(0,0,0,0.5)]">
+        <CardContent className="space-y-6 p-6 sm:p-8">
+          {/* Header & Subtitle */}
+          <div className="space-y-1.5 text-center">
+            <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">
+              Create Your Account ✨
+            </h1>
+            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+              Join Thikana and find your perfect rental home
+            </p>
           </div>
 
-          <Card variant="glass" className="rounded-3xl shadow-luxury">
-            <CardContent className="space-y-5 pt-8">
-              <div className="space-y-1.5">
-                <h2 className="text-2xl font-bold text-foreground tracking-tight">Create Account</h2>
-                <p className="text-xs text-muted-foreground">Join Thikana today and find your perfect rental home</p>
-              </div>
+          {/* Registration Form */}
+          <RegistrationForm />
 
-              <RegistrationForm />
+          {/* Divider */}
+          <div className="relative my-4">
+            <Separator className="bg-slate-200 dark:bg-slate-800" />
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-[#0d1422] px-3 text-[11px] font-extrabold text-slate-400 dark:text-slate-500 uppercase tracking-widest select-none">
+              OR
+            </div>
+          </div>
 
-              <div className="relative">
-                <Separator className="bg-border/60" />
-                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-card px-3 text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
-                  OR
-                </div>
-              </div>
+          {/* Google Login Button */}
+          <GoogleLoginButton />
 
-              <GoogleLoginButton />
+          {/* Login Switch Link */}
+          <p className="text-center text-xs text-slate-500 dark:text-slate-400 pt-1">
+            Already have an account?{' '}
+            <Link 
+              href="/auth/login" 
+              className="text-[#0EA5E9] dark:text-sky-400 font-bold hover:underline"
+            >
+              Login
+            </Link>
+          </p>
 
-
-              <p className="text-center text-xs text-muted-foreground">
-                Already have an account?{' '}
-                <Link href="/auth/login" className="text-primary font-bold hover:underline">
-                  Sign In
-                </Link>
-              </p>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
+          {/* Back to Home Link */}
+          <div className="pt-2 text-center border-t border-slate-100 dark:border-slate-800/60">
+            <Link
+              href="/"
+              className="inline-flex items-center justify-center gap-1.5 text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 transition-colors"
+            >
+              ← Back to Home
+            </Link>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }
