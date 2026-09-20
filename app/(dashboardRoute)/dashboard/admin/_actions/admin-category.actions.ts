@@ -8,7 +8,7 @@ const API_URL =
   process.env.BACKEND_API_URL ||
   process.env.NEXT_PUBLIC_API_URL ||
   process.env.NEXT_PUBLIC_BACKEND_API_URL ||
-  "https://rentnest-backend-ezd1.onrender.com"
+  "http://localhost:5000"
 
 /**
  * Server Action: Fetch all categories for Admin Category Management

@@ -2,7 +2,7 @@
 
 import { cookies } from "next/headers"
 
-const API_URL = process.env.BACKEND_API_URL || "https://rentnest-backend-ezd1.onrender.com"
+const API_URL = process.env.BACKEND_API_URL || "http://localhost:5000"
 
 export interface AdminPropertyLandlord {
   id: string

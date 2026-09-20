@@ -103,18 +103,18 @@ export function SidebarNav({ onNavItemClick, layoutIdPrefix = 'desktop' }: Sideb
                   className={cn(
                     'relative flex items-center gap-3 px-3.5 py-2.5 text-xs font-semibold rounded-full transition-all duration-200 select-none overflow-hidden',
                     isActive
-                      ? 'text-white font-bold'
-                      : 'text-muted-foreground hover:text-foreground hover:bg-muted/60'
+                      ? 'text-white font-extrabold'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800/60'
                   )}
                 >
                   {isActive && (
                     <motion.div
                       layoutId={`${layoutIdPrefix}-activeSidebarItem`}
-                      className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-600 via-sky-500 to-teal-500 shadow-md shadow-blue-500/25 z-0"
+                      className="absolute inset-0 rounded-full bg-gradient-to-r from-[#0EA5E9] to-[#2563EB] dark:from-sky-500 dark:to-blue-600 shadow-md shadow-sky-500/25 z-0"
                       transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                     />
                   )}
-                  <Icon className={cn('h-4 w-4 shrink-0 relative z-10', isActive ? 'text-white' : 'text-muted-foreground')} />
+                  <Icon className={cn('h-4 w-4 shrink-0 relative z-10', isActive ? 'text-white' : 'text-slate-500 dark:text-slate-400')} />
                   <span className="relative z-10">{label}</span>
                 </div>
               </Link>
@@ -124,12 +124,12 @@ export function SidebarNav({ onNavItemClick, layoutIdPrefix = 'desktop' }: Sideb
       </div>
 
       {/* Bottom Logout Action */}
-      <div className="pt-4 border-t border-border mt-auto">
+      <div className="pt-4 border-t border-slate-200/80 dark:border-slate-800 mt-auto">
         <button
           onClick={handleLogout}
-          className="w-full flex items-center gap-3 px-3.5 py-2.5 text-xs font-semibold rounded-full text-destructive hover:bg-destructive/10 focus:bg-destructive/10 transition-all duration-200 cursor-pointer"
+          className="w-full flex items-center gap-3 px-3.5 py-2.5 text-xs font-semibold rounded-full text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/30 focus:bg-red-50 dark:focus:bg-red-950/30 transition-all duration-200 cursor-pointer"
         >
-          <LogOut className="h-4 w-4 shrink-0" />
+          <LogOut className="h-4 w-4 shrink-0 text-red-600 dark:text-red-400" />
           <span>Logout</span>
         </button>
       </div>

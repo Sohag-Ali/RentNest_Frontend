@@ -1,4 +1,4 @@
-import { Geist, Geist_Mono } from "next/font/google"
+import { Inter, Geist_Mono } from "next/font/google"
 
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
@@ -9,7 +9,7 @@ import { Toaster } from "sonner"
 
 import type { Metadata } from "next";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'})
+const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
 
 const fontMono = Geist_Mono({
   subsets: ["latin"],
@@ -17,8 +17,8 @@ const fontMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "Thikana | Find Your Dream Home & Rental Properties in Bangladesh",
-  description: "Discover, inspect, and book verified house rentals in Bangladesh with Thikana. Connecting tenants and landlords with digital transparency.",
+  title: "Thikana | Find Your Dream Home & Rental Properties",
+  description: "Discover, inspect, and book verified house rentals with Thikana. Connecting tenants and landlords with digital transparency.",
   icons: {
     icon: "/icon.svg",
     shortcut: "/icon.svg",
@@ -35,10 +35,10 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={cn("antialiased", fontMono.variable, "font-sans", geist.variable)}
+      className={cn("antialiased", fontMono.variable, "font-sans", inter.variable)}
     >
-      <body>
-        <ThemeProvider>
+      <body className="bg-background text-foreground transition-colors duration-300 min-h-screen selection:bg-sky-500/20 selection:text-sky-600">
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem storageKey="thikana-theme">
           <QueryProvider>
             <NotificationProvider>
               {children}
@@ -50,4 +50,5 @@ export default function RootLayout({
     </html>
   )
 }
+
 

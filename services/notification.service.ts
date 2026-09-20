@@ -9,7 +9,7 @@ import {
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL ||
   process.env.NEXT_PUBLIC_BACKEND_API_URL ||
-  "https://rentnest-backend-ezd1.onrender.com";
+  "http://localhost:5000";
 
 export const notificationApiClient = axios.create({
   baseURL: API_BASE_URL,

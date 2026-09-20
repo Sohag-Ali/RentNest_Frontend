@@ -3,7 +3,7 @@
 import { cookies } from "next/headers"
 import { revalidatePath } from "next/cache"
 
-const API_URL = process.env.BACKEND_API_URL || "https://rentnest-backend-ezd1.onrender.com"
+const API_URL = process.env.BACKEND_API_URL || "http://localhost:5000"
 
 export interface AdminUserMeta {
   page?: number

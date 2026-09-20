@@ -33,7 +33,7 @@ export function ThikanaLogo({
       <motion.div
         whileHover={{ scale: 1.06, rotate: 2 }}
         whileTap={{ scale: 0.95 }}
-        className={`relative flex items-center justify-center bg-gradient-to-br from-blue-600 via-sky-500 to-teal-500 text-white shadow-md shadow-blue-500/25 group-hover:shadow-lg group-hover:shadow-blue-500/40 transition-all duration-300 ${currentSize.icon}`}
+        className={`relative flex items-center justify-center bg-gradient-to-br from-[#0EA5E9] via-sky-400 to-[#2563EB] text-white shadow-md shadow-sky-500/20 group-hover:shadow-lg group-hover:shadow-sky-500/35 transition-all duration-300 ${currentSize.icon}`}
       >
         {/* Roof + T Icon SVG */}
         <svg
@@ -42,7 +42,7 @@ export function ThikanaLogo({
           viewBox="0 0 100 100"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="text-white drop-shadow-sm"
+          className="text-white drop-shadow-sm font-bold"
         >
           {/* Roof Peak */}
           <path d="M 50 16 L 76 38 L 68 38 L 68 44 L 50 28 L 32 44 L 32 38 Z" fill="currentColor" opacity="0.95" />
@@ -51,15 +51,15 @@ export function ThikanaLogo({
           {/* T Stem */}
           <path d="M 42 44 L 58 44 L 58 74 C 58 78, 55 81, 50 81 C 45 81, 42 78, 42 74 Z" fill="currentColor" />
           {/* Location Pin Dot */}
-          <circle cx="50" cy="58" r="5" fill="#38bdf8" />
+          <circle cx="50" cy="58" r="5" fill="#ffffff" />
         </svg>
       </motion.div>
 
       {/* Brand Text */}
       {!iconOnly && (
-        <span className={`font-extrabold tracking-tight text-foreground group-hover:text-primary transition-colors duration-200 flex items-center ${currentSize.text}`}>
+        <span className={`font-extrabold tracking-tight text-slate-900 group-hover:text-[#0EA5E9] transition-colors duration-200 flex items-center ${currentSize.text}`}>
           Thikana
-          <span className={`inline-block ml-0.5 rounded-full bg-gradient-to-r from-sky-400 to-teal-400 ${currentSize.dot}`} />
+          <span className={`inline-block ml-0.5 rounded-full bg-[#0EA5E9] ${currentSize.dot}`} />
         </span>
       )}
     </div>

@@ -17,11 +17,11 @@ function Card({
       data-size={size}
       data-variant={variant}
       className={cn(
-        "group/card flex flex-col overflow-hidden rounded-2xl transition-all duration-300 text-card-foreground shadow-luxury",
-        variant === "default" && "bg-card border border-border/80 hover:border-border",
+        "group/card flex flex-col overflow-hidden rounded-3xl transition-all duration-300 text-slate-900 shadow-subtle-saas",
+        variant === "default" && "bg-white border border-slate-200/80 hover:border-slate-300 hover:shadow-md",
         variant === "glass" && "glass-card",
-        variant === "outline" && "bg-transparent border border-border hover:bg-card/50",
-        variant === "flat" && "bg-muted/50 border-none shadow-none",
+        variant === "outline" && "bg-transparent border border-slate-200 hover:bg-slate-50",
+        variant === "flat" && "bg-slate-50 border-none shadow-none",
         size === "sm" && "p-4 gap-3",
         size === "default" && "p-6 gap-4",
         size === "lg" && "p-8 gap-6",

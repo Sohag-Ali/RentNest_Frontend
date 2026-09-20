@@ -97,7 +97,7 @@ export function CategoryCard({ category, isTopCategory = false }: CategoryCardPr
 
   const spotlightBg = useMotionTemplate`radial-gradient(
     350px circle at ${mouseX}px ${mouseY}px,
-    rgba(37, 99, 235, 0.14),
+    rgba(14, 165, 233, 0.12),
     transparent 80%
   )`;
 
@@ -108,12 +108,12 @@ export function CategoryCard({ category, isTopCategory = false }: CategoryCardPr
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
       className={`group relative overflow-hidden rounded-3xl p-6 sm:p-7 backdrop-blur-xl transition-all duration-300 flex flex-col justify-between h-[210px] sm:h-[220px] ${
         isAvailable
-          ? "bg-white/80 dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800/80 shadow-lg shadow-slate-200/50 dark:shadow-none hover:shadow-2xl hover:shadow-blue-500/15 hover:border-blue-500/40 dark:hover:border-blue-500/40 cursor-pointer"
-          : "bg-slate-100/60 dark:bg-slate-900/40 border border-slate-200/40 dark:border-slate-800/40 opacity-70 pointer-events-none cursor-not-allowed"
+          ? "bg-white dark:bg-[#0d1422] border border-slate-200/80 dark:border-slate-800 shadow-subtle-saas hover:border-[#0EA5E9]/50 dark:hover:border-sky-400/50 cursor-pointer"
+          : "bg-slate-50 dark:bg-[#0b1222]/40 border border-slate-200/50 dark:border-white/5 opacity-50 pointer-events-none cursor-not-allowed"
       }`}
     >
       {/* Dynamic Gradient Border Hover Effect */}
-      <div className="absolute inset-0 rounded-3xl p-[1px] bg-gradient-to-r from-blue-500/0 via-teal-500/0 to-sky-500/0 group-hover:from-blue-500/30 group-hover:via-sky-500/30 group-hover:to-teal-500/30 transition-all duration-500 pointer-events-none" />
+      <div className="absolute inset-0 rounded-3xl p-[1px] bg-gradient-to-r from-sky-500/0 via-blue-500/0 to-indigo-500/0 group-hover:from-sky-500/20 group-hover:via-blue-500/20 group-hover:to-indigo-500/20 transition-all duration-500 pointer-events-none" />
 
       {/* Spotlight Glow Follower */}
       {isAvailable && (
@@ -129,8 +129,8 @@ export function CategoryCard({ category, isTopCategory = false }: CategoryCardPr
         <div
           className={`relative p-3.5 sm:p-4 rounded-2xl transition-all duration-300 ${
             isAvailable
-              ? "bg-gradient-to-br from-blue-50 to-sky-100/70 dark:from-blue-950/50 dark:to-slate-800 text-[#2563EB] dark:text-sky-400 group-hover:from-blue-600 group-hover:to-sky-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-blue-500/30"
-              : "bg-slate-200/60 dark:bg-slate-800/50 text-slate-400 dark:text-slate-600"
+              ? "bg-[#EEF4FF] dark:bg-sky-500/10 text-[#2563EB] dark:text-sky-400 group-hover:bg-gradient-to-r group-hover:from-[#0EA5E9] group-hover:to-[#2563EB] group-hover:text-white group-hover:shadow-lg group-hover:shadow-sky-500/20"
+              : "bg-slate-100 dark:bg-slate-800/50 text-slate-400 dark:text-slate-600"
           }`}
         >
           <div className="transform transition-transform duration-300 group-hover:rotate-6 group-hover:scale-110">
@@ -142,7 +142,7 @@ export function CategoryCard({ category, isTopCategory = false }: CategoryCardPr
         <div className="flex flex-col items-end gap-1.5">
           {/* Most Popular Badge (Top category) */}
           {isTopCategory && isAvailable && (
-            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-gradient-to-r from-amber-500/15 to-orange-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30 backdrop-blur-sm shadow-xs">
+            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-amber-50 dark:bg-amber-500/15 text-amber-700 dark:text-amber-400 border border-amber-200/80 dark:border-amber-500/30 backdrop-blur-sm shadow-xs">
               <Sparkles className="w-3 h-3 fill-amber-400 text-amber-500" />
               Most Popular
             </span>
@@ -150,7 +150,7 @@ export function CategoryCard({ category, isTopCategory = false }: CategoryCardPr
 
           {/* Availability / Status Badge */}
           {isAvailable ? (
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/30">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
@@ -158,7 +158,7 @@ export function CategoryCard({ category, isTopCategory = false }: CategoryCardPr
               Available
             </span>
           ) : (
-            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-slate-200/70 dark:bg-slate-800 text-slate-500 dark:text-slate-400 border border-slate-300/50 dark:border-slate-700/50">
+            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700">
               Coming Soon
             </span>
           )}

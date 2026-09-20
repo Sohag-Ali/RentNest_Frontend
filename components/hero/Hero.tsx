@@ -19,19 +19,18 @@ export function Hero() {
   };
 
   return (
-    <section className="relative w-full min-h-[80vh] sm:min-h-[85vh] flex items-center justify-center overflow-hidden bg-background pt-28 sm:pt-32 lg:pt-36 pb-16 lg:pb-20">
+    <section className="relative w-full min-h-[80vh] sm:min-h-[85vh] flex items-center justify-center overflow-hidden bg-[#EEF4FF] dark:bg-[#070B14] pt-28 sm:pt-32 lg:pt-36 pb-16 lg:pb-20 border-b border-slate-200/80 dark:border-slate-800/80 transition-colors duration-300">
       {/* Background Decorative Gradients & Grid Pattern */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {/* Radial Light Glow Blobs */}
-        <div className="absolute top-10 left-1/4 w-[500px] h-[500px] bg-blue-500/10 dark:bg-blue-500/15 rounded-full blur-[140px]" />
-        <div className="absolute bottom-10 right-1/4 w-[500px] h-[500px] bg-teal-500/10 dark:bg-teal-500/15 rounded-full blur-[140px]" />
-        <div className="absolute top-1/3 right-10 w-[350px] h-[350px] bg-sky-400/10 dark:bg-sky-400/15 rounded-full blur-[120px]" />
+        {/* Soft Radial Glow Blobs */}
+        <div className="absolute top-10 left-1/4 w-[500px] h-[500px] bg-sky-400/15 dark:bg-cyan-500/10 rounded-full blur-[140px]" />
+        <div className="absolute bottom-10 right-1/4 w-[500px] h-[500px] bg-blue-500/15 dark:bg-blue-600/10 rounded-full blur-[140px]" />
 
         {/* Subtle Grid Overlay */}
         <div
-          className="absolute inset-0 opacity-[0.03] dark:opacity-[0.06]"
+          className="absolute inset-0 opacity-[0.04] dark:opacity-[0.06]"
           style={{
-            backgroundImage: `radial-gradient(circle, currentColor 1px, transparent 1px)`,
+            backgroundImage: `radial-gradient(circle, #0f172a 1px, transparent 1px)`,
             backgroundSize: '24px 24px',
           }}
         />
@@ -48,10 +47,9 @@ export function Hero() {
               transition={{ duration: 0.6 }}
             >
               <Badge
-                variant="glass"
-                className="rounded-full px-4 py-1.5 text-xs font-bold gap-2 border-primary/30 text-primary bg-primary/10 shadow-xs"
+                className="rounded-full px-4 py-1.5 text-xs font-bold gap-2 border border-blue-200 dark:border-sky-500/30 text-[#2563EB] dark:text-sky-400 bg-blue-50/90 dark:bg-sky-500/10 shadow-xs"
               >
-                <Sparkles className="h-3.5 w-3.5 text-amber-500 fill-amber-500" />
+                <Sparkles className="h-3.5 w-3.5 text-[#2563EB] dark:text-sky-400" />
                 <span>The Next Generation Rental Platform</span>
               </Badge>
             </motion.div>
@@ -63,14 +61,14 @@ export function Hero() {
               transition={{ duration: 0.8, delay: 0.1 }}
               className="space-y-3"
             >
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground leading-[1.12] font-heading">
-                Find Your Perfect Home{' '}
-                <span className="block mt-1 bg-gradient-to-r from-blue-600 via-sky-500 to-teal-500 bg-clip-text text-transparent">
-                  Without the Stress
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#0F172A] dark:text-white leading-[1.12] font-heading">
+                Find Your Perfect{' '}
+                <span className="block mt-1 bg-gradient-to-r from-[#0EA5E9] to-[#2563EB] dark:from-sky-400 dark:to-blue-500 bg-clip-text text-transparent">
+                  Home With Thikana
                 </span>
               </h1>
-              <p className="text-base sm:text-lg text-muted-foreground max-w-xl leading-relaxed">
-                Discover verified luxury apartments, villas, and family homes with instant direct booking, 100% lease protection, and zero hidden fees.
+              <p className="text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed">
+                Discover verified rental properties and find a place that feels like home with 100% lease protection and zero hidden fees.
               </p>
             </motion.div>
 
@@ -102,11 +100,11 @@ export function Hero() {
           y: { duration: 2, repeat: Infinity, ease: 'easeInOut' },
           opacity: { duration: 0.8, delay: 0.8 },
         }}
-        className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-1.5 text-[11px] font-extrabold text-muted-foreground hover:text-primary transition-colors cursor-pointer group"
+        className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-1.5 text-[11px] font-extrabold text-slate-500 dark:text-slate-400 hover:text-[#0EA5E9] dark:hover:text-sky-400 transition-colors cursor-pointer group"
       >
         <span className="tracking-wider uppercase text-[9px] font-extrabold">Scroll to Explore</span>
-        <div className="w-8 h-8 rounded-full bg-card/80 backdrop-blur-md border border-border/80 flex items-center justify-center shadow-md group-hover:border-primary/50 group-hover:bg-primary/10">
-          <ChevronDown className="w-4 h-4 text-primary transition-transform group-hover:translate-y-0.5" />
+        <div className="w-8 h-8 rounded-full bg-white dark:bg-[#0d1422] backdrop-blur-md border border-slate-200 dark:border-slate-800 flex items-center justify-center shadow-xs group-hover:border-[#0EA5E9]/50 group-hover:bg-blue-50 dark:group-hover:bg-slate-800">
+          <ChevronDown className="w-4 h-4 text-[#0EA5E9] dark:text-sky-400 transition-transform group-hover:translate-y-0.5" />
         </div>
       </motion.button>
     </section>

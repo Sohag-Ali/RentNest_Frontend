@@ -19,7 +19,7 @@
 | 🌐 **Live Web Application** | [rent-nest-gules-two.vercel.app](https://rent-nest-gules-two.vercel.app) |
 | 🖥️ **Frontend Repository** | [github.com/Sohag-Ali/RentNest_Frontend](https://github.com/Sohag-Ali/RentNest_Frontend.git) |
 | ⚙️ **Backend Repository** | [github.com/Sohag-Ali/RentNest_Backend](https://github.com/Sohag-Ali/RentNest_Backend.git) |
-| 📡 **Production API Server** | `https://rentnest-backend-ezd1.onrender.com` |
+| 📡 **Production API Server** | `http://localhost:5000` |
 
 ---
 
@@ -256,9 +256,9 @@ Create a `.env.local` file in the `RentNest_Frontend` directory:
 
 ```env
 # Backend API Base URLs
-BACKEND_API_URL=https://rentnest-backend-ezd1.onrender.com
-NEXT_PUBLIC_BACKEND_API_URL=https://rentnest-backend-ezd1.onrender.com
-NEXT_PUBLIC_API_URL=https://rentnest-backend-ezd1.onrender.com
+BACKEND_API_URL=http://localhost:5000
+NEXT_PUBLIC_BACKEND_API_URL=http://localhost:5000
+NEXT_PUBLIC_API_URL=http://localhost:5000
 
 # Google OAuth Client ID
 NEXT_PUBLIC_GOOGLE_CLIENT_ID=your_google_client_id_here

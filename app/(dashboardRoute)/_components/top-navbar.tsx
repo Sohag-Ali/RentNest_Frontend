@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { UserProfileDropdown } from './user-profile-dropdown';
 import { NotificationDropdown } from '@/components/shared/NotificationDropdown';
+import { ThemeToggle } from '@/components/shared/ThemeToggle';
 import { useSidebar } from '@/components/ui/sidebar';
 
 export function TopNavbar() {
@@ -49,19 +50,7 @@ export function TopNavbar() {
           <NotificationDropdown />
 
           {/* Theme Switcher Button */}
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-            aria-label="Toggle theme"
-            className="rounded-full text-foreground/80 hover:text-foreground hover:bg-muted border border-border/60 h-9 w-9 cursor-pointer transition-all duration-200"
-          >
-            {mounted && theme === 'dark' ? (
-              <Sun size={18} className="text-amber-400" />
-            ) : (
-              <Moon size={18} className="text-slate-700 dark:text-slate-200" />
-            )}
-          </Button>
+          <ThemeToggle />
 
           <Link href="/dashboard/settings">
             <Button variant="ghost" size="icon" className="rounded-full h-9 w-9 border border-border/60">

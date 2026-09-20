@@ -12,7 +12,8 @@ function ThemeProvider({
       attribute="class"
       defaultTheme="system"
       enableSystem
-      disableTransitionOnChange
+      storageKey="thikana-theme"
+      disableTransitionOnChange={false}
       {...props}
     >
       <ThemeHotkey />

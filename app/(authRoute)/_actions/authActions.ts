@@ -165,7 +165,7 @@ export type GoogleLoginState = {
 
 export async function googleLoginAction(credential: string): Promise<GoogleLoginState> {
     try {
-        const backendUrl = process.env.BACKEND_API_URL || process.env.NEXT_PUBLIC_API_URL || "https://rentnest-backend-ezd1.onrender.com";
+        const backendUrl = process.env.BACKEND_API_URL || process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
         const res = await fetch(`${backendUrl}/api/auth/google`, {
             method: "POST",
             headers: {

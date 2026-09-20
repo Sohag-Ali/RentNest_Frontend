@@ -38,7 +38,7 @@ const DEMO_ACCOUNTS = [
     role: "Tenant",
     email: "tenant@gmail.com",
     password: "Tenant@123",
-    badgeStyle: "bg-blue-500/10 text-blue-600 border-blue-500/20 dark:bg-blue-500/20 dark:text-sky-400 dark:border-blue-500/30 hover:bg-blue-500/20",
+    badgeStyle: "bg-sky-50 text-[#0EA5E9] border-sky-200 hover:bg-sky-100",
     icon: UserCheck,
     subtitle: "Renter Portal",
   },
@@ -46,7 +46,7 @@ const DEMO_ACCOUNTS = [
     role: "Landlord",
     email: "landload1@gmail.com",
     password: "Landlord@123",
-    badgeStyle: "bg-emerald-500/10 text-emerald-600 border-emerald-500/20 dark:bg-emerald-500/20 dark:text-emerald-400 dark:border-emerald-500/30 hover:bg-emerald-500/20",
+    badgeStyle: "bg-blue-50 text-[#2563EB] border-blue-200 hover:bg-blue-100",
     icon: Building2,
     subtitle: "Property Owner",
   },
@@ -54,7 +54,7 @@ const DEMO_ACCOUNTS = [
     role: "Admin",
     email: "admin@gmail.com",
     password: "Admin@123",
-    badgeStyle: "bg-purple-500/10 text-purple-600 border-purple-500/20 dark:bg-purple-500/20 dark:text-purple-400 dark:border-purple-500/30 hover:bg-purple-500/20",
+    badgeStyle: "bg-purple-50 text-purple-600 border-purple-200 hover:bg-purple-100",
     icon: ShieldCheck,
     subtitle: "System Admin",
   },
@@ -115,13 +115,13 @@ const LoginForm = () => {
         noValidate
       >
         {/* Demo Credentials Quick 1-Click Login Box */}
-        <div className="p-4 rounded-2xl bg-slate-50/90 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800/80 space-y-3">
+        <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-3">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-1.5 text-xs font-extrabold text-slate-800 dark:text-slate-200">
-              <Sparkles className="w-3.5 h-3.5 text-amber-500 fill-amber-400" />
+            <div className="flex items-center gap-1.5 text-xs font-extrabold text-slate-800">
+              <Sparkles className="w-3.5 h-3.5 text-[#0EA5E9]" />
               <span>1-Click Demo Accounts</span>
             </div>
-            <span className="text-[10px] font-semibold text-slate-500 dark:text-slate-400">
+            <span className="text-[10px] font-semibold text-slate-500">
               Instant Portal Access
             </span>
           </div>
@@ -157,14 +157,14 @@ const LoginForm = () => {
           name="email"
           render={({ field }) => (
             <FormItem className="space-y-2">
-              <FormLabel className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+              <FormLabel className="text-xs font-bold uppercase tracking-wider text-slate-600">
                 Email Address
               </FormLabel>
               <FormControl>
                 <Input
                   type="email"
                   placeholder="you@example.com"
-                  className="h-11 rounded-xl"
+                  className="h-11 rounded-xl bg-white border-slate-200 text-slate-900 placeholder:text-slate-400 focus-visible:ring-[#0EA5E9]"
                   {...field}
                 />
               </FormControl>
@@ -180,12 +180,12 @@ const LoginForm = () => {
           render={({ field }) => (
             <FormItem className="space-y-2">
               <div className="flex items-center justify-between">
-                <FormLabel className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                <FormLabel className="text-xs font-bold uppercase tracking-wider text-slate-600">
                   Password
                 </FormLabel>
                 <Link
                   href="#"
-                  className="text-xs font-semibold text-primary hover:underline"
+                  className="text-xs font-semibold text-[#2563EB] hover:underline"
                 >
                   Forgot password?
                 </Link>
@@ -195,14 +195,14 @@ const LoginForm = () => {
                   <Input
                     type={showPassword ? "text" : "password"}
                     placeholder="Enter your password"
-                    className="h-11 rounded-xl pr-10"
+                    className="h-11 rounded-xl bg-white border-slate-200 text-slate-900 placeholder:text-slate-400 focus-visible:ring-[#0EA5E9] pr-10"
                     {...field}
                   />
                 </FormControl>
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute top-1/2 right-3 -translate-y-1/2 text-muted-foreground transition-colors hover:text-foreground cursor-pointer"
+                  className="absolute top-1/2 right-3 -translate-y-1/2 text-slate-400 hover:text-slate-700 transition-colors cursor-pointer"
                   aria-label={showPassword ? "Hide password" : "Show password"}
                 >
                   {showPassword ? (
@@ -223,11 +223,11 @@ const LoginForm = () => {
             id="remember"
             checked={rememberMe}
             onCheckedChange={(checked) => setRememberMe(checked as boolean)}
-            className="rounded-md"
+            className="rounded-md border-slate-300 data-[state=checked]:bg-[#0EA5E9] data-[state=checked]:text-white"
           />
           <Label
             htmlFor="remember"
-            className="cursor-pointer text-sm font-medium text-foreground select-none"
+            className="cursor-pointer text-sm font-medium text-slate-600 select-none"
           >
             Remember me
           </Label>
@@ -237,11 +237,10 @@ const LoginForm = () => {
         <Button
           type="submit"
           disabled={isPending}
-          variant="gradient"
-          className="group flex h-12 w-full items-center justify-center gap-2 rounded-xl text-base font-semibold"
+          className="group flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#0EA5E9] to-[#2563EB] hover:from-[#0EA5E9]/90 hover:to-[#2563EB]/90 text-white font-bold text-base shadow-md shadow-sky-500/20 cursor-pointer"
         >
           {isPending ? "Signing in..." : "Sign In"}
-          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 text-white" />
         </Button>
       </form>
     </Form>

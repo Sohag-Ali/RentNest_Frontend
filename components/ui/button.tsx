@@ -10,20 +10,20 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-primary text-primary-foreground hover:bg-blue-700 shadow-sm shadow-blue-600/20 dark:shadow-blue-900/30",
+          "bg-[#0EA5E9] text-white hover:bg-sky-600 font-semibold shadow-sm shadow-sky-500/20",
         gradient:
-          "bg-gradient-to-r from-blue-600 via-blue-600 to-sky-500 text-white hover:opacity-95 shadow-md shadow-blue-500/20 active:shadow-none",
+          "bg-gradient-to-r from-[#0EA5E9] to-[#2563EB] hover:from-sky-600 hover:to-blue-700 text-white font-semibold shadow-md shadow-sky-500/20 active:shadow-none",
         secondary:
-          "bg-secondary text-secondary-foreground hover:bg-sky-600 shadow-sm shadow-sky-500/10",
+          "bg-[#EEF4FF] text-[#2563EB] hover:bg-blue-100 border border-blue-200/60 font-semibold shadow-xs",
         outline:
-          "border-border bg-background hover:bg-muted/80 hover:text-foreground text-foreground shadow-xs",
+          "border-slate-200 bg-white hover:bg-slate-50 hover:text-slate-900 text-slate-700 shadow-xs",
         glass:
-          "glass-card text-foreground hover:bg-white/80 dark:hover:bg-slate-800/80 shadow-xs",
+          "bg-white/80 backdrop-blur-md border border-slate-200 text-slate-800 hover:bg-white shadow-xs",
         ghost:
-          "hover:bg-muted hover:text-foreground text-foreground/80 dark:hover:bg-muted/70",
+          "hover:bg-slate-100 hover:text-slate-900 text-slate-600",
         destructive:
-          "bg-destructive text-destructive-foreground hover:bg-red-600 shadow-xs shadow-red-500/20",
-        link: "text-primary underline-offset-4 hover:underline",
+          "bg-rose-500 text-white hover:bg-rose-600 shadow-xs shadow-rose-500/20",
+        link: "text-[#0EA5E9] underline-offset-4 hover:underline",
       },
       size: {
         default:

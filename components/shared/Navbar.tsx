@@ -22,6 +22,7 @@ import {
 } from 'lucide-react';
 
 import { ThikanaLogo } from './ThikanaLogo';
+import { ThemeToggle } from './ThemeToggle';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -155,8 +156,8 @@ export function Navbar({
         aria-label="Main Navigation"
         className={`relative pointer-events-auto rounded-full transition-all duration-300 ${
           isScrolled
-            ? 'bg-white/85 dark:bg-slate-950/85 backdrop-blur-xl border border-border/80 shadow-luxury py-2.5 px-4 sm:px-6'
-            : 'bg-white/70 dark:bg-slate-900/60 backdrop-blur-lg border border-border/50 shadow-sm py-3 px-4 sm:px-6'
+            ? 'bg-white/95 dark:bg-[#070b14]/95 backdrop-blur-xl border border-slate-200/90 dark:border-slate-800/90 shadow-subtle-saas py-2.5 px-4 sm:px-6'
+            : 'bg-white/85 dark:bg-[#070b14]/85 backdrop-blur-lg border border-slate-200/70 dark:border-slate-800/70 shadow-xs py-3 px-4 sm:px-6'
         }`}
       >
         <div className="flex items-center justify-between">
@@ -164,7 +165,7 @@ export function Navbar({
           <ThikanaLogo size="md" />
 
           {/* Desktop Navigation Links */}
-          <div className="hidden md:flex items-center gap-1 bg-muted/60 dark:bg-slate-900/60 p-1 rounded-full border border-border/60">
+          <div className="hidden md:flex items-center gap-1 bg-slate-100/70 dark:bg-slate-800/50 p-1 rounded-full border border-slate-200/60 dark:border-slate-700/50">
             {navLinks.map((link) => {
               const Icon = link.icon;
               const active = isActive(link.href);
@@ -172,12 +173,12 @@ export function Navbar({
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="relative px-4 py-2 text-sm font-medium transition-colors duration-200 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                  className="relative px-4 py-2 text-sm font-medium transition-colors duration-200 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0EA5E9]"
                 >
                   {active && (
                     <motion.span
                       layoutId="activeNavPill"
-                      className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-600 to-sky-500 shadow-sm shadow-blue-500/25 -z-10"
+                      className="absolute inset-0 rounded-full bg-gradient-to-r from-[#0EA5E9] to-[#2563EB] shadow-sm shadow-sky-500/20 -z-10"
                       transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                     />
                   )}
@@ -185,8 +186,8 @@ export function Navbar({
                   <div
                     className={`flex items-center gap-2 ${
                       active
-                        ? 'text-white font-semibold'
-                        : 'text-muted-foreground hover:text-foreground'
+                        ? 'text-white font-bold'
+                        : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
                     }`}
                   >
                     <Icon size={16} />
@@ -199,33 +200,22 @@ export function Navbar({
 
           {/* Right Action Controls */}
           <div className="flex items-center gap-2 sm:gap-3">
+            {/* Theme Toggle Button */}
+            <ThemeToggle />
+
             {/* Notification Dropdown */}
             {isAuthenticated && <NotificationDropdown />}
-
-
-            {/* Theme Toggle Button */}
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                aria-label="Toggle theme"
-                className="rounded-full text-foreground/80 hover:text-foreground hover:bg-muted border border-border/60 h-9 w-9 cursor-pointer transition-all duration-200"
-              >
-                {theme === 'dark' ? <Sun size={18} className="text-amber-400" /> : <Moon size={18} className="text-slate-700" />}
-              </Button>
-            </motion.div>
 
             {/* Desktop Authenticated / Guest Controls */}
             <div className="hidden md:flex items-center gap-2">
               {isAuthenticated ? (
                 <>
                   <DropdownMenu>
-                    <DropdownMenuTrigger className="rounded-full cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-primary group">
-                      <div className="p-0.5 rounded-full bg-gradient-to-r from-blue-500/40 to-teal-500/40 group-hover:from-blue-600 group-hover:to-teal-500 transition-all duration-300">
-                        <Avatar className="h-8 w-8 border border-background">
+                    <DropdownMenuTrigger className="rounded-full cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0EA5E9] group">
+                      <div className="p-0.5 rounded-full bg-gradient-to-r from-[#0EA5E9] to-[#2563EB] group-hover:shadow-glow-blue transition-all duration-300">
+                        <Avatar className="h-8 w-8 border border-white">
                           <AvatarImage src={userImage} alt={userName} />
-                          <AvatarFallback className="bg-muted text-foreground font-bold text-xs">
+                          <AvatarFallback className="bg-slate-100 text-slate-800 font-bold text-xs">
                             {userName
                               .split(' ')
                               .map((n: string) => n[0])
@@ -237,61 +227,61 @@ export function Navbar({
                     </DropdownMenuTrigger>
                     <DropdownMenuContent
                       align="end"
-                      className="w-56 rounded-2xl bg-card border border-border text-card-foreground p-2 shadow-luxury"
+                      className="w-56 rounded-2xl bg-white border border-slate-200 text-slate-900 p-2 shadow-subtle-saas"
                     >
                       <div className="px-3 py-2">
-                        <p className="text-sm font-semibold text-foreground truncate">
+                        <p className="text-sm font-semibold text-slate-900 truncate">
                           {userName}
                         </p>
-                        <p className="text-xs capitalize text-primary font-medium">
+                        <p className="text-xs capitalize text-[#0EA5E9] font-medium">
                           {userRole} Account
                         </p>
                       </div>
-                      <DropdownMenuSeparator className="bg-border my-1" />
-                      <DropdownMenuItem className="cursor-pointer focus:bg-muted rounded-xl">
+                      <DropdownMenuSeparator className="bg-slate-100 my-1" />
+                      <DropdownMenuItem className="cursor-pointer focus:bg-slate-50 rounded-xl">
                         {pathname.startsWith('/dashboard') ? (
                           <Link
                             href="/"
-                            className="flex items-center gap-2 w-full text-foreground"
+                            className="flex items-center gap-2 w-full text-slate-700"
                           >
-                            <Globe size={16} className="text-sky-500" />
+                            <Globe size={16} className="text-[#0EA5E9]" />
                             <span>Website</span>
                           </Link>
                         ) : (
                           <Link
                             href={getDashboardRoute()}
-                            className="flex items-center gap-2 w-full text-foreground"
+                            className="flex items-center gap-2 w-full text-slate-700"
                           >
                             <LayoutDashboard
                               size={16}
-                              className="text-sky-500"
+                              className="text-[#0EA5E9]"
                             />
                             <span>Dashboard</span>
                           </Link>
                         )}
                       </DropdownMenuItem>
-                      <DropdownMenuItem className="cursor-pointer focus:bg-muted rounded-xl">
+                      <DropdownMenuItem className="cursor-pointer focus:bg-slate-50 rounded-xl">
                         <Link
                           href="/profile"
-                          className="flex items-center gap-2 w-full text-foreground"
+                          className="flex items-center gap-2 w-full text-slate-700"
                         >
-                          <UserIcon size={16} className="text-teal-500" />
+                          <UserIcon size={16} className="text-[#2563EB]" />
                           <span>Profile</span>
                         </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem className="cursor-pointer focus:bg-muted rounded-xl">
+                      <DropdownMenuItem className="cursor-pointer focus:bg-slate-50 rounded-xl">
                         <Link
                           href="/settings"
-                          className="flex items-center gap-2 w-full text-foreground"
+                          className="flex items-center gap-2 w-full text-slate-700"
                         >
-                          <Settings size={16} className="text-blue-600" />
+                          <Settings size={16} className="text-sky-500" />
                           <span>Settings</span>
                         </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuSeparator className="bg-border my-1" />
+                      <DropdownMenuSeparator className="bg-slate-100 my-1" />
                       <DropdownMenuItem
                         onClick={handleLogout}
-                        className="cursor-pointer focus:bg-destructive/10 focus:text-destructive text-destructive gap-2 rounded-xl"
+                        className="cursor-pointer focus:bg-rose-50 focus:text-rose-600 text-rose-600 gap-2 rounded-xl"
                       >
                         <LogOut size={16} />
                         <span>Logout</span>
@@ -305,7 +295,7 @@ export function Navbar({
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="rounded-full text-foreground hover:bg-muted text-sm font-medium px-4 h-9 cursor-pointer"
+                      className="rounded-full text-slate-700 hover:text-slate-900 hover:bg-slate-100 text-sm font-medium px-4 h-9 cursor-pointer"
                     >
                       Login
                     </Button>
@@ -313,8 +303,7 @@ export function Navbar({
                   <Link href="/auth/register">
                     <Button
                       size="sm"
-                      variant="gradient"
-                      className="rounded-full text-white text-sm font-semibold px-5 h-9 cursor-pointer"
+                      className="rounded-full bg-gradient-to-r from-[#0EA5E9] to-[#2563EB] hover:from-sky-600 hover:to-blue-700 text-white font-semibold text-sm px-5 h-9 cursor-pointer shadow-md shadow-sky-500/20"
                     >
                       Register
                     </Button>
@@ -325,16 +314,16 @@ export function Navbar({
 
             {/* Mobile Navigation Sheet Drawer */}
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
-              <SheetTrigger className="md:hidden inline-flex shrink-0 items-center justify-center rounded-full text-foreground bg-muted/60 border border-border hover:bg-muted size-9 cursor-pointer transition-all focus-visible:ring-2 focus-visible:ring-primary">
+              <SheetTrigger className="md:hidden inline-flex shrink-0 items-center justify-center rounded-full text-slate-700 bg-slate-100 border border-slate-200 hover:bg-slate-200 size-9 cursor-pointer transition-all focus-visible:ring-2 focus-visible:ring-[#0EA5E9]">
                 {isOpen ? <X size={18} /> : <Menu size={18} />}
               </SheetTrigger>
               <SheetContent
                 side="right"
-                className="w-80 p-0 bg-card border-l border-border text-card-foreground shadow-luxury"
+                className="w-80 p-0 bg-white border-l border-slate-200 text-slate-900 shadow-2xl"
               >
                 <div className="flex h-full flex-col">
                   {/* Mobile Header */}
-                  <div className="border-b border-border px-6 py-4 flex items-center justify-between">
+                  <div className="border-b border-slate-100 px-6 py-4 flex items-center justify-between">
                     <ThikanaLogo size="sm" onClick={() => setIsOpen(false)} />
                   </div>
 
@@ -354,8 +343,8 @@ export function Navbar({
                             variant="ghost"
                             className={`w-full justify-start gap-3 rounded-2xl h-11 text-base ${
                               active
-                                ? 'bg-gradient-to-r from-blue-600 to-sky-500 text-white font-semibold shadow-sm'
-                                : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                                ? 'bg-gradient-to-r from-[#0EA5E9] to-[#2563EB] text-white font-bold shadow-md'
+                                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                             }`}
                           >
                             <Icon size={18} />
@@ -367,7 +356,7 @@ export function Navbar({
 
                     {isAuthenticated && (
                       <>
-                        <div className="my-4 border-t border-border" />
+                        <div className="my-4 border-t border-slate-100" />
                         <div className="space-y-2">
                           <Link
                             href={getDashboardRoute()}
@@ -376,11 +365,11 @@ export function Navbar({
                           >
                             <Button
                               variant="ghost"
-                              className="w-full justify-start gap-3 rounded-2xl h-11 text-muted-foreground hover:text-foreground hover:bg-muted"
+                              className="w-full justify-start gap-3 rounded-2xl h-11 text-slate-600 hover:text-slate-900 hover:bg-slate-100"
                             >
                               <LayoutDashboard
                                 size={18}
-                                className="text-sky-500"
+                                className="text-[#0EA5E9]"
                               />
                               <span>Dashboard</span>
                             </Button>
@@ -392,11 +381,11 @@ export function Navbar({
                           >
                             <Button
                               variant="ghost"
-                              className="w-full justify-start gap-3 rounded-2xl h-11 text-muted-foreground hover:text-foreground hover:bg-muted"
+                              className="w-full justify-start gap-3 rounded-2xl h-11 text-slate-600 hover:text-slate-900 hover:bg-slate-100"
                             >
                               <UserIcon
                                 size={18}
-                                className="text-teal-500"
+                                className="text-[#2563EB]"
                               />
                               <span>Profile</span>
                             </Button>
@@ -408,11 +397,11 @@ export function Navbar({
                           >
                             <Button
                               variant="ghost"
-                              className="w-full justify-start gap-3 rounded-2xl h-11 text-muted-foreground hover:text-foreground hover:bg-muted"
+                              className="w-full justify-start gap-3 rounded-2xl h-11 text-slate-600 hover:text-slate-900 hover:bg-slate-100"
                             >
                               <Settings
                                 size={18}
-                                className="text-blue-600"
+                                className="text-sky-500"
                               />
                               <span>Settings</span>
                             </Button>
@@ -423,13 +412,13 @@ export function Navbar({
                   </div>
 
                   {/* Mobile Footer Section */}
-                  <div className="border-t border-border px-6 py-6 bg-muted/40">
+                  <div className="border-t border-slate-100 px-6 py-6 bg-slate-50">
                     {isAuthenticated ? (
                       <div className="space-y-4">
                         <div className="flex items-center gap-3">
-                          <Avatar className="h-10 w-10 border border-border">
+                          <Avatar className="h-10 w-10 border border-slate-200">
                             <AvatarImage src={userImage} alt={userName} />
-                            <AvatarFallback className="bg-muted text-foreground font-bold">
+                            <AvatarFallback className="bg-slate-100 text-slate-800 font-bold">
                               {userName
                                 .split(' ')
                                 .map((n: string) => n[0])
@@ -438,17 +427,17 @@ export function Navbar({
                             </AvatarFallback>
                           </Avatar>
                           <div className="flex-1 min-w-0">
-                            <p className="text-sm font-semibold text-foreground truncate">
+                            <p className="text-sm font-semibold text-slate-900 truncate">
                               {userName}
                             </p>
-                            <p className="text-xs capitalize text-primary font-medium">
+                            <p className="text-xs capitalize text-[#0EA5E9] font-medium">
                               {userRole}
                             </p>
                           </div>
                         </div>
                         <Button
                           variant="destructive"
-                          className="w-full gap-2 rounded-2xl h-11"
+                          className="w-full gap-2 rounded-2xl h-11 bg-rose-50 text-rose-600 border border-rose-200 hover:bg-rose-100"
                           onClick={() => {
                             setIsOpen(false);
                             handleLogout();
@@ -467,7 +456,7 @@ export function Navbar({
                         >
                           <Button
                             variant="outline"
-                            className="w-full rounded-2xl h-11"
+                            className="w-full rounded-2xl h-11 border-slate-200 text-slate-700 hover:bg-slate-100"
                           >
                             Login
                           </Button>
@@ -477,7 +466,7 @@ export function Navbar({
                           className="flex-1"
                           onClick={() => setIsOpen(false)}
                         >
-                          <Button variant="gradient" className="w-full rounded-2xl h-11">
+                          <Button className="w-full rounded-2xl h-11 bg-gradient-to-r from-[#0EA5E9] to-[#2563EB] text-white font-bold">
                             Register
                           </Button>
                         </Link>
