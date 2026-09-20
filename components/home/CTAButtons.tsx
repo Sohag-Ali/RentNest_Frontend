@@ -36,7 +36,7 @@ export function CTAButtons() {
       >
         <Link
           href="/about"
-          className="inline-flex items-center justify-center gap-2 px-7 py-4 bg-white/10 dark:bg-slate-800/50 hover:bg-white/20 dark:hover:bg-slate-800/80 text-slate-100 font-semibold text-base sm:text-lg rounded-2xl backdrop-blur-xl border border-white/20 dark:border-slate-700/60 shadow-md hover:shadow-lg transition-all duration-300 text-center tracking-wide w-full"
+          className="inline-flex items-center justify-center gap-2 px-7 py-4 bg-slate-100/80 dark:bg-slate-800/50 hover:bg-slate-200/80 dark:hover:bg-slate-800/80 text-slate-800 dark:text-slate-100 font-semibold text-base sm:text-lg rounded-2xl backdrop-blur-xl border border-slate-300/80 dark:border-slate-700/60 shadow-md hover:shadow-lg transition-all duration-300 text-center tracking-wide w-full"
         >
           <span>Learn More</span>
         </Link>

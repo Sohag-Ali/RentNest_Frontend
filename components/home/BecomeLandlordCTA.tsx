@@ -46,23 +46,29 @@ export function BecomeLandlordCTA() {
   return (
     <section
       aria-labelledby="become-landlord-heading"
-      className="relative overflow-hidden py-16 sm:py-24 lg:py-28 bg-slate-950 text-white transition-colors duration-300"
+      className="relative overflow-hidden py-16 sm:py-24 lg:py-28 bg-[#F8FAFC] dark:bg-slate-950 text-slate-900 dark:text-white transition-colors duration-300"
     >
-      {/* Background Image with Dark Gradient Overlay & Parallax feel */}
+      {/* Background Image with Overlay & Parallax feel */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        {/* Subtle Grid Pattern */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808010_1px,transparent_1px),linear-gradient(to_bottom,#80808010_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
+
+        {/* Dark Mode Only Architecture Image */}
         <Image
           src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2000&auto=format&fit=crop"
           alt="Luxury Architecture Background"
           fill
           priority
           sizes="100vw"
-          className="object-cover object-center scale-105 opacity-20 filter contrast-125 brightness-90 transition-transform duration-1000 ease-out hover:scale-110"
+          className="hidden dark:block object-cover object-center scale-105 opacity-20 filter contrast-125 brightness-90 transition-transform duration-1000 ease-out hover:scale-110"
         />
 
-        {/* Multi-stage Dark Gradient Overlays for Maximum Saas Contrast */}
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-slate-950/80" />
-        <div className="absolute inset-0 bg-radial from-transparent via-slate-950/60 to-slate-950" />
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
+        {/* Dark Mode Gradient Overlays */}
+        <div className="hidden dark:block absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-slate-950/80" />
+        <div className="hidden dark:block absolute inset-0 bg-radial from-transparent via-slate-950/60 to-slate-950" />
+
+        {/* Light Mode Soft Blue Background Glow */}
+        <div className="block dark:hidden absolute inset-0 bg-gradient-to-br from-blue-50/80 via-[#F8FAFC] to-sky-50/50" />
 
         {/* Floating Glowing Blobs */}
         <motion.div
@@ -72,7 +78,7 @@ export function BecomeLandlordCTA() {
             scale: [1, 1.15, 1],
           }}
           transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -top-32 left-10 w-[550px] h-[550px] bg-blue-600/20 rounded-full blur-[140px]"
+          className="absolute -top-32 left-10 w-[550px] h-[550px] bg-blue-500/10 dark:bg-blue-600/20 rounded-full blur-[140px]"
         />
         <motion.div
           animate={{
@@ -81,7 +87,7 @@ export function BecomeLandlordCTA() {
             scale: [1, 1.1, 1],
           }}
           transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-          className="absolute -bottom-32 right-10 w-[500px] h-[500px] bg-teal-500/20 rounded-full blur-[130px]"
+          className="absolute -bottom-32 right-10 w-[500px] h-[500px] bg-teal-500/10 dark:bg-teal-500/20 rounded-full blur-[130px]"
         />
       </div>
 
@@ -136,27 +142,27 @@ export function BecomeLandlordCTA() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1.0] }}
-            className="lg:col-span-7 space-y-6 sm:space-y-8 p-8 sm:p-10 lg:p-12 rounded-3xl bg-white/5 backdrop-blur-2xl border border-white/10 shadow-2xl relative overflow-hidden"
+            className="lg:col-span-7 space-y-6 sm:space-y-8 p-8 sm:p-10 lg:p-12 rounded-3xl bg-white/90 dark:bg-white/5 backdrop-blur-2xl border border-slate-200/80 dark:border-white/10 shadow-xl dark:shadow-2xl relative overflow-hidden"
           >
             {/* Ambient inner glow */}
-            <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/5 dark:bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
 
             {/* Subtitle Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/20 text-sky-300 text-xs sm:text-sm font-semibold tracking-wide border border-blue-400/30 backdrop-blur-md">
-              <Sparkles className="w-4 h-4 text-sky-300" />
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-sky-50 dark:bg-blue-500/20 text-[#0EA5E9] dark:text-sky-300 text-xs sm:text-sm font-semibold tracking-wide border border-sky-200 dark:border-blue-400/30 backdrop-blur-md">
+              <Sparkles className="w-4 h-4 text-[#0EA5E9] dark:text-sky-300" />
               <span>BECOME A LANDLORD</span>
             </div>
 
             {/* Main Title */}
             <h2
               id="become-landlord-heading"
-              className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight"
+              className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight"
             >
               Earn Money by Renting Your Property
             </h2>
 
             {/* Subtitle */}
-            <p className="text-base sm:text-lg text-slate-300 leading-relaxed font-normal">
+            <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
               Join thousands of landlords using Thikana to list properties, connect with trusted tenants, and manage rentals effortlessly.
             </p>
 
@@ -173,7 +179,7 @@ export function BecomeLandlordCTA() {
             className="lg:col-span-5 relative flex items-center justify-center"
           >
             {/* Center Featured Luxury Image Box */}
-            <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border border-white/20 group">
+            <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden shadow-xl dark:shadow-2xl border border-slate-200/80 dark:border-white/20 group">
               <Image
                 src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=1200&auto=format&fit=crop"
                 alt="Luxury Modern Property"
@@ -181,16 +187,16 @@ export function BecomeLandlordCTA() {
                 sizes="(max-width: 1024px) 100vw, 40vw"
                 className="object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent dark:from-slate-950/80 dark:via-slate-950/20" />
 
               {/* Bottom Image Tag */}
-              <div className="absolute bottom-4 left-4 right-4 p-3.5 rounded-2xl bg-slate-950/85 backdrop-blur-xl border border-white/15 text-white flex items-center justify-between gap-3 shadow-2xl">
+              <div className="absolute bottom-4 left-4 right-4 p-3.5 rounded-2xl bg-white/90 dark:bg-slate-950/85 backdrop-blur-xl border border-slate-200/80 dark:border-white/15 text-slate-900 dark:text-white flex items-center justify-between gap-3 shadow-lg dark:shadow-2xl">
                 <div className="min-w-0 flex-1">
-                  <p className="text-xs font-bold text-white truncate">Penthouse Villa in Gulshan</p>
-                  <p className="text-[10px] text-slate-300 font-medium truncate">Dhaka, Bangladesh</p>
+                  <p className="text-xs font-bold text-slate-900 dark:text-white truncate">Penthouse Villa in Gulshan</p>
+                  <p className="text-[10px] text-slate-500 dark:text-slate-300 font-medium truncate">Dhaka, Bangladesh</p>
                 </div>
-                <div className="shrink-0 px-3 py-1.5 rounded-xl bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 font-black text-xs font-mono shadow-sm">
-                  ৳35,000<span className="text-[10px] font-normal text-emerald-300">/mo</span>
+                <div className="shrink-0 px-3 py-1.5 rounded-xl bg-emerald-50 dark:bg-emerald-500/20 border border-emerald-200 dark:border-emerald-500/30 text-emerald-700 dark:text-emerald-400 font-black text-xs font-mono shadow-sm">
+                  ৳35,000<span className="text-[10px] font-normal text-emerald-600 dark:text-emerald-300">/mo</span>
                 </div>
               </div>
             </div>
